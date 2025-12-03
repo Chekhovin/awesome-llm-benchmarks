@@ -2,6 +2,7 @@
 # 大模型评测榜单汇总
 
 Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，但测试本身并非准确无误，甚至可能存在系统性缺陷，典型案例τ²-bench。（参见[mp.weixin.qq.com/s/mrr2oDR2V8OvTT7JD918RQ](https://mp.weixin.qq.com/s/mrr2oDR2V8OvTT7JD918RQ)）（论文：[arxiv.org/abs/2511.16842](https://arxiv.org/abs/2511.16842)）
+收录规则为：1、近三个月内榜单有更新；2、所纳入新模型已更新至GPT-5、Qwen3-VL这一最新世代
 
 # 综合评测
 
