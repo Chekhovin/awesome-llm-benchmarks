@@ -1,6 +1,6 @@
 # 大規模モデル評価ベンチマークまとめ 
 
-Tips：ベンチマーク（Benchmark）はモデル性能を評価する事実上の標準になっているが、テスト自体が常に正確というわけではなく、τ²-bench のように体系的な欠陥を含むケースもある。（参考：[mp.weixin.qq.com/s/mrr2oDR2V8OvTT7JD918RQ](https://mp.weixin.qq.com/s/mrr2oDR2V8OvTT7JD918RQ)）（論文：[arxiv.org/abs/2511.16842](https://arxiv.org/abs/2511.16842)）
+Tips：ベンチマーク（Benchmark）はモデル性能を評価する事実上の標準になっているが、テスト自体が常に正確というわけではなく、τ²-bench のように体系的な欠陥を含むケースもある。（論文：[arxiv.org/abs/2511.16842](https://arxiv.org/abs/2511.16842)）
 
 ------
 
@@ -941,4 +941,5 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
    （[RolePlay_Villain](https://github.com/Tencent/DigitalHuman/tree/main/RolePlay_Villain)）
 
   デジタルヒューマンの「道徳的ロールプレイ」を評価するベンチマーク。
+
    キャラクター行動と倫理的制約のバランスを測る。
