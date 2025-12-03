@@ -497,4 +497,8 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
 - Moral RolePlay（[digitalhuman/RolePlay_Villain at main · Tencent/digitalhuman](https://github.com/Tencent/DigitalHuman/tree/main/RolePlay_Villain)）
 
+# 其它非官方私有评测
+- godueval ([gosu](https://gosuevals.com/agents.html))
+- nao-bench ([nao](https://llm2014.github.io/llm_benchmark/))
+- repo bench ([repobench](https://repoprompt.com/bench))
 ‍
