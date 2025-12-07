@@ -219,6 +219,11 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
 
     The first high-difficulty benchmark specifically targeting LLMs’ retrieval and reasoning abilities within the Chinese web ecosystem. Inspired by BrowseComp (Wei et al., 2025), it constructs complex multi-hop retrieval and reasoning tasks tailored to the Chinese information environment, where models must handle platform fragmentation, linguistic characteristics, and content moderation.
 
+- **DeepResearch Bench** ([https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard))
+
+  A comprehensive benchmark for deep research agents, consisting of 100 PhD-level research tasks. Each task is carefully designed by 22 domain experts across different fields, with 50 tasks in Chinese and 50 in English.
+
+
 - **xbench**
    ([xbench --- xbench](https://xbench.org/))
 
@@ -688,3 +693,4 @@ In OCR model evaluation, performance can vary widely across document types, lang
 
 
   A benchmark for moral role-playing, focusing on character behaviors and ethical boundaries in digital humans.
+
