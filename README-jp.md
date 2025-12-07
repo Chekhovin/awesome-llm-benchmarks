@@ -292,6 +292,11 @@ Tips：ベンチマーク（Benchmark）はモデル性能を評価する事実�
 
     といった課題を考慮した複雑な多段検索・推論タスクを構築している。
 
+- **DeepResearch Bench**（[https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard)）
+
+  深層リサーチエージェント向けの総合ベンチマークで、100件の博士レベルのリサーチタスクで構成されています。各タスクは、22名の異なる分野のドメイン専門家によって綿密に設計されており、そのうち50件は中国語タスク、残り50件は英語タスクです。
+
+
 - **xbench**
    （[xbench](https://xbench.org/)）
 
@@ -943,3 +948,4 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
   デジタルヒューマンの「道徳的ロールプレイ」を評価するベンチマーク。
 
    キャラクター行動と倫理的制約のバランスを測る。
+
