@@ -162,6 +162,10 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
     首个专为评估大型语言模型（LLMs）在中文网络生态中检索与推理能力而设计的高难度基准测试。受 BrowseComp (Wei 等, 2025) 启发，本项目针对中文信息环境构建了复杂的多跳检索与推理任务，模型需应对平台碎片化、语言特性及内容审查等多重挑战。
 
+- DeepResearch Bench（[https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leader...](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard)）
+
+  面向深度研究代理的综合性基准测试，包含 100 个博士级研究任务，每个任务均由 22 个不同领域的领域专家精心设计，其中 50 个为中文任务，50 个为英文任务。
+
 - xbench（[xbench --- xbench](https://xbench.org/)）
 
   国内机构合作推出的基准测试。包含两条互补的赛道，旨在衡量人工智能系统的智能前沿与实际应用价值。  
