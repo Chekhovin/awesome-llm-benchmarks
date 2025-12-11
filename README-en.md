@@ -311,6 +311,10 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
 
   FinSearchComp provides an end-to-end evaluation framework for open financial tasks. It covers three subtasks across two subsets (global and Greater China): timely data acquisition, simple historical queries, and complex historical investigations.
 
+- **GDPval-AA** ([artificialanalysis.ai/evaluations/gdpval-aa](https://artificialanalysis.ai/evaluations/gdpval-aa))
+
+  An evaluation framework developed for OpenAI's GDPval dataset. It assesses AI models on real-world tasks across 44 professions and 9 major industries. The benchmark includes 220 tasks that require models to generate diverse outputs—such as documents, slides, charts, 和 spreadsheets—to simulate authentic work deliverables in fields like finance, healthcare, law, and other professional domains.
+
 - **TheAgentCompany**
    ([The Agent Company](https://the-agent-company.com/))
 
@@ -702,5 +706,6 @@ In OCR model evaluation, performance can vary widely across document types, lang
 
 
   A benchmark for moral role-playing, focusing on character behaviors and ethical boundaries in digital humans.
+
 
 
