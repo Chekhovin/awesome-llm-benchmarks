@@ -219,6 +219,15 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
 
     The first high-difficulty benchmark specifically targeting LLMs’ retrieval and reasoning abilities within the Chinese web ecosystem. Inspired by BrowseComp (Wei et al., 2025), it constructs complex multi-hop retrieval and reasoning tasks tailored to the Chinese information environment, where models must handle platform fragmentation, linguistic characteristics, and content moderation.
 
+- **FACTS Benchmark** ([www.kaggle.com/benchmarks/google/facts/leaderboard](https://www.kaggle.com/benchmarks/google/facts/leaderboard))
+
+  A parameterized benchmark designed to evaluate a model's ability to accurately access and utilize its internal knowledge in factual question-answering scenarios. It includes a public set of 1,052 questions and a private set of 1,052 questions.
+
+  A search benchmark designed to assess a model's capability to use search as a tool for retrieving information and correctly integrating it. It comprises a public dataset of 890 entries and a private dataset of 994 entries.
+
+  A multimodal benchmark designed to test a model’s ability to answer prompts related to input images in a factually accurate manner. It consists of a public dataset of 711 items and a private dataset of 811 items.
+
+  Grounding Benchmark – v2: An expanded benchmark for evaluating a model’s ability to provide factually grounded responses within the context of a given prompt.
 - **DeepResearch Bench** ([https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard))
 
   A comprehensive benchmark for deep research agents, consisting of 100 PhD-level research tasks. Each task is carefully designed by 22 domain experts across different fields, with 50 tasks in Chinese and 50 in English.
@@ -693,4 +702,5 @@ In OCR model evaluation, performance can vary widely across document types, lang
 
 
   A benchmark for moral role-playing, focusing on character behaviors and ethical boundaries in digital humans.
+
 
