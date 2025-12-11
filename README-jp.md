@@ -292,6 +292,16 @@ Tips：ベンチマーク（Benchmark）はモデル性能を評価する事実�
 
     といった課題を考慮した複雑な多段検索・推論タスクを構築している。
 
+- **FACTS Benchmark**（[www.kaggle.com/benchmarks/google/facts/leaderboard](https://www.kaggle.com/benchmarks/google/facts/leaderboard)）
+
+  事実に基づく質問応答のシナリオにおいて、モデルが内部知識を正確に活用できる能力を測定するためのパラメータ化されたベンチマーク。公開セット（1,052問）および非公開セット（1,052問）で構成されています。
+
+  検索をツールとして用いて情報を取得し、それを正しく統合する能力を評価するための検索ベンチマーク。公開データセット（890件）および非公開データセット（994件）で構成されています。
+
+  入力画像に関連するプロンプトに対して、事実に忠実な形で回答できる能力を評価するためのマルチモーダルベンチマーク。公開データセット（711件）および非公開データセット（811件）で構成されています。
+
+  Grounding Benchmark - v2：与えられたプロンプトの文脈において、事実に基づいた回答を提供できる能力を評価するための拡張版ベンチマークです。
+
 - **DeepResearch Bench**（[https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard)）
 
   深層リサーチエージェント向けの総合ベンチマークで、100件の博士レベルのリサーチタスクで構成されています。各タスクは、22名の異なる分野のドメイン専門家によって綿密に設計されており、そのうち50件は中国語タスク、残り50件は英語タスクです。
@@ -397,6 +407,10 @@ Tips：ベンチマーク（Benchmark）はモデル性能を評価する事実�
   - 単純な過去問合せ
   - 複雑な歴史調査
      の 3 サブタスクを設計している。
+
+- **GDPval-AA**（[artificialanalysis.ai/evaluations/gdpval-aa](https://artificialanalysis.ai/evaluations/gdpval-aa)）
+
+  OpenAIのGDPvalデータセット向けに開発された評価フレームワークです。このフレームワークは、44の職種および9つの主要業界にわたって、AIモデルが実際の業務タスクにおいてどのように性能を発揮するかを評価します。金融、医療、法律その他の専門分野における実務成果物を模擬するために、文書、スライド、チャート、スプレッドシートなど多様な出力を生成することを要求する220のタスクで構成されています。
 
 - **TheAgentCompany**
    （[The Agent Company](https://the-agent-company.com/)）
@@ -948,4 +962,5 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
   デジタルヒューマンの「道徳的ロールプレイ」を評価するベンチマーク。
 
    キャラクター行動と倫理的制約のバランスを測る。
+
 
