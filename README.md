@@ -162,6 +162,13 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
     首个专为评估大型语言模型（LLMs）在中文网络生态中检索与推理能力而设计的高难度基准测试。受 BrowseComp (Wei 等, 2025) 启发，本项目针对中文信息环境构建了复杂的多跳检索与推理任务，模型需应对平台碎片化、语言特性及内容审查等多重挑战。
 
+- FACTS Benchmark（[www.kaggle.com/benchmarks/google/facts/leaderboard](https://www.kaggle.com/benchmarks/google/facts/leaderboard)）
+
+  一个参数化基准，用于衡量模型在事实性问答场景中准确调用其内部知识的能力，包含一个由 1052 个问题组成的公开集和一个由 1052 个问题组成的私有集。
+  一个搜索基准，用于测试模型将搜索作为工具以检索信息并正确整合信息的能力，包含一个由 890 个条目组成的公开数据集和一个由 994 个条目组成的私有数据集。
+  一个多模态基准，用于测试模型以事实准确的方式回答与输入图像相关提示的能力，包含一个 711 项的公开数据集和一个 811 项的私有数据集。
+
+  Grounding Benchmark - v2，这是一个扩展基准，用于测试模型在给定提示的上下文中提供基于事实依据的答案的能力。
 - DeepResearch Bench（[https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leader...](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard)）
 
   面向深度研究代理的综合性基准测试，包含 100 个博士级研究任务，每个任务均由 22 个不同领域的领域专家精心设计，其中 50 个为中文任务，50 个为英文任务。
@@ -226,6 +233,10 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 - FinSearchComp（[FinSearchComp 基准测试 --- FinSearchComp Benchmark](https://randomtutu.github.io/FinSearchComp/)）
 
   首个专为开放式金融搜索设计的基准。真实的决策任务需要三种核心能力：发现正确的信号、核查并整合信息来源，以及在时间压力下形成基于证据的判断。我们提供了一个基础性的端到端评估基础设施——一个开放的金融基准。涵盖全球及大中华区两个子集的三个子任务（时效性数据获取、简单历史查询、复杂历史调查）以及多源调查。
+
+- GDPval-AA（[artificialanalysis.ai/evaluations/gdpval-aa](https://artificialanalysis.ai/evaluations/gdpval-aa)）
+
+  为 OpenAI 的 GDPval 数据集开发的评估框架。它在 44 种职业和 9 个主要行业中，对 AI 模型在真实任务中的表现进行测试。包含220项任务，要求模型生成多样化的输出，包括文档、幻灯片、图表和电子表格，以模拟金融、医疗、法律及其他专业领域中的实际工作成果。
 
 - TheAgentCompany（[代理公司 --- The Agent Company](https://the-agent-company.com/)）
 
