@@ -95,8 +95,6 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
     基于静态数据集的评估 inherently 有限，SWE-bench 也不例外。由于该基准由对公共 GitHub 仓库的抓取组成，预训练于互联网文本的大型基础模型很可能在这些任务上受到污染。此外，SWE-bench 仅涵盖模型自主性中等风险水平的狭窄分布，因此必须辅以其他评估方式。
 
-  ‍
-
 - terminal-bench（[Terminal-Bench --- Terminal-Bench](https://www.tbench.ai/)）（[Artificial Analysis](https://artificialanalysis.ai/evaluations/terminalbench-hard)）
 
   是一组任务和评估框架，用于评估 AI 智能体在终端环境中完成复杂任务的表现。任务示例包括：编译和打包代码仓库，下载数据集并在其上训练分类器，设置服务器。Terminal-Bench 中的每个任务包括一段英文描述，一个 Docker 环境，用于验证代理是否成功完成任务的测试脚本，解决该任务的参考（“理想”）方案。
