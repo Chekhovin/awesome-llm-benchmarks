@@ -18,6 +18,10 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
     一项标准化且独立评估的指标，用于衡量人工智能模型在可用性和透明度方面的开放程度。开放性不仅仅指能够下载模型权重。它还涉及许可协议、数据和方法论。在开放指数中获得 100 分的模型将具备开放权重、采用宽松许可协议，并完整发布训练代码、预训练数据和训练后数据——这不仅允许用户使用模型，还能完全复现其训练过程，或从模型创建者的部分或全部方法中汲取灵感来构建自己的模型。
 
+- SEAL LLM Leaderboards（[scale.com/leaderboard](https://scale.com/leaderboard)）
+
+  评估最新 LLM 的智能体能力、前沿性能、安全性及公众情绪。
+
 - LMArena（[Overview Leaderboard | LMArena](https://lmarena.ai/leaderboard/)）
 
 - OpenCompass（[OpenCompass司南 - 评测榜单](https://rank.opencompass.org.cn/home)）
@@ -68,9 +72,20 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
     现有的代理框架通常依赖于 Python 特有的工具，导致对 SWE-bench Verified 过度拟合。
 
-  - SWE-bench Multilingual
+  - SWE-Bench Pro (Public Dataset)（[scale.com/leaderboard/swe_bench_pro_public](https://scale.com/leaderboard/swe_bench_pro_public)）
 
-    旨在评估 LLMs 在多种编程语言中的软件工程能力。SWE-bench Multilingual 包含 300 个精心挑选的软件工程任务，这些任务源自 42 个 GitHub 仓库和 9 种编程语言的真实拉取请求（涵盖 9 种流行编程语言（C、C++、Go、Java、JavaScript、TypeScript、PHP、Ruby 和 Rust））。这些仓库涵盖广泛的应用领域，包括 Web 框架、数据存储与处理工具、核心工具以及常用库。
+    SWE-Bench Verified的升级版。
+
+    一个专为对软件工程领域的 AI 代理进行严格且真实评估而设计的基准测试。它旨在通过应对四大关键挑战，解决现有基准测试中的若干局限性：
+
+    1. 数据污染：模型在训练期间可能已接触过评估代码，因此难以判断其是真正解决问题，还是在复现记忆中的答案。
+    2. 任务多样性不足：许多基准测试未能涵盖现实世界软件挑战的完整范围，而仅聚焦于简单的工具库。
+    3. 问题过于简化：模糊或未明确说明的问题常被从基准测试中剔除，而这与真实开发者的实际工作流程不符。
+    4. 不可靠且无法复现的测试：不一致的环境设置使得难以判断解决方案是否真正有效，还是仅仅因为环境配置错误。
+   
+   - SWE-bench Multilingual
+
+     旨在评估 LLMs 在多种编程语言中的软件工程能力。SWE-bench Multilingual 包含 300 个精心挑选的软件工程任务，这些任务源自 42 个 GitHub 仓库和 9 种编程语言的真实拉取请求（涵盖 9 种流行编程语言（C、C++、Go、Java、JavaScript、TypeScript、PHP、Ruby 和 Rust））。这些仓库涵盖广泛的应用领域，包括 Web 框架、数据存储与处理工具、核心工具以及常用库。
 
   - Multi-SWE-Bench（[Multi-SWE-bench --- Multi-SWE-bench](https://multi-swe-bench.github.io/#/)）
 
