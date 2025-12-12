@@ -169,6 +169,12 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
   一个多模态基准，用于测试模型以事实准确的方式回答与输入图像相关提示的能力，包含一个 711 项的公开数据集和一个 811 项的私有数据集。
 
   Grounding Benchmark - v2，这是一个扩展基准，用于测试模型在给定提示的上下文中提供基于事实依据的答案的能力。
+
+- DeepSearchQA（[www.kaggle.com/benchmarks/google/dsqa/leaderboard](https://www.kaggle.com/benchmarks/google/dsqa/leaderboard)）
+
+  谷歌推出的一个包含 900 个提示的基准测试，用于评估代理在 17 个不同领域中完成困难的多步信息检索任务的能力。与传统仅针对单答案检索或广泛事实准确性的基准不同，DeepSearchQA 包含一组具有挑战性的手工构建任务，旨在评估代理执行复杂搜索计划以生成详尽答案列表的能力。
+  每个任务都构造成一个“因果链”，其中完成某一步的信息发现依赖于前一步的成功完成，强调长期规划和上下文保留。
+
 - DeepResearch Bench（[https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leader...](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard)）
 
   面向深度研究代理的综合性基准测试，包含 100 个博士级研究任务，每个任务均由 22 个不同领域的领域专家精心设计，其中 50 个为中文任务，50 个为英文任务。
@@ -258,6 +264,10 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
   一套综合性压力测试 MCP 基准评测体系，包含多样化的可验证任务，旨在评估模型和智能体在真实 MCP 应用场景中的能力。包含以下MCP：Notion、Github、Filesystem、Postgres、Playwright、Playwright-WebArena。
 
+- MCP Atlas（[scale.com/leaderboard/mcp_atlas](https://scale.com/leaderboard/mcp_atlas)）
+
+  通过模型上下文协议（MCP）评估语言模型处理现实世界工具使用的能力，衡量的是多步骤工作流中的表现。包含 1,000 个人工撰写的任务，每个任务都需要调用多个工具来解决，工具来自 40 多个 MCP 服务器和 300 多个工具。任务范围从仅需 2 至 3 个工具且链条简单的单领域查询，到需要 5 个以上工具并包含条件分支和错误处理的复杂工作流。每项任务都包含精心挑选的干扰项工具，这些工具看似合理但实际错误。干扰项由数据标注者从与必需工具相同的类别中选取。该框架为每个任务提供 12-18 个工具（3-7 个必需工具加上 5-10 个干扰项），迫使代理基于工具描述进行推理，而非盲目调用。
+
 - SCONE-bench（[red.anthropic.com/2025/smart-contracts/](https://red.anthropic.com/2025/smart-contracts/)）
 
   Anthropic推出的首个通过模拟盗取资金总价值来衡量智能体利用智能合约能力的基准测试。针对每个目标合约，智能体需识别漏洞并生成利用该漏洞的攻击脚本，使得脚本执行时执行者的原生代币余额至少增加预设阈值。SCONE-bench 摒弃漏洞赏金或推测性模型，直接采用链上资产量化损失。该基准测试提供以下功能：
@@ -325,6 +335,15 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
 # Intelligence Benchmarks
 
+- ARC-AGI-2（[arcprize.org/leaderboard](https://arcprize.org/leaderboard)）
+
+  专注于那些对人类而言相对简单、但对 AI 却困难甚至不可能完成的任务，从而揭示那些无法通过“规模扩大”自然涌现的能力鸿沟。
+
+  1. 所有评估集（公开、半私有、私有）现在均包含 120 个任务（从 100 个增加而来）。
+  2. 已从评估集中移除容易受到暴力搜索影响的任务（即 2020 年 Kaggle 竞赛中的所有已解决任务）。
+  3. 进行了受控的人类测试，以校准评估集的难度，确保 IDD，并验证至少两名人类能够通过 pass@2 解决（以符合 AI 规则）。
+  4. 基于研究（符号解释、组合推理、上下文规则等），设计了新的任务以挑战 AI 推理系统。
+
 - AIME25（[AIME 2025 Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/aime-2025)）
 
   数据集是一个包含数学问题的答案的数据集，具体来源于2025年美国数学邀请赛（AIME）第一部分的考试题目。该数据集适用于问题回答任务，数据集大小小于1000条记录，语言为英语。
@@ -340,6 +359,14 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 - IMO Bench（[imobench.github.io/](https://imobench.github.io/)）
 
   该基准测试集经过了一组IMO奖牌获得者和数学家的审核（他们总共获得了10枚IMO金牌和5枚IMO银牌）。由于IMO的题目难度极高，既需要严谨的多步骤推理，又需要超越简单套用已知公式的创造力，因此IMO-Bench专门以IMO的难度水平为目标。IMO-Bench由三个基准测试组成，用于评估模型的多种能力：IMO-AnswerBench——一项大规模的正确答案测试，IMO-ProofBench——用于证明写作的更高层次评估，以及IMO-GradingBench——旨在推动对长篇答案的自动评估取得进一步进展。
+
+- FrontierMath（[epoch.ai/frontiermath](https://epoch.ai/frontiermath)）
+
+  包含 350 道原创数学题（50 道最高难度等级 4 的问题），涵盖从具有挑战性的大学水平问题到可能需要专家数学家数日才能解决的难题。要求：
+
+  1. 明确且可验证的答案
+  2. 抵御猜测：答案应具备“防猜测”特性，即随机尝试或简单的暴力方法几乎不可能成功
+  3. 计算可行性：解决计算密集型问题时，必须包含脚本，展示如何仅基于该领域的标准知识找到答案。这些脚本在标准硬件上的累计运行时间必须少于一分钟。
 
 - MMLU-Pro（[MMLU-Pro Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/mmlu-pro)）
 
@@ -445,6 +472,10 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
   衡量多模态数学推理能力，包含 3,040 道源自真实数学竞赛的高质量视觉情境数学题。该数据集横跨 16 个不同数学学科并按 5 个难度等级划分。
 
+- CharXiv（[charxiv.github.io/#leaderboard](https://charxiv.github.io/#leaderboard)）
+
+  一个包含 2,323 个来自科学论文的自然、具有挑战性且多样化的图表的综合评估套件。CharXiv 包含两类问题：（1）关于识别基本图表元素的描述性问题；（2）要求综合图表中复杂视觉元素信息的推理问题。为确保质量，所有图表和问题均由人工专家精心挑选、整理并验证。
+
 - ROME（[BAAI/ROME · Datasets at Hugging Face](https://huggingface.co/datasets/BAAI/ROME)）
 
   视觉推理基准。ROME 包含 8 个子任务（共计 281 道高质量问题）。每个样本均经过验证，确保图像对于正确作答是必需的：  
@@ -472,6 +503,10 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 - MMLongBench-Doc（[huggingface.co/spaces/OpenIXCLab/mmlongbench-doc](https://huggingface.co/spaces/OpenIXCLab/mmlongbench-doc)）（[mayubo2333.github.io/MMLongBench-Doc/](https://mayubo2333.github.io/MMLongBench-Doc/)）
 
   一个长上下文多模态文档理解基准，旨在评估大型多模态模型在复杂文档理解任务上的性能。包含 1,091 个专家标注的问题，基于 135 份篇幅较长的 PDF 格式文档构建，平均每份文档有 47.5 页和 21,214 个文本标记。这些问题的答案依赖于来自（1）不同来源（文本、图像、图表、表格和布局结构）以及（2）不同位置（即页码）的证据片段。此外，33.0%的问题是跨页问题，需要整合多个页面的证据。22.5%的问题被设计为不可回答，用于检测模型可能产生的幻觉。
+
+- Video-MMMU（[videommmu.github.io/](https://videommmu.github.io/)）
+
+  一个面向多模态、多学科的基准，用于评估 LMMs 从视频中获取和运用知识的能力。Video-MMMU 包含六个专业领域（30个细分学科）中精心挑选的 300 个专家级视频和 900 个人工标注的问题，通过与认知阶段对齐的问题-答案对（感知、理解、适应）来评估知识获取能力。每个视频包含三组问答对，分别对应知识获取的三个阶段：感知（识别与知识相关的关键信息）、理解（掌握底层概念）和适应（将知识应用于新情境）。此外，评估模型“增量准确率”——即在观看视频后性能的提升幅度。
 
 # OCR与嵌入评测
 
