@@ -6,7 +6,7 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
 
 # Comprehensive Benchmarks
 
-- Artificial Analysis
+- **Artificial Analysis**
    ([AI Model & API Providers Analysis | Artificial Analysis](https://artificialanalysis.ai/))
 
   - **AA Intelligence**
@@ -18,6 +18,10 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
      ([https://artificialanalysis.ai/evaluations/artificial-analysis-op...](https://artificialanalysis.ai/evaluations/artificial-analysis-openness-index))
 
     A standardized and independently evaluated metric to measure how open AI models are in terms of usability and transparency. Openness is not just about downloadable model weights—it also concerns licensing, data, and methodology. Models scoring 100 on the Openness Index provide open weights, a permissive license, and fully released training code, pre-training data, and post-training data—allowing users not only to use the model, but also to fully reproduce its training process or draw from some or all of the creators’ methods to build their own models.
+
+- **SEAL LLM Leaderboards** ([scale.com/leaderboard](https://scale.com/leaderboard))
+
+  Evaluating the agent capabilities, frontier performance, safety, 和 public sentiment of the latest LLMs.
 
 - **LMArena**
    ([Overview Leaderboard | LMArena](https://lmarena.ai/leaderboard/))
@@ -87,6 +91,16 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
 
     Existing agent frameworks often rely heavily on Python-specific tools, leading to overfitting to SWE-bench Verified.
 
+  - **SWE-Bench Pro (Public Dataset)** ([scale.com/leaderboard/swe_bench_pro_public](https://scale.com/leaderboard/swe_bench_pro_public))
+
+    An upgraded version of SWE-Bench Verified.
+
+    A benchmark specifically designed to provide a rigorous and realistic evaluation of AI agents in the domain of software engineering. It addresses several limitations of existing benchmarks by tackling four key challenges:
+
+    1. Data Contamination: Models may have encountered the evaluation code during training, making it difficult to determine whether they are genuinely solving problems or merely recalling memorized solutions.
+    2. Limited Task Diversity: Many benchmarks fail to capture the full spectrum of real-world software engineering challenges, often focusing only on simple utility libraries.
+    3. Oversimplified Problems: Ambiguous or underspecified issues are frequently excluded from benchmarks, which does not reflect the actual workflow of real-world developers.
+    4. Unreliable and Irreproducible Testing: Inconsistent test environments make it hard to verify whether a proposed solution truly works or if passing tests are merely the result of favorable (or incorrect) environment configurations.
   - **SWE-bench Multilingual**
 
     Aims to evaluate LLMs’ software engineering capabilities across multiple programming languages. SWE-bench Multilingual contains 300 carefully curated software engineering tasks derived from real-world pull requests across 42 GitHub repositories and 9 languages (C, C++, Go, Java, JavaScript, TypeScript, PHP, Ruby, Rust). These repositories span web frameworks, data storage and processing tools, core utilities, and popular libraries.
@@ -228,6 +242,13 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
   A multimodal benchmark designed to test a model’s ability to answer prompts related to input images in a factually accurate manner. It consists of a public dataset of 711 items and a private dataset of 811 items.
 
   Grounding Benchmark – v2: An expanded benchmark for evaluating a model’s ability to provide factually grounded responses within the context of a given prompt.
+
+- **DeepSearchQA** ([www.kaggle.com/benchmarks/google/dsqa/leaderboard](https://www.kaggle.com/benchmarks/google/dsqa/leaderboard))
+
+   A benchmark introduced by Google comprising 900 prompts designed to evaluate agents' ability to perform difficult, multi-step information retrieval tasks across 17 distinct domains. Unlike traditional benchmarks that focus solely on single-answer retrieval or broad factual accuracy, DeepSearchQA features a set of challenging, hand-crafted tasks aimed at assessing an agent’s capacity to execute complex search strategies and generate comprehensive answer lists.
+
+   Each task is structured as a "causal chain," where the discovery of information in one step depends on the successful completion of the previous step, emphasizing long-term planning and contextual retention.
+
 - **DeepResearch Bench** ([https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard))
 
   A comprehensive benchmark for deep research agents, consisting of 100 PhD-level research tasks. Each task is carefully designed by 22 domain experts across different fields, with 50 tasks in Chinese and 50 in English.
@@ -340,6 +361,12 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
 
   A comprehensive stress-test benchmark suite for MCP, with diverse verifiable tasks to evaluate models and agents in real MCP application scenarios. It includes MCP servers such as Notion, GitHub, Filesystem, Postgres, and Playwright/Playwright-WebArena.
 
+- **MCP Atlas** ([scale.com/leaderboard/mcp_atlas](https://scale.com/leaderboard/mcp_atlas))
+
+  Evaluates language models' ability to handle real-world tool use through the Model Context Protocol (MCP), measuring performance on multi-step workflows. The benchmark comprises 1,000 human-authored tasks, each requiring multiple tool calls selected from over 40 MCP servers and more than 300 tools. Tasks range from single-domain queries that need only 2–3 tools with straightforward chaining, to complex workflows requiring 5+ tools with conditional branching and error handling.
+
+  Each task includes carefully curated distractor tools—plausible but incorrect options—selected by data annotators from the same category as the required tools. The evaluation framework exposes 12–18 tools per task (3–7 required tools plus 5–10 distractors), compelling agents to reason based on tool descriptions rather than resorting to brute-force invocation.
+
 - **SCONE-bench**
    ([red.anthropic.com/2025/smart-contracts/](https://red.anthropic.com/2025/smart-contracts/))
 
@@ -451,6 +478,15 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
 
 # Intelligence Benchmarks
 
+- **ARC-AGI-2** ([arcprize.org/leaderboard](https://arcprize.org/leaderboard))
+
+  Focuses on tasks that are relatively simple for humans but difficult or even impossible for current AI systems, thereby revealing capability gaps that do not naturally emerge through scaling alone.
+
+  1. All evaluation sets (public, semi-private, and private) now contain 120 tasks each (increased from 100).
+  2. Tasks susceptible to brute-force search have been removed from the evaluation sets—specifically, all tasks solved in the 2020 Kaggle competition.
+  3. Controlled human testing has been conducted to calibrate task difficulty, ensure Inter-Human Difficulty Disparity (IDD), and verify that at least two humans can solve each task under a pass@2 criterion (aligned with the rules applied to AI systems).
+  4. New tasks have been designed based on research insights—including symbolic interpretation, compositional reasoning, and contextual rule learning—to specifically challenge AI reasoning systems.
+
 - **AIME25**
    ([AIME 2025 Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/aime-2025))
 
@@ -473,6 +509,14 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
   - **IMO-AnswerBench**: large-scale correct-answer testing
   - **IMO-ProofBench**: higher-level evaluation targeting proof writing
   - **IMO-GradingBench**: aims to advance automatic evaluation of long mathematical solutions
+
+- **FrontierMath** ([epoch.ai/frontiermath](https://epoch.ai/frontiermath))
+
+  Contains 350 original mathematical problems (including 50 at the highest difficulty level, Tier 4), spanning from challenging undergraduate-level questions to problems that may take expert mathematicians several days to solve. Requirements:
+
+  1. Clear and verifiable answers: Each problem must have a well-defined solution that can be objectively verified.
+  2. Guessing resistance: Solutions must be "guess-proof"—i.e., random guessing or simple brute-force approaches should have virtually no chance of success.
+  3. Computational feasibility: For computationally intensive problems, a script must be provided demonstrating how the answer can be obtained using only standard knowledge in the relevant field. The cumulative runtime of these scripts on standard hardware must be under one minute.
 
 - **MMLU-Pro**
    ([MMLU-Pro Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/mmlu-pro))
@@ -602,6 +646,10 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
 
   Evaluates multimodal mathematical reasoning, with 3,040 high-quality visual math problems from real competitions. It covers 16 math subfields and five difficulty levels.
 
+- **CharXiv** ([charxiv.github.io/#leaderboard](https://charxiv.github.io/#leaderboard))
+
+  A comprehensive evaluation suite comprising 2,323 natural, challenging, 和 diverse charts sourced from scientific papers. CharXiv includes two types of questions: (1) descriptive questions that assess the ability to identify basic chart elements, and (2) reasoning questions that require synthesizing information across complex visual components within the chart. To ensure high quality, all charts and questions have been carefully selected, curated, and verified by human experts.
+
 - **ROME**
    ([BAAI/ROME](https://huggingface.co/datasets/BAAI/ROME))
 
@@ -641,6 +689,17 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
   - Multiple locations (pages)
 
   33% of questions are cross-page; 22.5% are unanswerable to test hallucination tendency.
+
+- **Video-MMMU** ([videommmu.github.io/](https://videommmu.github.io/))
+
+  A multimodal, multidisciplinary benchmark designed to evaluate Large Multimodal Models’ (LMMs) ability to acquire and apply knowledge from videos. Video-MMMU features a curated collection of 300 expert-level videos and 900 human-annotated questions spanning six professional disciplines (covering 30 subfields). Knowledge acquisition is assessed through question-answer pairs aligned with three cognitive stages: Perception, Comprehension, 和 Adaptation.
+
+  Each video is accompanied by three question-answer pairs corresponding to the three stages of knowledge acquisition:
+  Perception: identifying key information relevant to the knowledge presented,
+  Comprehension: understanding the underlying concepts, and
+  Adaptation: applying the acquired knowledge to novel scenarios.
+
+  In addition, the benchmark evaluates models’ delta accuracy—the improvement in performance after watching the relevant instructional video—thereby measuring how effectively LMMs learn from video content.
 
 ------
 
@@ -706,6 +765,7 @@ In OCR model evaluation, performance can vary widely across document types, lang
 
 
   A benchmark for moral role-playing, focusing on character behaviors and ethical boundaries in digital humans.
+
 
 
 
