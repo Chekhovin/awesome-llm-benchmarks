@@ -22,6 +22,12 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
   评估最新 LLM 的智能体能力、前沿性能、安全性及公众情绪。
 
+- Epoch AI（[epoch.ai/benchmarks](https://epoch.ai/benchmarks)）
+
+  有多个基准测试。
+
+  Epoch 能力指数（ECI）将多个不同 AI 基准的分数综合为一个“通用能力”尺度，即使在单个基准已达到饱和的长时间跨度内，也能对模型进行比较。
+
 - LMArena（[Overview Leaderboard | LMArena](https://lmarena.ai/leaderboard/)）
 
 - OpenCompass（[OpenCompass司南 - 评测榜单](https://rank.opencompass.org.cn/home)）
