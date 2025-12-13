@@ -23,6 +23,12 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
 
   Evaluating the agent capabilities, frontier performance, safety, 和 public sentiment of the latest LLMs.
 
+- **Epoch AI** ([epoch.ai/benchmarks](https://epoch.ai/benchmarks))
+
+  Features multiple benchmarks.
+
+  The Epoch Capabilities Index (ECI) aggregates scores from diverse AI benchmarks into a single "general capability" scale, enabling model comparisons even over long time spans where individual benchmarks have saturated.
+
 - **LMArena**
    ([Overview Leaderboard | LMArena](https://lmarena.ai/leaderboard/))
 
@@ -765,6 +771,7 @@ In OCR model evaluation, performance can vary widely across document types, lang
 
 
   A benchmark for moral role-playing, focusing on character behaviors and ethical boundaries in digital humans.
+
 
 
 
