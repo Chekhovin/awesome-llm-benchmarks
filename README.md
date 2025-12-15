@@ -28,6 +28,12 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
   Epoch 能力指数（ECI）将多个不同 AI 基准的分数综合为一个“通用能力”尺度，即使在单个基准已达到饱和的长时间跨度内，也能对模型进行比较。
 
+- Sansa Bench（[trysansa.com/benchmark](https://trysansa.com/benchmark)）
+
+  一个专门设计的基准测试，用于在复杂的现实世界任务和使用场景中测试模型。下有学术、办公、审查等多个领域的细分榜单。
+
+  审查榜（[trysansa.com/benchmark?dimension=censorship](https://trysansa.com/benchmark?dimension=censorship)）
+
 - LMArena（[Overview Leaderboard | LMArena](https://lmarena.ai/leaderboard/)）
 
 - OpenCompass（[OpenCompass司南 - 评测榜单](https://rank.opencompass.org.cn/home)）
