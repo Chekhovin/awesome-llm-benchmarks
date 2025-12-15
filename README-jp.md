@@ -37,6 +37,12 @@ Tips：ベンチマーク（Benchmark）はモデル性能を評価する事実�
 
   Epoch能力指数（ECI）は、さまざまなAIベンチマークのスコアを統合し、「汎用能力」を示す単一の尺度にまとめることで、個別のベンチマークがすでに飽和しているような長期的な期間においてもモデル間の比較を可能にします。
 
+- **Sansa Bench**（[trysansa.com/benchmark](https://trysansa.com/benchmark)）
+
+  複雑な実世界のタスクやユースケースでモデルを評価するために特別に設計されたベンチマークです。学術、オフィス業務、コンテンツ審査など、複数の分野ごとに細分化されたランキングを提供しています。
+
+  コンテンツ審査ランキング（[trysansa.com/benchmark?dimension=censorship](https://trysansa.com/benchmark?dimension=censorship)）
+
 - **LMArena**
    （[Overview Leaderboard | LMArena](https://lmarena.ai/leaderboard/)）
 
@@ -1029,6 +1035,7 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
   デジタルヒューマンの「道徳的ロールプレイ」を評価するベンチマーク。
 
    キャラクター行動と倫理的制約のバランスを測る。
+
 
 
 
