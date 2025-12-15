@@ -29,6 +29,12 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
 
   The Epoch Capabilities Index (ECI) aggregates scores from diverse AI benchmarks into a single "general capability" scale, enabling model comparisons even over long time spans where individual benchmarks have saturated.
 
+- **Sansa Bench** ([trysansa.com/benchmark](https://trysansa.com/benchmark))
+
+  A specialized benchmark designed to evaluate models on complex, real-world tasks and use cases. It includes detailed leaderboards across multiple domains such as academia, office productivity, content moderation, 和 more.
+
+  Content Moderation Leaderboard ([trysansa.com/benchmark?dimension=censorship](https://trysansa.com/benchmark?dimension=censorship))
+
 - **LMArena**
    ([Overview Leaderboard | LMArena](https://lmarena.ai/leaderboard/))
 
@@ -771,6 +777,7 @@ In OCR model evaluation, performance can vary widely across document types, lang
 
 
   A benchmark for moral role-playing, focusing on character behaviors and ethical boundaries in digital humans.
+
 
 
 
