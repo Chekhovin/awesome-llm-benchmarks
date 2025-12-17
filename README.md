@@ -369,46 +369,9 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
   3. 进行了受控的人类测试，以校准评估集的难度，确保 IDD，并验证至少两名人类能够通过 pass@2 解决（以符合 AI 规则）。
   4. 基于研究（符号解释、组合推理、上下文规则等），设计了新的任务以挑战 AI 推理系统。
 
-- AIME25（[AIME 2025 Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/aime-2025)）
-
-  数据集是一个包含数学问题的答案的数据集，具体来源于2025年美国数学邀请赛（AIME）第一部分的考试题目。该数据集适用于问题回答任务，数据集大小小于1000条记录，语言为英语。
-
-- HMMT 2025
-
-  用于MathArena Leaderboard的2025年2月HMMT数学竞赛（哈佛-麻省理工大学数学竞赛）的问题
-
-- AMO-Bench（[AMO-Bench: Large Language Models Still Struggle in High School Math Competitions](https://amo-bench.github.io/)）
-
-  美团 LongCat 团队发布，该评测集共包含 50 道竞赛专家原创试题，所有题目均对标甚至超越 IMO 竞赛难度。
-
-- IMO Bench（[imobench.github.io/](https://imobench.github.io/)）
-
-  该基准测试集经过了一组IMO奖牌获得者和数学家的审核（他们总共获得了10枚IMO金牌和5枚IMO银牌）。由于IMO的题目难度极高，既需要严谨的多步骤推理，又需要超越简单套用已知公式的创造力，因此IMO-Bench专门以IMO的难度水平为目标。IMO-Bench由三个基准测试组成，用于评估模型的多种能力：IMO-AnswerBench——一项大规模的正确答案测试，IMO-ProofBench——用于证明写作的更高层次评估，以及IMO-GradingBench——旨在推动对长篇答案的自动评估取得进一步进展。
-
-- FrontierMath（[epoch.ai/frontiermath](https://epoch.ai/frontiermath)）
-
-  包含 350 道原创数学题（50 道最高难度等级 4 的问题），涵盖从具有挑战性的大学水平问题到可能需要专家数学家数日才能解决的难题。要求：
-
-  1. 明确且可验证的答案
-  2. 抵御猜测：答案应具备“防猜测”特性，即随机尝试或简单的暴力方法几乎不可能成功
-  3. 计算可行性：解决计算密集型问题时，必须包含脚本，展示如何仅基于该领域的标准知识找到答案。这些脚本在标准硬件上的累计运行时间必须少于一分钟。
-
-- FrontierScience（[openai.com/index/frontierscience/](https://openai.com/index/frontierscience/)）
-
-  openai推出的一个旨在衡量专家级科学能力的新基准。FrontierScience 由物理、化学和生物学领域的专家编写与验证，包含数百道设计为具有挑战性、原创性和意义的问题。FrontierScience 包含两个问题赛道：奥赛赛道，用于衡量类似奥赛风格的科学推理能力；研究赛道，用于衡量真实的科学研究能力。
-
 - MMLU-Pro（[MMLU-Pro Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/mmlu-pro)）
 
   多任务理解数据集，旨在严格评估大型语言模型。它包含来自各个学科领域的1.2万个复杂问题。每个问题有10个答案选项，整合了更多以推理为核心的问题
-
-- GPQA Diamond（[GPQA 钻石基准排行榜 | Artificial Analysis --- GPQA Diamond Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/gpqa-diamond)）
-
-  GPQA 基准中最难的 198 个问题，专为“防谷歌”设计，需要真正的科学专业知识，而非搜索技巧。  
-  这些研究生级别的物理、生物和化学问题，只有具备博士学位的领域专家才能稳定解答，因此非常适合用于测试真正的科学推理能力。
-
-- CritPt（[CritPt Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/critpt)）
-
-  旨在测试 LLMs 在研究级物理推理任务表现的基准，包含 71 项综合性研究挑战。
 
 - Frames
 
@@ -419,8 +382,6 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
   Seal-0，用于评估在事实查询问题上使用网络搜索时，搜索结果存在冲突、噪声或无帮助情况下的搜索增强型语言模型。聚焦于最具挑战性的问题——在这些问题上，聊天模型（如 GPT-4.1）通常准确率接近零。
 
 - Stanford HELM（[Capabilities - Holistic Evaluation of Language Models (HELM)](https://crfm.stanford.edu/helm/capabilities/latest/#/leaderboard)）
-
-  ‍
 
 - Zenmux（[Benchmark - ZenMux](https://zenmux.ai/benchmark)）
 
@@ -490,9 +451,46 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
 ## AI4S（特化领域）
 
+- AIME25（[AIME 2025 Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/aime-2025)）
+
+  数据集是一个包含数学问题的答案的数据集，具体来源于2025年美国数学邀请赛（AIME）第一部分的考试题目。该数据集适用于问题回答任务，数据集大小小于1000条记录，语言为英语。
+
+- HMMT 2025
+
+  用于MathArena Leaderboard的2025年2月HMMT数学竞赛（哈佛-麻省理工大学数学竞赛）的问题
+
+- AMO-Bench（[AMO-Bench: Large Language Models Still Struggle in High School Math Competitions](https://amo-bench.github.io/)）
+
+  美团 LongCat 团队发布，该评测集共包含 50 道竞赛专家原创试题，所有题目均对标甚至超越 IMO 竞赛难度。
+
+- IMO Bench（[imobench.github.io/](https://imobench.github.io/)）
+
+  该基准测试集经过了一组IMO奖牌获得者和数学家的审核（他们总共获得了10枚IMO金牌和5枚IMO银牌）。由于IMO的题目难度极高，既需要严谨的多步骤推理，又需要超越简单套用已知公式的创造力，因此IMO-Bench专门以IMO的难度水平为目标。IMO-Bench由三个基准测试组成，用于评估模型的多种能力：IMO-AnswerBench——一项大规模的正确答案测试，IMO-ProofBench——用于证明写作的更高层次评估，以及IMO-GradingBench——旨在推动对长篇答案的自动评估取得进一步进展。
+
+- FrontierMath（[epoch.ai/frontiermath](https://epoch.ai/frontiermath)）
+
+  包含 350 道原创数学题（50 道最高难度等级 4 的问题），涵盖从具有挑战性的大学水平问题到可能需要专家数学家数日才能解决的难题。要求：
+
+  1. 明确且可验证的答案
+  2. 抵御猜测：答案应具备“防猜测”特性，即随机尝试或简单的暴力方法几乎不可能成功
+  3. 计算可行性：解决计算密集型问题时，必须包含脚本，展示如何仅基于该领域的标准知识找到答案。这些脚本在标准硬件上的累计运行时间必须少于一分钟。
+
 - PutnamBench（[trishullab.github.io/PutnamBench/leaderboard.html](https://trishullab.github.io/PutnamBench/leaderboard.html)）
 
   在普特南数学竞赛中对形式化数学推理进行基准测试。包含 1712 个手工构建的形式化问题，题目源自北美顶尖本科数学竞赛——威廉·洛厄尔·普特南数学竞赛。其中 660 个问题使用 Lean 4 形式化，640 个使用 Isabelle 形式化，412 个使用 Coq 形式化。
+
+- GPQA Diamond（[GPQA 钻石基准排行榜 | Artificial Analysis --- GPQA Diamond Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/gpqa-diamond)）
+
+  GPQA 基准中最难的 198 个问题，专为“防谷歌”设计，需要真正的科学专业知识，而非搜索技巧。  
+  这些研究生级别的物理、生物和化学问题，只有具备博士学位的领域专家才能稳定解答，因此非常适合用于测试真正的科学推理能力。
+
+- CritPt（[CritPt Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/critpt)）
+
+  旨在测试 LLMs 在研究级物理推理任务表现的基准，包含 71 项综合性研究挑战。
+
+- FrontierScience（[openai.com/index/frontierscience/](https://openai.com/index/frontierscience/)）
+
+  openai推出的一个旨在衡量专家级科学能力的新基准。FrontierScience 由物理、化学和生物学领域的专家编写与验证，包含数百道设计为具有挑战性、原创性和意义的问题。FrontierScience 包含两个问题赛道：奥赛赛道，用于衡量类似奥赛风格的科学推理能力；研究赛道，用于衡量真实的科学研究能力。
 
 # 视觉理解与推理
 
