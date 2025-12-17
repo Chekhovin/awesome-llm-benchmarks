@@ -648,60 +648,12 @@ Tips：ベンチマーク（Benchmark）はモデル性能を評価する事実�
   3. 評価セットの難易度を適切に調整し、人間間の難易度差異（IDD: Inter-Human Difficulty Disparity）を確保するとともに、少なくとも2人の人間がAIと同等の条件（pass@2）でタスクを解けることを確認するため、制御された人間テストが実施されました。
   4. 記号的解釈、構成的推論、文脈依存ルールなどの研究知見に基づき、AIの推論システムに挑戦する新しいタスクが設計されました。
 
-- **AIME25**
-   （[AIME 2025 Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/aime-2025)）
-
-  2025 年 AIME I（アメリカ数学招待試験）から抽出した数学問題の解答データセット。
-   QA タスクに適しており、レコード数は 1,000 未満、言語は英語。
-
-- **HMMT 2025**
-
-  2025 年 2 月の HMMT（Harvard-MIT Mathematics Tournament）の問題。
-   MathArena Leaderboard で使用される。
-
-- **AMO-Bench**
-   （[AMO-Bench](https://amo-bench.github.io/)）
-
-  Meituan LongCat チームによるベンチマーク。
-   競技数学の専門家が作成した 50 問からなり、IMO と同等以上の難度を持つ。
-
-- **IMO Bench**
-   （[imobench.github.io](https://imobench.github.io/)）
-
-  合計 10 個の金メダル・5 個の銀メダルを持つ IMO メダリスト・数学者チームによって精査されたベンチマーク。
-   IMO 問題は多段推論と創造性を必要とするため、IMO レベルの難題に特化している。
-
-  - **IMO-AnswerBench**：正答率評価
-  - **IMO-ProofBench**：証明生成の質を評価
-  - **IMO-GradingBench**：長い数学解答の自動採点に挑戦するベンチマーク
-
-- **FrontierMath**（[epoch.ai/frontiermath](https://epoch.ai/frontiermath)）
-
-  原創的な数学問題350問（うち50問は最高難易度のレベル4）を含み、挑戦的な大学レベルの問題から、専門の数学者が数日かけて解くような難問までをカバーしています。このベンチマークでは以下の要件を満たす必要があります。
-
-  1. 明確かつ検証可能な解答
-  2. 推測への耐性：解答は「推測不可能」でなければならず、ランダムな試行や単純なブルートフォース手法ではほぼ成功しないように設計されていること
-  3. 計算的実現可能性：計算集約型の問題については、その分野の標準的な知識のみに基づいて解答に至る方法を示すスクリプトを含めること。これらのスクリプトの標準ハードウェア上での累積実行時間は1分未満でなければならない
-
 - **MMLU-Pro**
    （[MMLU-Pro Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/mmlu-pro)）
 
   多タスク理解ベンチマーク。
    多数の学問領域から 12,000 の複雑な問題を収録し、各問題は 10 択。
    より「推論に重きを置いた問題構成」になっている。
-
-- **GPQA Diamond**
-   （[GPQA Diamond Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/gpqa-diamond)）
-
-  GPQA ベンチマーク中、最も難しい 198 問からなるサブセット。
-   「Google 検索で答えが見つからない」よう設計されており、物理・生物・化学の大学院レベル問題で構成。
-   安定して正解できるのは PhD レベルの専門家に限られるとされ、深い科学的推論力の評価に適している。
-
-- **CritPt**
-   （[CritPt Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/critpt)）
-
-  71 個の研究レベル物理チャレンジから成るベンチマーク。
-   LLM の高度な物理推論能力を評価する。
 
 - **Frames**
 
@@ -838,6 +790,14 @@ Tips：ベンチマーク（Benchmark）はモデル性能を評価する事実�
 
   多くのベンチマークが「モデルが何をできるか」に焦点を当てるのに対し、SpeechMap は「何をしないか」に注目する。
 
+- **WeirdML**（[htihle.github.io/weirdml.html](https://htihle.github.io/weirdml.html)）
+
+  大規模言語モデル（LLM）に対して、細やかな思考と真の理解を必要とする一連の奇妙で非伝統的な機械学習タスクを提示し、以下の能力を評価することを目的としています：
+  データの特性および問題の本質を真に理解する力
+  問題に適した機械学習アーキテクチャおよび学習設定を設計し、実行可能なPyTorchコードを生成して解決策を実装する力
+  ターミナル出力およびテストセット上の精度に基づき、5回の反復を通じて解決策をデバッグ・改善する力
+  限られた計算リソースと時間を使い切る力
+
 - **SimpleQA**
 
   OpenAI による「短く事実を問う質問」に特化したベンチマーク。
@@ -846,6 +806,41 @@ Tips：ベンチマーク（Benchmark）はモデル性能を評価する事実�
 ------
 
 ## AI4S（専門ドメイン向け）
+
+- **AIME25**
+   （[AIME 2025 Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/aime-2025)）
+
+  2025 年 AIME I（アメリカ数学招待試験）から抽出した数学問題の解答データセット。
+   QA タスクに適しており、レコード数は 1,000 未満、言語は英語。
+
+- **HMMT 2025**
+
+  2025 年 2 月の HMMT（Harvard-MIT Mathematics Tournament）の問題。
+   MathArena Leaderboard で使用される。
+
+- **AMO-Bench**
+   （[AMO-Bench](https://amo-bench.github.io/)）
+
+  Meituan LongCat チームによるベンチマーク。
+   競技数学の専門家が作成した 50 問からなり、IMO と同等以上の難度を持つ。
+
+- **IMO Bench**
+   （[imobench.github.io](https://imobench.github.io/)）
+
+  合計 10 個の金メダル・5 個の銀メダルを持つ IMO メダリスト・数学者チームによって精査されたベンチマーク。
+   IMO 問題は多段推論と創造性を必要とするため、IMO レベルの難題に特化している。
+
+  - **IMO-AnswerBench**：正答率評価
+  - **IMO-ProofBench**：証明生成の質を評価
+  - **IMO-GradingBench**：長い数学解答の自動採点に挑戦するベンチマーク
+
+- **FrontierMath**（[epoch.ai/frontiermath](https://epoch.ai/frontiermath)）
+
+  原創的な数学問題350問（うち50問は最高難易度のレベル4）を含み、挑戦的な大学レベルの問題から、専門の数学者が数日かけて解くような難問までをカバーしています。このベンチマークでは以下の要件を満たす必要があります。
+
+  1. 明確かつ検証可能な解答
+  2. 推測への耐性：解答は「推測不可能」でなければならず、ランダムな試行や単純なブルートフォース手法ではほぼ成功しないように設計されていること
+  3. 計算的実現可能性：計算集約型の問題については、その分野の標準的な知識のみに基づいて解答に至る方法を示すスクリプトを含めること。これらのスクリプトの標準ハードウェア上での累積実行時間は1分未満でなければならない
 
 - **PutnamBench**
    （[PutnamBench Leaderboard](https://trishullab.github.io/PutnamBench/leaderboard.html)）
@@ -857,7 +852,22 @@ Tips：ベンチマーク（Benchmark）はモデル性能を評価する事実�
   - Isabelle：640 問
   - Coq：412 問
 
-  形式化数学推論能力を評価する。
+- **GPQA Diamond**
+   （[GPQA Diamond Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/gpqa-diamond)）
+
+  GPQA ベンチマーク中、最も難しい 198 問からなるサブセット。
+   「Google 検索で答えが見つからない」よう設計されており、物理・生物・化学の大学院レベル問題で構成。
+   安定して正解できるのは PhD レベルの専門家に限られるとされ、深い科学的推論力の評価に適している。
+
+- **CritPt**
+   （[CritPt Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/critpt)）
+
+  71 個の研究レベル物理チャレンジから成るベンチマーク。
+   LLM の高度な物理推論能力を評価する。
+
+- **FrontierScience**（[openai.com/index/frontierscience/](https://openai.com/index/frontierscience/)）
+
+  OpenAIが開発した、専門家レベルの科学的能力を評価することを目的とした新しいベンチマークです。FrontierScienceは、物理学・化学・生物学の各分野の専門家によって作成・検証されており、挑戦的で独創的かつ意味のある数百問の問題で構成されています。FrontierScienceには2つのトラックがあります：「オリンピアドトラック」は国際科学オリンピアドに類似したスタイルの科学的推論能力を測定し、「リサーチトラック」は実際の科学研究能力を評価します。
 
 ------
 
@@ -1035,6 +1045,7 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
   デジタルヒューマンの「道徳的ロールプレイ」を評価するベンチマーク。
 
    キャラクター行動と倫理的制約のバランスを測る。
+
 
 
 
