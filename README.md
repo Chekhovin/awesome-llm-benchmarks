@@ -393,6 +393,10 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
   2. 抵御猜测：答案应具备“防猜测”特性，即随机尝试或简单的暴力方法几乎不可能成功
   3. 计算可行性：解决计算密集型问题时，必须包含脚本，展示如何仅基于该领域的标准知识找到答案。这些脚本在标准硬件上的累计运行时间必须少于一分钟。
 
+- FrontierScience（[openai.com/index/frontierscience/](https://openai.com/index/frontierscience/)）
+
+  openai推出的一个旨在衡量专家级科学能力的新基准。FrontierScience 由物理、化学和生物学领域的专家编写与验证，包含数百道设计为具有挑战性、原创性和意义的问题。FrontierScience 包含两个问题赛道：奥赛赛道，用于衡量类似奥赛风格的科学推理能力；研究赛道，用于衡量真实的科学研究能力。
+
 - MMLU-Pro（[MMLU-Pro Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/mmlu-pro)）
 
   多任务理解数据集，旨在严格评估大型语言模型。它包含来自各个学科领域的1.2万个复杂问题。每个问题有10个答案选项，整合了更多以推理为核心的问题
@@ -471,6 +475,14 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 - SpeechMap（[SpeechMap.AI Explorer](https://speechmap.ai/)）
 
   旨在探索人工智能言论的边界。测试不同提供商、国家和话题下，语言模型对敏感和争议性提示的反应。大多数 AI 基准衡量的是模型能做什么，而我们关注的是它们不能做什么：它们回避、拒绝或屏蔽的内容。
+
+- WeirdML（[htihle.github.io/weirdml.html](https://htihle.github.io/weirdml.html)）
+
+  向 LLMs 提出了一系列奇特且非传统的机器学习任务，这些任务需要细致的思考和真正的理解才能解决，旨在测试 LLM 的以下能力：
+  真正理解数据的特性与问题本质
+  为问题设计合适的机器学习架构与训练配置，并生成可运行的 PyTorch 代码来实现解决方案
+  根据终端输出和测试集上的准确率，在五次迭代中调试并改进解决方案
+  充分利用有限的计算资源和时间
 
 - SimpleQA
 
@@ -573,5 +585,15 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
   - VUE-TR-V2：视频问答（Video QA）测试，实现了更均衡的视频时长分布和更贴近用户习惯的查询设计。
 
 - Moral RolePlay（[digitalhuman/RolePlay_Villain at main · Tencent/digitalhuman](https://github.com/Tencent/DigitalHuman/tree/main/RolePlay_Villain)）
+# 独立评测
+
+以下为AI社区大佬们的独立评测
+
+- nao老师的LLM Benchmark（[llm2014.github.io/llm_benchmark/](https://llm2014.github.io/llm_benchmark/)）
+
+  个人性质，使用滚动更新的私有题库进行长期跟踪评测。侧重模型对逻辑，数学，编程，人类直觉等问题的测试。题库规模不大，长期维持在30题/240个用例以内，不使用任何互联网公开题目。题目每月会有滚动更新。题目不公开，意图是分享一种评测思路，以及个人见解。
+- ACG-SimpleQA（[github.com/prnake/ACG-SimpleQA](https://github.com/prnake/ACG-SimpleQA)）
+
+  是面向中文二次元（ACG，Animation、Comic、Game）领域的客观知识问答数据集，包含 4242 条自动生成精心设计的问答样本。本基准测试旨在评估大语言模型在二次元文化领域的事实性能力。约 99%样本来源于萌娘百科。
 
 ‍
