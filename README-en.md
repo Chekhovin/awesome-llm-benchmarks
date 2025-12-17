@@ -499,51 +499,10 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
   3. Controlled human testing has been conducted to calibrate task difficulty, ensure Inter-Human Difficulty Disparity (IDD), and verify that at least two humans can solve each task under a pass@2 criterion (aligned with the rules applied to AI systems).
   4. New tasks have been designed based on research insights—including symbolic interpretation, compositional reasoning, and contextual rule learning—to specifically challenge AI reasoning systems.
 
-- **AIME25**
-   ([AIME 2025 Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/aime-2025))
-
-  A dataset of math answers sourced from the 2025 AIME I exam (American Invitational Mathematics Examination). Suitable for QA tasks; fewer than 1,000 records; English only.
-
-- **HMMT 2025**
-
-  Problems from the February 2025 HMMT (Harvard-MIT Mathematics Tournament) used in the MathArena Leaderboard.
-
-- **AMO-Bench**
-   ([AMO-Bench](https://amo-bench.github.io/))
-
-  Released by Meituan LongCat, this benchmark includes 50 original competition-level problems authored by experts, with difficulty on par with or exceeding the IMO.
-
-- **IMO Bench**
-   ([imobench.github.io](https://imobench.github.io/))
-
-  A benchmark reviewed by IMO medalists and mathematicians (10 gold and 5 silver medals in total). IMO problems demand rigorous multi-step reasoning and creativity beyond formula application. IMO-Bench targets this difficulty level and consists of:
-
-  - **IMO-AnswerBench**: large-scale correct-answer testing
-  - **IMO-ProofBench**: higher-level evaluation targeting proof writing
-  - **IMO-GradingBench**: aims to advance automatic evaluation of long mathematical solutions
-
-- **FrontierMath** ([epoch.ai/frontiermath](https://epoch.ai/frontiermath))
-
-  Contains 350 original mathematical problems (including 50 at the highest difficulty level, Tier 4), spanning from challenging undergraduate-level questions to problems that may take expert mathematicians several days to solve. Requirements:
-
-  1. Clear and verifiable answers: Each problem must have a well-defined solution that can be objectively verified.
-  2. Guessing resistance: Solutions must be "guess-proof"—i.e., random guessing or simple brute-force approaches should have virtually no chance of success.
-  3. Computational feasibility: For computationally intensive problems, a script must be provided demonstrating how the answer can be obtained using only standard knowledge in the relevant field. The cumulative runtime of these scripts on standard hardware must be under one minute.
-
 - **MMLU-Pro**
    ([MMLU-Pro Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/mmlu-pro))
 
   A multi-task understanding dataset to rigorously evaluate LLMs. It contains 12k complex questions across many disciplines. Each question has 10 options and emphasizes reasoning-centric problems.
-
-- **GPQA Diamond**
-   ([GPQA Diamond Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/gpqa-diamond))
-
-  The hardest 198 questions from the GPQA benchmark, explicitly “Google-proof,” requiring true scientific expertise instead of search skills. These graduate-level physics, biology, and chemistry questions can only be reliably answered by PhD-level experts, making them ideal for testing deep scientific reasoning.
-
-- **CritPt**
-   ([CritPt Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/critpt))
-
-  A benchmark of 71 comprehensive research-level physics reasoning challenges.
 
 - **Frames**
 
@@ -622,6 +581,14 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
 
   Explores the boundaries of AI speech. It tests how models respond to sensitive and controversial prompts across providers, countries, and topics. While most benchmarks focus on what models *can* do, SpeechMap measures what they *won’t* do: what they avoid, refuse, or block.
 
+- **WeirdML** ([htihle.github.io/weirdml.html](https://htihle.github.io/weirdml.html))
+
+  Presents large language models (LLMs) with a series of unusual and non-standard machine learning tasks designed to require careful reasoning and genuine understanding to solve. WeirdML aims to evaluate an LLM’s ability to:
+  Truly understand the properties of the data and the nature of the problem
+  Design an appropriate machine learning architecture and training setup for the problem, 和 generate executable PyTorch code that implements a working solution
+  Debug and iteratively improve the solution over five rounds based on terminal output and test-set accuracy
+  Make effective use of limited computational resources and time
+
 - **SimpleQA**
 
   A benchmark released by OpenAI for evaluating LLMs on short factual questions. It contains 4,326 questions, each designed to have a single correct answer and be easy to score.
@@ -629,6 +596,37 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
 ------
 
 ## AI4S (Specialized Domains)
+
+- **AIME25**
+   ([AIME 2025 Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/aime-2025))
+
+  A dataset of math answers sourced from the 2025 AIME I exam (American Invitational Mathematics Examination). Suitable for QA tasks; fewer than 1,000 records; English only.
+
+- **HMMT 2025**
+
+  Problems from the February 2025 HMMT (Harvard-MIT Mathematics Tournament) used in the MathArena Leaderboard.
+
+- **AMO-Bench**
+   ([AMO-Bench](https://amo-bench.github.io/))
+
+  Released by Meituan LongCat, this benchmark includes 50 original competition-level problems authored by experts, with difficulty on par with or exceeding the IMO.
+
+- **IMO Bench**
+   ([imobench.github.io](https://imobench.github.io/))
+
+  A benchmark reviewed by IMO medalists and mathematicians (10 gold and 5 silver medals in total). IMO problems demand rigorous multi-step reasoning and creativity beyond formula application. IMO-Bench targets this difficulty level and consists of:
+
+  - **IMO-AnswerBench**: large-scale correct-answer testing
+  - **IMO-ProofBench**: higher-level evaluation targeting proof writing
+  - **IMO-GradingBench**: aims to advance automatic evaluation of long mathematical solutions
+
+- **FrontierMath** ([epoch.ai/frontiermath](https://epoch.ai/frontiermath))
+
+  Contains 350 original mathematical problems (including 50 at the highest difficulty level, Tier 4), spanning from challenging undergraduate-level questions to problems that may take expert mathematicians several days to solve. Requirements:
+
+  1. Clear and verifiable answers: Each problem must have a well-defined solution that can be objectively verified.
+  2. Guessing resistance: Solutions must be "guess-proof"—i.e., random guessing or simple brute-force approaches should have virtually no chance of success.
+  3. Computational feasibility: For computationally intensive problems, a script must be provided demonstrating how the answer can be obtained using only standard knowledge in the relevant field. The cumulative runtime of these scripts on standard hardware must be under one minute.
 
 - **PutnamBench**
    ([PutnamBench Leaderboard](https://trishullab.github.io/PutnamBench/leaderboard.html))
@@ -639,6 +637,19 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
   - 640 in Isabelle
   - 412 in Coq
 
+- **GPQA Diamond**
+   ([GPQA Diamond Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/gpqa-diamond))
+
+  The hardest 198 questions from the GPQA benchmark, explicitly “Google-proof,” requiring true scientific expertise instead of search skills. These graduate-level physics, biology, and chemistry questions can only be reliably answered by PhD-level experts, making them ideal for testing deep scientific reasoning.
+
+- **CritPt**
+   ([CritPt Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/critpt))
+
+  A benchmark of 71 comprehensive research-level physics reasoning challenges.
+
+- **FrontierScience** ([openai.com/index/frontierscience/](https://openai.com/index/frontierscience/))
+
+  A new benchmark introduced by OpenAI designed to evaluate expert-level scientific capabilities. FrontierScience is written and verified by experts in physics, chemistry, 和 biology, 和 consists of hundreds of questions crafted to be challenging, original, 和 meaningful. It includes two tracks: an Olympiad track, which measures Olympiad-style scientific reasoning abilities, 和 a Research track, which assesses real-world scientific research capabilities.
 ------
 
 # Visual Understanding & Reasoning
@@ -777,6 +788,7 @@ In OCR model evaluation, performance can vary widely across document types, lang
 
 
   A benchmark for moral role-playing, focusing on character behaviors and ethical boundaries in digital humans.
+
 
 
 
