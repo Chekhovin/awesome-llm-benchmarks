@@ -469,6 +469,10 @@ Tips：ベンチマーク（Benchmark）はモデル性能を評価する事実�
    32 のソフトウェア・604 のツールをカバーし、108 個のタスクを人手設計／スクリプト生成している。
    各タスクは平均約 20 ターンのインタラクションが必要な長期ツール利用を伴う。
 
+- **BFCL-V4**（[gorilla.cs.berkeley.edu/leaderboard.html](https://gorilla.cs.berkeley.edu/leaderboard.html)）
+
+  正式名称は「Berkeley Function-Calling Leaderboard（バークレー関数呼び出しリーダーボード）」で、大規模言語モデル（LLM）が関数（すなわちツール）を正確に呼び出せる能力を評価します。
+
 - **MCP-Universe**
    （[mcp-universe.github.io](https://mcp-universe.github.io/)）
 
@@ -1045,6 +1049,7 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
   デジタルヒューマンの「道徳的ロールプレイ」を評価するベンチマーク。
 
    キャラクター行動と倫理的制約のバランスを測る。
+
 
 
 
