@@ -281,6 +281,10 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
   一个评估语言智能体在真实环境中通用工具使用能力的基准。它涵盖基于现实世界软件环境的32 个软件应用和 604 个工具。每项任务都需要通过长程工具调用才能完成，共包含 108 个手动设计或编写的任务，平均每个任务需跨越约 20 轮交互。
 
+- BFCL-V4（[gorilla.cs.berkeley.edu/leaderboard.html](https://gorilla.cs.berkeley.edu/leaderboard.html)）
+
+  全称Berkeley Function-Calling Leaderboard，评估 LLM 准确调用函数（即工具）的能力。
+
 - MCP-Universe（[mcp-universe.github.io/](https://mcp-universe.github.io/)）
 
   基于真实世界模型上下文协议服务器的语言模型基准测试，
