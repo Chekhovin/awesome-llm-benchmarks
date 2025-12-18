@@ -363,6 +363,10 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
 
   A benchmark for general tool use in real software environments. It covers 32 software applications and 604 tools, each task requiring long-horizon tool use. There are 108 manually designed or scripted tasks, averaging ~20 interaction turns per task.
 
+- **BFCL-V4** ([gorilla.cs.berkeley.edu/leaderboard.html](https://gorilla.cs.berkeley.edu/leaderboard.html))
+
+  Stands for the Berkeley Function-Calling Leaderboard, which evaluates the ability of large language models (LLMs) to accurately invoke functions (i.e., tools).
+
 - **MCP-Universe**
    ([mcp-universe.github.io](https://mcp-universe.github.io/))
 
@@ -788,6 +792,7 @@ In OCR model evaluation, performance can vary widely across document types, lang
 
 
   A benchmark for moral role-playing, focusing on character behaviors and ethical boundaries in digital humans.
+
 
 
 
