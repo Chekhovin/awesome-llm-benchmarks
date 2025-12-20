@@ -496,6 +496,13 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
   openai推出的一个旨在衡量专家级科学能力的新基准。FrontierScience 由物理、化学和生物学领域的专家编写与验证，包含数百道设计为具有挑战性、原创性和意义的问题。FrontierScience 包含两个问题赛道：奥赛赛道，用于衡量类似奥赛风格的科学推理能力；研究赛道，用于衡量真实的科学研究能力。
 
+- Frontier-CS（[frontier-cs.org/leaderboard](https://frontier-cs.org/leaderboard)）
+
+  是一个未解决的、开放式的、可验证且多样化的基准，用于评估 AI 在具有挑战性的计算机科学问题上的表现。测试题为研究人员都难以解决的、没有已知最优解的，或需要深厚专业知识才能尝试的问题。
+
+  分为算法类和研究类两个榜单。算法类涵盖优化任务、构建任务和交互任务。研究类问题，涵盖六个主要计算机科学领域:操作系统(OS)、高性能计算(HPC)、人工智能(AI 研究任务)、数据库(DB)、程序设计语言(PL)和安全(网络安全与漏洞分析)。
+
+
 # 视觉理解与推理
 
 - MMMU（[mmmu-benchmark.github.io/](https://mmmu-benchmark.github.io/)）
