@@ -653,7 +653,16 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
 
 - **FrontierScience** ([openai.com/index/frontierscience/](https://openai.com/index/frontierscience/))
 
-  A new benchmark introduced by OpenAI designed to evaluate expert-level scientific capabilities. FrontierScience is written and verified by experts in physics, chemistry, 和 biology, 和 consists of hundreds of questions crafted to be challenging, original, 和 meaningful. It includes two tracks: an Olympiad track, which measures Olympiad-style scientific reasoning abilities, 和 a Research track, which assesses real-world scientific research capabilities.
+  A new benchmark introduced by OpenAI designed to evaluate expert-level scientific capabilities. FrontierScience is written and verified by experts in physics, chemistry, 和 biology, 和 consists of hundreds of questions crafted to be challenging, original,  meaningful. It includes two tracks: an Olympiad track, which measures Olympiad-style scientific reasoning abilities, 和 a Research track, which assesses real-world scientific research capabilities.
+
+- **Frontier-CS** ([frontier-cs.org/leaderboard](https://frontier-cs.org/leaderboard))
+
+  is an unsolved, open-ended, verifiable, diverse benchmark designed to evaluate AI performance on challenging computer science problems. The tasks included are those that even researchers find difficult to solve, lack known optimal solutions, or require deep domain expertise to attempt.
+
+  The benchmark comprises two leaderboards: Algorithmic and Research.
+  The Algorithmic track includes optimization tasks, constructive tasks, interactive tasks.
+  The Research track spans six major computer science domains: Operating Systems (OS), High-Performance Computing (HPC), Artificial Intelligence (AI research tasks), Databases (DB), Programming Languages (PL), 和 Security (cybersecurity and vulnerability analysis).
+
 ------
 
 # Visual Understanding & Reasoning
@@ -792,6 +801,7 @@ In OCR model evaluation, performance can vary widely across document types, lang
 
 
   A benchmark for moral role-playing, focusing on character behaviors and ethical boundaries in digital humans.
+
 
 
 
