@@ -149,6 +149,10 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
   在CodeClash中，2个及以上的大模型智能体在多轮锦标赛中于一个代码竞技场展开竞争。在锦标赛期间，每个智能体都在不断迭代改进自己的代码库，以实现一个高级别的竞争性目标（例如，积累资源、存活最长时间等）。
 
+- Metr Measuring AI Ability to Complete Long Tasks（[https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complet...](https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/)）
+
+  以 AI 智能体能够完成的任务长度来衡量 AI 性能。通过“模型以 x%概率成功完成的、人类所需耗时的长度”来刻画某一模型的能力（当前模型在人类耗时少于 4 分钟的任务上成功率接近 100%，但在人类耗时超过约 4 小时的任务上成功率低于 10%）。
+
 - Codeforces
 
   全世界最大的算法练习和竞赛平台之一
