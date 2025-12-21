@@ -189,6 +189,10 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
 
   In CodeClash, two or more LLM agents compete in multi-round tournaments in a shared “code arena.” During the tournament, each agent iteratively improves its codebase to achieve a high-level competitive objective (e.g., accumulating resources, surviving the longest).
 
+- **METR: Measuring AI Ability to Complete Long Tasks** ([https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/](https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/))
+
+  AI performance is evaluated based on the length of tasks an AI agent can successfully complete. A model's capability is characterized by "the duration of tasks—measured in human time—that the model can complete successfully with x% probability." Current models achieve near 100% success rates on tasks that take humans less than 4 分钟之前, but their success rate drops below 10% on tasks requiring humans more than approximately 4 小时之前.
+
 - **Codeforces**
 
   One of the largest global platforms for algorithm practice and programming contests.
@@ -801,6 +805,7 @@ In OCR model evaluation, performance can vary widely across document types, lang
 
 
   A benchmark for moral role-playing, focusing on character behaviors and ethical boundaries in digital humans.
+
 
 
 
