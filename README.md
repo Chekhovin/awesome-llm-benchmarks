@@ -598,6 +598,11 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
   - VUE-TR-V2：视频问答（Video QA）测试，实现了更均衡的视频时长分布和更贴近用户习惯的查询设计。
 
 - Moral RolePlay（[digitalhuman/RolePlay_Villain at main · Tencent/digitalhuman](https://github.com/Tencent/DigitalHuman/tree/main/RolePlay_Villain)）
+
+- OpenGameEval（[https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOA...](https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md)）
+
+  一个用于在 Roblox 游戏开发任务中评估 LLMs 的框架。
+
 # 独立评测
 
 以下为AI社区大佬们的独立评测
