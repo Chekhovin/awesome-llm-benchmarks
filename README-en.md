@@ -803,9 +803,11 @@ In OCR model evaluation, performance can vary widely across document types, lang
 - **Moral RolePlay**
    ([RolePlay_Villain](https://github.com/Tencent/DigitalHuman/tree/main/RolePlay_Villain))
 
-
   A benchmark for moral role-playing, focusing on character behaviors and ethical boundaries in digital humans.
 
+- **OpenGameEval** ([https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md](https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md))
+
+  A framework for evaluating LLMs on Roblox game development tasks.
 
 
 
