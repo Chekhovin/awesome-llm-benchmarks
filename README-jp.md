@@ -1062,6 +1062,10 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
 
    キャラクター行動と倫理的制約のバランスを測る。
 
+- **OpenGameEval**（[https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md](https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md)）
+
+  Robloxのゲーム開発タスクにおいて大規模言語モデル（LLM）を評価するためのフレームワーク。
+
 
 
 
