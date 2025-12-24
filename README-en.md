@@ -2,6 +2,8 @@
 
 Tips: Benchmarks constitute the de-facto standard for evaluating model performance, but the tests themselves are not infallible and may even have systemic flaws—for example τ²-bench.(Paper: [arxiv.org/abs/2511.16842](https://arxiv.org/abs/2511.16842))
 
+For the current challenges and limitations in evaluating LLMs, see the epoch.ai blog post "Why benchmarking is hard" (epoch.ai/gradient-updates/why-benchmarking-is-hard).
+
 ------
 
 # Comprehensive Benchmarks
@@ -808,6 +810,7 @@ In OCR model evaluation, performance can vary widely across document types, lang
 - **OpenGameEval** ([https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md](https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md))
 
   A framework for evaluating LLMs on Roblox game development tasks.
+
 
 
 
