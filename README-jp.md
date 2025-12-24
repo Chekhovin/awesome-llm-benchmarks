@@ -2,6 +2,8 @@
 
 Tips：ベンチマーク（Benchmark）はモデル性能を評価する事実上の標準になっているが、テスト自体が常に正確というわけではなく、τ²-bench のように体系的な欠陥を含むケースもある。（論文：[arxiv.org/abs/2511.16842](https://arxiv.org/abs/2511.16842)）
 
+LLMの評価における現在の課題と限界については、epoch.ai のブログ記事「Why benchmarking is hard」（epoch.ai/gradient-updates/why-benchmarking-is-hard）をご参照ください。
+
 ------
 
 # 総合ベンチマーク
@@ -1065,6 +1067,7 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
 - **OpenGameEval**（[https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md](https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md)）
 
   Robloxのゲーム開発タスクにおいて大規模言語モデル（LLM）を評価するためのフレームワーク。
+
 
 
 
