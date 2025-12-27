@@ -891,6 +891,10 @@ LLMの評価における現在の課題と限界については、epoch.ai の�
   アルゴリズム部門には、最適化タスク、構築タスク、インタラクティブタスクが含まれます。
   研究部門は、オペレーティングシステム（OS）、高性能計算（HPC）、人工知能（AI研究タスク）、データベース（DB）、プログラミング言語（PL）、セキュリティ（サイバーセキュリティおよび脆弱性分析）という6つの主要な計算機科学分野をカバーしています。
 
+- **SUPERChem**（[superchem.pku.edu.cn/leaderboard](https://superchem.pku.edu.cn/leaderboard)）
+
+  専門家が慎重に構築した、推論に焦点を当てたマルチモーダルベンチマークであり、大規模言語モデル（LLM）およびマルチモーダル大規模言語モデル（MLLM）の化学における深層推論能力を厳密に評価することを目的としています。500問の化学問題を含み、複数の異なるサブ分野をカバーしており、マルチモーダル形式とテキストのみの形式の両方で提供されています。
+
 ------
 
 # 視覚理解と推論
@@ -1071,6 +1075,7 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
 - **OpenGameEval**（[https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md](https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md)）
 
   Robloxのゲーム開発タスクにおいて大規模言語モデル（LLM）を評価するためのフレームワーク。
+
 
 
 
