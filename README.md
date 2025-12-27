@@ -318,6 +318,10 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
   一个旨在评估网络智能体在真实网站性能的基准测试，涵盖 136 个热门网的 300项任务，涉及多个领域，并采用可靠的 LLM 即法官（WebJudge）自动评估机制。根据人工标注所需步骤数，任务分为三个难度等级：简单（1-5 步）、中等（6-10 步）和困难（11 步以上）。
 
+- Mind2Web 2（[osu-nlp-group.github.io/Mind2Web-2/#leaderboard](https://osu-nlp-group.github.io/Mind2Web-2/#leaderboard)）
+
+  一个包含 130 个真实、高质量的长期任务的基准，用于测试Deep Research系统的能力。这些任务需要实时网页浏览和广泛的信息综合。由超过 1000 小时的人工劳动构建而成，每个任务均经过数小时的专家打磨与验证。
+
 ## LLM记忆与个性化
 
 - LoCoMo（[snap-research.github.io/locomo/](https://snap-research.github.io/locomo/)）
