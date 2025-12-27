@@ -417,6 +417,10 @@ For the current challenges and limitations in evaluating LLMs, see the epoch.ai 
   - Medium: 6–10 steps
   - Hard: 11+ steps
 
+- **Mind2Web 2** ([osu-nlp-group.github.io/Mind2Web-2/#leaderboard](https://osu-nlp-group.github.io/Mind2Web-2/#leaderboard))
+
+  A benchmark comprising 130 realistic, high-quality long-horizon tasks designed to evaluate the capabilities of Deep Research systems. These tasks require real-time web browsing and extensive information synthesis, 和 were constructed through over 1,000 小时之前 of human labor, with each task meticulously refined and validated by experts over several hours.
+
 ------
 
 ## LLM Memory & Personalization
@@ -810,6 +814,7 @@ In OCR model evaluation, performance can vary widely across document types, lang
 - **OpenGameEval** ([https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md](https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md))
 
   A framework for evaluating LLMs on Roblox game development tasks.
+
 
 
 
