@@ -673,6 +673,10 @@ For the current challenges and limitations in evaluating LLMs, see the epoch.ai 
   The Algorithmic track includes optimization tasks, constructive tasks, interactive tasks.
   The Research track spans six major computer science domains: Operating Systems (OS), High-Performance Computing (HPC), Artificial Intelligence (AI research tasks), Databases (DB), Programming Languages (PL), 和 Security (cybersecurity and vulnerability analysis).
 
+- **SUPERChem** ([superchem.pku.edu.cn/leaderboard](https://superchem.pku.edu.cn/leaderboard))
+
+  An expertly curated, reasoning-centric multimodal benchmark designed for rigorously evaluating the chemical deep reasoning capabilities of Large Language Models (LLMs) and Multimodal Large Language Models (MLLMs). It includes 500 chemistry questions spanning multiple subfields, provided in both multimodal and text-only formats.
+
 ------
 
 # Visual Understanding & Reasoning
@@ -814,6 +818,7 @@ In OCR model evaluation, performance can vary widely across document types, lang
 - **OpenGameEval** ([https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md](https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md))
 
   A framework for evaluating LLMs on Roblox game development tasks.
+
 
 
 
