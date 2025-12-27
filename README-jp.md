@@ -535,6 +535,10 @@ LLMの評価における現在の課題と限界については、epoch.ai の�
 
   に分類される。
 
+ - **Mind2Web 2**（[osu-nlp-group.github.io/Mind2Web-2/#leaderboard](https://osu-nlp-group.github.io/Mind2Web-2/#leaderboard)）
+
+    Deep Researchシステムの能力を評価するための、130件の現実的かつ高品質な長期タスクからなるベンチマークです。これらのタスクはリアルタイムでのウェブ閲覧と広範な情報統合を必要とします。構築には1,000時間以上の人手が費やされており、各タスクは専門家によって数時間かけて洗練・検証されています。
+
 ------
 
 ## LLM の記憶とパーソナライゼーション
@@ -1067,6 +1071,7 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
 - **OpenGameEval**（[https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md](https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md)）
 
   Robloxのゲーム開発タスクにおいて大規模言語モデル（LLM）を評価するためのフレームワーク。
+
 
 
 
