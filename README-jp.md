@@ -817,6 +817,10 @@ LLMの評価における現在の課題と限界については、epoch.ai の�
   OpenAI による「短く事実を問う質問」に特化したベンチマーク。
    4,326 問から成り、各質問には単一の正解があり、自動採点しやすいよう設計されている。
 
+- **Vending-Bench 2**（[andonlabs.com/evals/vending-bench-2](https://andonlabs.com/evals/vending-bench-2)）
+
+  AIモデルが長期間にわたりビジネスを運営する能力を評価するためのベンチマークです。モデルは1年間、自動販売機ビジネスをシミュレーションし、期末の銀行口座残高に基づいてスコアリングされます。
+
 ------
 
 ## AI4S（専門ドメイン向け）
@@ -1075,6 +1079,7 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
 - **OpenGameEval**（[https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md](https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md)）
 
   Robloxのゲーム開発タスクにおいて大規模言語モデル（LLM）を評価するためのフレームワーク。
+
 
 
 
