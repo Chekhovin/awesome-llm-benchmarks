@@ -607,6 +607,10 @@ For the current challenges and limitations in evaluating LLMs, see the epoch.ai 
 
   A benchmark released by OpenAI for evaluating LLMs on short factual questions. It contains 4,326 questions, each designed to have a single correct answer and be easy to score.
 
+- **Vending-Bench 2** ([andonlabs.com/evals/vending-bench-2](https://andonlabs.com/evals/vending-bench-2))
+
+  A benchmark for evaluating AI model performance in running a business over long time horizons. Models are tasked with simulating the operation of a vending machine business for one year and are scored based on their bank account balance at the end of the period.
+
 ------
 
 ## AI4S (Specialized Domains)
@@ -818,6 +822,7 @@ In OCR model evaluation, performance can vary widely across document types, lang
 - **OpenGameEval** ([https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md](https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md))
 
   A framework for evaluating LLMs on Roblox game development tasks.
+
 
 
 
