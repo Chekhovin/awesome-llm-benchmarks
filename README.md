@@ -463,6 +463,10 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
   OpenAI推出的基准测试，用在评估大型语言模型回答简短、寻求事实问题的能力。SimpleQA包含4326个问题，每个问题设计为只有一个正确答案，易于评分。
 
+- Vending-Bench 2（[andonlabs.com/evals/vending-bench-2](https://andonlabs.com/evals/vending-bench-2)）
+
+  一个用于衡量 AI 模型在长时间范围内运营企业表现的基准测试。模型需在一年内模拟运营自动售货机业务，并以其期末银行账户余额进行评分。
+
 ## AI4S（特化领域）
 
 - AIME25（[AIME 2025 Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/aime-2025)）
