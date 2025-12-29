@@ -4,6 +4,14 @@ Tips：ベンチマーク（Benchmark）はモデル性能を評価する事実�
 
 LLMの評価における現在の課題と限界については、epoch.ai のブログ記事「Why benchmarking is hard」（epoch.ai/gradient-updates/why-benchmarking-is-hard）をご参照ください。
 
+Hugging Face公式チュートリアルを参照してください：inspect-ai および lighteval の使用方法
+（[https://huggingface.co/docs/inference-providers/guides/evaluation-inspect-ai](https://huggingface.co/docs/inference-providers/guides/evaluation-inspect-ai)）
+（[https://github.com/huggingface/lighteval](https://github.com/huggingface/lighteval)）
+（[https://huggingface.co/docs/lighteval/main/en/index](https://huggingface.co/docs/lighteval/main/en/index)）
+
+Hugging Face公式が提供するオープンなベンチマークのまとめです。言語やタグでタスクを閲覧したり、タスクの説明文を検索したりできます。
+（[https://huggingface.co/spaces/OpenEvals/open_benchmark_index](https://huggingface.co/spaces/OpenEvals/open_benchmark_index)）
+
 ------
 
 # 総合ベンチマーク
@@ -1096,6 +1104,7 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
 
   データ系統解析：現代のデータセットは、しばしば高度な冗長性や隠れた依存関係の問題を抱えています。ODAは業界初のデータ系統解析ツールをリリースし、オープンソースデータの「系統樹」を可視化します。
 構造モデリング：継承、混合、蒸留を含む、データセット間の関係性をマッピングします。
+
 
 
 
