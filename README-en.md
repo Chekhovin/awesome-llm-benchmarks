@@ -823,6 +823,13 @@ In OCR model evaluation, performance can vary widely across document types, lang
 
   A framework for evaluating LLMs on Roblox game development tasks.
 
+# Data Quality Evaluation
+
+- **OpenDataArena** ([opendataarena.github.io/](https://opendataarena.github.io/))
+
+  Making every post-training dataset measurable, comparable, 和 verifiable. We evaluate post-training data across multiple domains (general, mathematics, code, science, 和 long-chain reasoning) and modalities (text and images). To ensure fair comparisons, we control variables by using fixed model scales (Llama3 / Qwen2 / Qwen3 / Qwen3-VL 7–8B) and consistent training configurations.
+  Data Lineage Analysis: Modern datasets often suffer from high redundancy and hidden dependencies. ODA introduces the industry’s first data lineage analysis tool to visualize the “genealogy” of open-source data.
+Structural Modeling: Maps relationships among datasets, including inheritance, mixing, and distillation.
 
 
 
