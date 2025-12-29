@@ -8,6 +8,10 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
 当前对LLM进行评测的难点和缺陷参见epoch.ai的博客《Why benchmarking is hard》（epoch.ai/gradient-updates/why-benchmarking-is-hard）
 
+自部署模型测试：参考Hugging Face官方教程：使用inspect-ai和lighteval（[https://huggingface.co/docs/inference-providers/guides/evaluatio...](https://huggingface.co/docs/inference-providers/guides/evaluation-inspect-ai)）（[https://huggingface.co/docs/inference-providers/guides/evaluatio...](https://huggingface.co/docs/inference-providers/guides/evaluation-inspect-ai)）（[huggingface.co/docs/lighteval/main/en/index](https://huggingface.co/docs/lighteval/main/en/index)）
+
+Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏览任务，并搜索任务描述。（[huggingface.co/spaces/OpenEvals/open_benchmark_index](https://huggingface.co/spaces/OpenEvals/open_benchmark_index)）
+
 # 综合评测
 
 - Artificial Analysis（[AI Model & API Providers Analysis | Artificial Analysis](https://artificialanalysis.ai/)）
