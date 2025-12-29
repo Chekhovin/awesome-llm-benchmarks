@@ -475,6 +475,14 @@ For the current challenges and limitations in evaluating LLMs, see the epoch.ai 
 
   A fully functional Android environment providing reward signals for 116 programming tasks across 20 real Android apps. Unlike static test sets, AndroidWorld dynamically constructs parameterized, natural-language tasks for testing at scale on realistic workloads.
 
+- **Mobile World** ([tongyi-mai.github.io/MobileWorld/](https://tongyi-mai.github.io/MobileWorld/))
+
+  A benchmark for evaluating autonomous mobile agents in agent-user interactive and MCP-augmented environments. It comprises 201 tasks across 20 applications, featuring long-horizon, cross-application workflows, as well as novel task categories including agent-user interaction and MCP-augmented tasks.
+
+  The difficulty of Mobile World lies in two aspects:
+  Long-horizon, cross-application tasks: Tasks in Mobile World require an average of 27.8 steps to complete—nearly twice the 14.3 steps required in AndroidWorld. Moreover, 62.2% of tasks involve cross-application workflows, compared to only 9.5% in AndroidWorld.
+  Novel task categories: Mobile World extends beyond standard GUI manipulation by introducing (1) agent-user interaction tasks (22.4% of the dataset), which evaluate an agent’s ability to handle ambiguous instructions through collaborative dialogue, 和 (2) MCP-augmented tasks (19.9% of the dataset), which require hybrid usage of GUI navigation and external tool invocations via the Model Context Protocol (MCP).
+
 - **ScreenSpot-V2**
    ([ScreenSpot-V2](https://gui-agent.github.io/grounding-leaderboard/screenspot.html))
 
@@ -830,6 +838,7 @@ In OCR model evaluation, performance can vary widely across document types, lang
   Making every post-training dataset measurable, comparable, 和 verifiable. We evaluate post-training data across multiple domains (general, mathematics, code, science, 和 long-chain reasoning) and modalities (text and images). To ensure fair comparisons, we control variables by using fixed model scales (Llama3 / Qwen2 / Qwen3 / Qwen3-VL 7–8B) and consistent training configurations.
   Data Lineage Analysis: Modern datasets often suffer from high redundancy and hidden dependencies. ODA introduces the industry’s first data lineage analysis tool to visualize the “genealogy” of open-source data.
 Structural Modeling: Maps relationships among datasets, including inheritance, mixing, and distillation.
+
 
 
 
