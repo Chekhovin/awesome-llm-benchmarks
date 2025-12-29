@@ -354,6 +354,14 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
   一个功能完整的安卓环境，为 20 款真实安卓应用中的 116 项编程任务提供奖励信号。与提供静态测试集的现有交互环境不同，AndroidWorld 能动态构建参数化且以自然语言无限表达的任务，从而在更庞大、更贴近现实的任务套件上进行测试。
 
+- Mobile World（[tongyi-mai.github.io/MobileWorld/](https://tongyi-mai.github.io/MobileWorld/)）
+
+  在人机交互与 MCP 增强环境中评估自主移动智能体，包含来自 20 个应用程序的 201 项任务，涵盖长周期、跨应用任务，以及智能体-用户交互和 MCP 增强型任务等新颖任务类别。
+
+  难度体现在两个方面：
+  长周期、跨应用任务。Mobile World 的任务平均需要 27.8 个完成步骤，几乎是 AndroidWorld 所需 14.3 步的两倍。此外，62.2% 的任务涉及跨应用工作流，而 AndroidWorld 中这一比例仅为 9.5%。
+  新颖的任务类别。Mobile World 通过引入（1）智能体-用户交互任务（占 22.4%），评估智能体通过协作对话处理模糊指令的能力，以及（2）MCP 增强任务（占 19.9%），要求结合 GUI 导航与通过模型上下文协议调用外部工具的混合使用。
+
 - ScreenSpot-V2（[https://gui-agent.github.io/grounding-leaderboard/screenspot.htm...](https://gui-agent.github.io/grounding-leaderboard/screenspot.html)）
 
   一个图形用户界面定位基准，能够将自然语言指令明确映射到屏幕上的像素级目标。
