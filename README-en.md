@@ -4,6 +4,14 @@ Tips: Benchmarks constitute the de-facto standard for evaluating model performan
 
 For the current challenges and limitations in evaluating LLMs, see the epoch.ai blog post "Why benchmarking is hard" (epoch.ai/gradient-updates/why-benchmarking-is-hard).
 
+Self-Deployed Model Evaluation: Refer to the official Hugging Face tutorials on using inspect-ai and lighteval:
+([https://huggingface.co/docs/inference-providers/guides/evaluation-inspect-ai](https://huggingface.co/docs/inference-providers/guides/evaluation-inspect-ai))
+([https://github.com/huggingface/lighteval](https://github.com/huggingface/lighteval))
+([https://huggingface.co/docs/lighteval/main/en/index](https://huggingface.co/docs/lighteval/main/en/index))
+
+Hugging Face's official collection of open benchmarks allows you to browse evaluation tasks by language and tags, and search task descriptions:
+([https://huggingface.co/spaces/OpenEvals/open_benchmark_index](https://huggingface.co/spaces/OpenEvals/open_benchmark_index))
+
 ------
 
 # Comprehensive Benchmarks
@@ -838,6 +846,7 @@ In OCR model evaluation, performance can vary widely across document types, lang
   Making every post-training dataset measurable, comparable, 和 verifiable. We evaluate post-training data across multiple domains (general, mathematics, code, science, 和 long-chain reasoning) and modalities (text and images). To ensure fair comparisons, we control variables by using fixed model scales (Llama3 / Qwen2 / Qwen3 / Qwen3-VL 7–8B) and consistent training configurations.
   Data Lineage Analysis: Modern datasets often suffer from high redundancy and hidden dependencies. ODA introduces the industry’s first data lineage analysis tool to visualize the “genealogy” of open-source data.
 Structural Modeling: Maps relationships among datasets, including inheritance, mixing, and distillation.
+
 
 
 
