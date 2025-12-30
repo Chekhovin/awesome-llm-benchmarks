@@ -279,6 +279,14 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
 
   A comprehensive benchmark for deep research agents, consisting of 100 PhD-level research tasks. Each task is carefully designed by 22 domain experts across different fields, with 50 tasks in Chinese and 50 in English.
 
+- **FutureX** ([futurex-ai.github.io/](https://futurex-ai.github.io/))
+
+  A dynamic benchmark designed to forecast the unknown future, featuring:
+
+  - **No data contamination**: By requiring predictions about future events, it ensures answers are absent from any model's training data. Approximately 500 new events are added each week.
+  - **Real-world challenges**: Agents analyze real-time, real-world information to predict future events, rather than operating in simulated environments.
+  - **Large-scale**: Built upon 195 high-quality sources (carefully selected from over 2,000 websites), covering multiple domains.
+  - **Fully automated pipeline**: A closed-loop system that automatically collects questions daily, runs 27 AI agents, and scores their predictions.
 
 - **xbench**
    ([xbench --- xbench](https://xbench.org/))
@@ -627,6 +635,10 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
 
   A benchmark for evaluating AI model performance in running a business over long time horizons. Models are tasked with simulating the operation of a vending machine business for one year and are scored based on their bank account balance at the end of the period.
 
+- **PostTrainBench** ([posttrainbench.com/](https://posttrainbench.com/))
+
+  Measures the level of automation in AI research and development by testing whether AI agents can successfully perform post-training optimization on other language models. Each agent is given four base models (Qwen 3 1.7B, Qwen 3 4B, SmolLM3-3B, and Gemma 3 4B), access to a single H100 GPU, and a 10-hour time limit to improve model performance through post-training.
+
 ------
 
 ## AI4S (Specialized Domains)
@@ -830,6 +842,10 @@ In OCR model evaluation, performance can vary widely across document types, lang
     4. Evaluation uses optimized vIoU/tIoU/vIoU-Intersection metrics for multi-segment spatiotemporal grounding.
   - **VUE-TR-V2**: A Video QA benchmark with more balanced video duration distributions and query formats closer to real user behavior.
 
+- **LongShOTBench** ([mbzuai-oryx.github.io/LongShOT/](https://mbzuai-oryx.github.io/LongShOT/))
+
+  This benchmark uniquely combines temporal length with multimodal richness. It includes open-ended, intent-driven questions, single- and multi-turn dialogues, and tasks requiring multimodal reasoning and agentic tool use across video, audio, and speech.
+
 - **Moral RolePlay**
    ([RolePlay_Villain](https://github.com/Tencent/DigitalHuman/tree/main/RolePlay_Villain))
 
@@ -846,6 +862,7 @@ In OCR model evaluation, performance can vary widely across document types, lang
   Making every post-training dataset measurable, comparable, 和 verifiable. We evaluate post-training data across multiple domains (general, mathematics, code, science, 和 long-chain reasoning) and modalities (text and images). To ensure fair comparisons, we control variables by using fixed model scales (Llama3 / Qwen2 / Qwen3 / Qwen3-VL 7–8B) and consistent training configurations.
   Data Lineage Analysis: Modern datasets often suffer from high redundancy and hidden dependencies. ODA introduces the industry’s first data lineage analysis tool to visualize the “genealogy” of open-source data.
 Structural Modeling: Maps relationships among datasets, including inheritance, mixing, and distillation.
+
 
 
 
