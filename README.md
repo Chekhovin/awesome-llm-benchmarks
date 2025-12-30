@@ -214,6 +214,15 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   面向深度研究代理的综合性基准测试，包含 100 个博士级研究任务，每个任务均由 22 个不同领域的领域专家精心设计，其中 50 个为中文任务，50 个为英文任务。
 
+- FutureX（[futurex-ai.github.io/](https://futurex-ai.github.io/)）
+
+  一个旨在预测未知未来的动态基准测试，核心特性：
+
+  - 无数据污染： 通过要求预测未来事件，确保答案不会出现在任何模型的训练数据中。每周约有 500 个新事件 。
+  - 现实挑战： 智能体分析实时的现实世界信息，以预测未来事件，而非在模拟环境中运行。
+  - 大规模： 依托 195 个高质量来源 （从超过 2,000 个网站中精选），覆盖多个领域 。
+  - 全自动化流程： 闭环系统每日自动采集问题、运行 27 个智能代理 ，并评分结果。
+
 - xbench（[xbench --- xbench](https://xbench.org/)）
 
   国内机构合作推出的基准测试。包含两条互补的赛道，旨在衡量人工智能系统的智能前沿与实际应用价值。  
@@ -479,6 +488,10 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   一个用于衡量 AI 模型在长时间范围内运营企业表现的基准测试。模型需在一年内模拟运营自动售货机业务，并以其期末银行账户余额进行评分。
 
+- PostTrainBench（[posttrainbench.com/](https://posttrainbench.com/)）
+
+  通过测试 AI 智能体能否成功对其他语言模型进行训练后优化，来衡量 AI 研发的自动化水平。每个智能体将获得四个基础模型（Qwen 3 1.7B、Qwen 3 4B、SmolLM3-3B 和 Gemma 3 4B）、一台 H100 GPU，以及十小时的时间限制，以通过训练后优化提升模型性能。
+
 ## AI4S（特化领域）
 
 - AIME25（[AIME 2025 Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/aime-2025)）
@@ -622,6 +635,10 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   - VUE-STG：在实际场景中全面评估 STG（时空定位）能力。1）视频时长覆盖约 10 秒至 30 分钟，支持长上下文推理；2）查询格式多数转换为名词短语，同时保留句子级表达能力；3）标注质量采用人工精准标注所有真实时间范围与边界框；4）评估指标采用优化的 vIoU/tIoU/vIoU-Intersection 方案进行多片段时空评估。
   - VUE-TR-V2：视频问答（Video QA）测试，实现了更均衡的视频时长分布和更贴近用户习惯的查询设计。
+
+- LongShOTBench（[mbzuai-oryx.github.io/LongShOT/](https://mbzuai-oryx.github.io/LongShOT/)）
+
+  该基准兼顾时间长度和多模态丰富性。包含开放式、意图驱动的问题、单轮与多轮对话，以及跨视频、音频与语音的多模态推理与智能工具使用任务。
 
 - Moral RolePlay（[digitalhuman/RolePlay_Villain at main · Tencent/digitalhuman](https://github.com/Tencent/DigitalHuman/tree/main/RolePlay_Villain)）
 
