@@ -116,6 +116,9 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 - terminal-bench（[Terminal-Bench --- Terminal-Bench](https://www.tbench.ai/)）（[Artificial Analysis](https://artificialanalysis.ai/evaluations/terminalbench-hard)）
 
   是一组任务和评估框架，用于评估 AI 智能体在终端环境中完成复杂任务的表现。任务示例包括：编译和打包代码仓库，下载数据集并在其上训练分类器，设置服务器。Terminal-Bench 中的每个任务包括一段英文描述，一个 Docker 环境，用于验证代理是否成功完成任务的测试脚本，解决该任务的参考（“理想”）方案。
+  - Terminal-Bench Pro（[alibaba.github.io/terminal-bench-pro/](https://alibaba.github.io/terminal-bench-pro/)）
+
+    阿里发布的一个用于在真实终端环境中测试 AI 智能体的扩展基准测试数据集。从编译代码到训练模型、设置服务器，Terminal-Bench Pro 评估智能体处理真实世界端到端任务的能力——完全自主地执行。包含 200+ 个任务 **。**
 
 - ArtifactsBench（[ArtifactsBench: Bridging the Visual-Interactive Gap in LLM Code Generation Evaluation](https://artifactsbenchmark.github.io/)）
 
