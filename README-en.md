@@ -29,6 +29,9 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
 
     A standardized and independently evaluated metric to measure how open AI models are in terms of usability and transparency. Openness is not just about downloadable model weights—it also concerns licensing, data, and methodology. Models scoring 100 on the Openness Index provide open weights, a permissive license, and fully released training code, pre-training data, and post-training data—allowing users not only to use the model, but also to fully reproduce its training process or draw from some or all of the creators’ methods to build their own models.
 
+- **llm-stats** ([llm-stats.com/](https://llm-stats.com/))  
+  A comprehensive evaluation website featuring benchmark aggregations ([llm-stats.com/benchmarks](https://llm-stats.com/benchmarks)).
+
 - **SEAL LLM Leaderboards** ([scale.com/leaderboard](https://scale.com/leaderboard))
 
   Evaluating the agent capabilities, frontier performance, safety, 和 public sentiment of the latest LLMs.
@@ -869,6 +872,7 @@ In OCR model evaluation, performance can vary widely across document types, lang
   Making every post-training dataset measurable, comparable, 和 verifiable. We evaluate post-training data across multiple domains (general, mathematics, code, science, 和 long-chain reasoning) and modalities (text and images). To ensure fair comparisons, we control variables by using fixed model scales (Llama3 / Qwen2 / Qwen3 / Qwen3-VL 7–8B) and consistent training configurations.
   Data Lineage Analysis: Modern datasets often suffer from high redundancy and hidden dependencies. ODA introduces the industry’s first data lineage analysis tool to visualize the “genealogy” of open-source data.
 Structural Modeling: Maps relationships among datasets, including inheritance, mixing, and distillation.
+
 
 
 
