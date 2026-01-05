@@ -24,6 +24,10 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
     一项标准化且独立评估的指标，用于衡量人工智能模型在可用性和透明度方面的开放程度。开放性不仅仅指能够下载模型权重。它还涉及许可协议、数据和方法论。在开放指数中获得 100 分的模型将具备开放权重、采用宽松许可协议，并完整发布训练代码、预训练数据和训练后数据——这不仅允许用户使用模型，还能完全复现其训练过程，或从模型创建者的部分或全部方法中汲取灵感来构建自己的模型。
 
+- llm-stats（[llm-stats.com/](https://llm-stats.com/)）
+
+  一个综合性评测网站。包含benchmark汇总（[llm-stats.com/benchmarks](https://llm-stats.com/benchmarks)）
+
 - SEAL LLM Leaderboards（[scale.com/leaderboard](https://scale.com/leaderboard)）
 
   评估最新 LLM 的智能体能力、前沿性能、安全性及公众情绪。
