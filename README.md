@@ -600,6 +600,10 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   一个面向多模态、多学科的基准，用于评估 LMMs 从视频中获取和运用知识的能力。Video-MMMU 包含六个专业领域（30个细分学科）中精心挑选的 300 个专家级视频和 900 个人工标注的问题，通过与认知阶段对齐的问题-答案对（感知、理解、适应）来评估知识获取能力。每个视频包含三组问答对，分别对应知识获取的三个阶段：感知（识别与知识相关的关键信息）、理解（掌握底层概念）和适应（将知识应用于新情境）。此外，评估模型“增量准确率”——即在观看视频后性能的提升幅度。
 
+## 世界模型
+- WorldScore（huggingface.co/spaces/Howieeeee/WorldScore_Leaderboard）
+    统一评估 3D、4D 和 视频模型在根据指令生成世界方面的能力。与现有专注于单场景质量的基准不同，该基准基于明确的摄像机轨迹，将世界生成分解为一系列后续场景生成任务，同时衡量可控性、质量和动态表现。
+
 # OCR与嵌入评测
 
 [Supercharge your OCR Pipelines with Open Models](https://huggingface.co/blog/ocr-open-models)
