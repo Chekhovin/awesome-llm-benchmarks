@@ -140,6 +140,10 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
     用于评估软件工程智能体的具有挑战性的软件优化任务。通过 10 个代码库中的 102 项具有挑战性的优化任务，评估语言模型开发高性能软件的能力。该基准测试衡量模型在运行时效率上的提升，与专家开发者优化结果进行对比。
 
+- LiveCodeBench Pro（[livecodebenchpro.com/](https://livecodebenchpro.com/)）
+
+  测试分为easy、medium、hard三个等级。
+
 - Aider’s polyglot benchmark（[Aider LLM Leaderboards | aider](https://aider.chat/docs/leaderboards/)）
 
   在 C++、Go、Java、JavaScript、Python 和 Rust 中的 225 个具有挑战性的 Exercism 编程练习上对 LLM 进行测试。
