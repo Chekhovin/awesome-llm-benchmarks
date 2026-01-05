@@ -173,6 +173,10 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
 
     A challenging software optimization benchmark for evaluating software engineering agents. Using 102 difficult optimization tasks in 10 codebases, it measures models’ ability to develop high-performance software by comparing runtime improvements against expert-developer baselines.
 
+- **LiveCodeBench Pro** ([livecodebenchpro.com/](https://livecodebenchpro.com/))  
+
+  The tests are divided into three difficulty levels: easy, medium, and hard.
+
 - **Aider’s polyglot benchmark**
    ([Aider LLM Leaderboards | aider](https://aider.chat/docs/leaderboards/))
 
@@ -872,6 +876,7 @@ In OCR model evaluation, performance can vary widely across document types, lang
   Making every post-training dataset measurable, comparable, 和 verifiable. We evaluate post-training data across multiple domains (general, mathematics, code, science, 和 long-chain reasoning) and modalities (text and images). To ensure fair comparisons, we control variables by using fixed model scales (Llama3 / Qwen2 / Qwen3 / Qwen3-VL 7–8B) and consistent training configurations.
   Data Lineage Analysis: Modern datasets often suffer from high redundancy and hidden dependencies. ODA introduces the industry’s first data lineage analysis tool to visualize the “genealogy” of open-source data.
 Structural Modeling: Maps relationships among datasets, including inheritance, mixing, and distillation.
+
 
 
 
