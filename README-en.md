@@ -788,6 +788,10 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
 
 ------
 
+## World Models  
+- **WorldScore** ([huggingface.co/spaces/Howieeeee/WorldScore_Leaderboard](https://huggingface.co/spaces/Howieeeee/WorldScore_Leaderboard))  
+  A unified benchmark for evaluating the ability of 3D, 4D, and video models to generate worlds according to instructions. Unlike existing benchmarks that focus solely on the quality of individual scenes, this benchmark decomposes world generation into a sequence of subsequent scene-generation tasks based on explicit camera trajectories, while simultaneously measuring controllability, quality, and dynamic performance.
+
 # OCR & Embedding Evaluation
 
 [Supercharge your OCR Pipelines with Open Models](https://huggingface.co/blog/ocr-open-models)
@@ -865,6 +869,7 @@ In OCR model evaluation, performance can vary widely across document types, lang
   Making every post-training dataset measurable, comparable, 和 verifiable. We evaluate post-training data across multiple domains (general, mathematics, code, science, 和 long-chain reasoning) and modalities (text and images). To ensure fair comparisons, we control variables by using fixed model scales (Llama3 / Qwen2 / Qwen3 / Qwen3-VL 7–8B) and consistent training configurations.
   Data Lineage Analysis: Modern datasets often suffer from high redundancy and hidden dependencies. ODA introduces the industry’s first data lineage analysis tool to visualize the “genealogy” of open-source data.
 Structural Modeling: Maps relationships among datasets, including inheritance, mixing, and distillation.
+
 
 
 
