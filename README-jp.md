@@ -40,6 +40,14 @@ Hugging Face公式が提供するオープンなベンチマークのまとめ�
 - **llm-stats**（[llm-stats.com/](https://llm-stats.com/)）  
   総合的な評価サイト。ベンチマークのまとめを含む（[llm-stats.com/benchmarks](https://llm-stats.com/benchmarks)）
 
+- **vals.ai**（[www.vals.ai/home](https://www.vals.ai/home)）  
+
+  総合的な評価を行うウェブサイトで、「総合」「法務」「金融」「医療」「数学」「学術」「教育」「コーディング」「ゲーム」などのカテゴリに分かれています。
+
+  - Vals Index（ヴァルス・インデックス）  
+  
+    AIモデルが金融、法務、ソフトウェアエンジニアリングの各分野において実際のタスクを遂行できる能力を測定します。この指標は、主要産業におけるモデルの性能の加重平均を算出することで得られ、その重みは各産業が米国経済に与える貢献度に基づいています。
+
 - **SEAL LLMリーダーボード**（[scale.com/leaderboard](https://scale.com/leaderboard)）
 
   最新の大規模言語モデル（LLM）のエージェント能力、最先端性能、安全性、および世論への影響を評価します。
@@ -247,6 +255,9 @@ Hugging Face公式が提供するオープンなベンチマークのまとめ�
 
 - **Roo Code evals**
    （[Evals | Roo Code](https://roocode.com/evals)）
+
+- **CTO Bench**（[cto.new/bench](https://cto.new/bench)）  
+  cto.newのユーザーが実際に提出したエンドツーエンドのコーディングタスクにおける、モデルの成功率を示します。
 
 - **CodeClash**
    （[CodeClash](https://codeclash.ai/)）
@@ -1135,6 +1146,19 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
   データ系統解析：現代のデータセットは、しばしば高度な冗長性や隠れた依存関係の問題を抱えています。ODAは業界初のデータ系統解析ツールをリリースし、オープンソースデータの「系統樹」を可視化します。
 構造モデリング：継承、混合、蒸留を含む、データセット間の関係性をマッピングします。
 
+# AIハードウェア性能
+
+- **InferenceMAX**（[inferencemax.semianalysis.com/](https://inferencemax.semianalysis.com/)）  
+  主要なハードウェアプラットフォーム上で人気モデルのベンチマークを実施し、新しいソフトウェアバージョンがリリースされるたびにテスト基準を更新しています。  
+  モデルとハードウェアの各組み合わせについて、InferenceMAXは異なるテンソル並列サイズおよび最大同時リクエスト数を網羅的に試行し、スループットとレイテンシの関係を示す包括的なグラフを生成します。
+
+- **MLPerf Training**（[mlcommons.org/benchmarks/training/](https://mlcommons.org/benchmarks/training/)）  
+  MLPerfトレーニングベンチマークスイートは、システムがモデルを所定の品質目標に達するまで訓練するのに要する時間を測定します。
+
+- **GPU Benchmark**（[perf.svcfusion.com/](https://perf.svcfusion.com/)）  
+  - 各種コンピュートカードのFP32、FP16、BF16性能を確認できます。  
+  - 全てのデータは、人が実際にベンチマークスクリプトを実行して取得したものであり、仕様書上の理論値をそのまま転載していません。また、誰でも自分で実行した結果をアップロードできます。  
+  - テストに使用したプラットフォーム名が明記されており、異なるプラットフォーム間でのGPU性能の差を比較可能です。
 
 
 
