@@ -32,6 +32,12 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
 - **llm-stats** ([llm-stats.com/](https://llm-stats.com/))  
   A comprehensive evaluation website featuring benchmark aggregations ([llm-stats.com/benchmarks](https://llm-stats.com/benchmarks)).
 
+- **vals.ai** ([www.vals.ai/home](https://www.vals.ai/home))  
+  A comprehensive evaluation platform, categorized into domains such as general performance, legal, finance, healthcare, mathematics, academia, education, coding, and gaming.
+
+  - Vals Index  
+    Measures AI models' ability to perform real-world tasks in finance, law, and software engineering. This is achieved by computing a weighted average of model performance across key industries, with weights corresponding to each industry's contribution to the U.S. economy.
+
 - **SEAL LLM Leaderboards** ([scale.com/leaderboard](https://scale.com/leaderboard))
 
   Evaluating the agent capabilities, frontier performance, safety, 和 public sentiment of the latest LLMs.
@@ -201,6 +207,9 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
 
 - **Roo Code evals**
    ([Evals | Roo Code](https://roocode.com/evals))
+
+- **CTO Bench** ([cto.new/bench](https://cto.new/bench))  
+  Measures the success rate of models on real end-to-end coding tasks submitted by users of cto.new.
 
 - **CodeClash**
    ([CodeClash](https://codeclash.ai/))
@@ -877,6 +886,19 @@ In OCR model evaluation, performance can vary widely across document types, lang
   Data Lineage Analysis: Modern datasets often suffer from high redundancy and hidden dependencies. ODA introduces the industry’s first data lineage analysis tool to visualize the “genealogy” of open-source data.
 Structural Modeling: Maps relationships among datasets, including inheritance, mixing, and distillation.
 
+# AI Hardware Performance
+
+- **InferenceMAX** ([inferencemax.semianalysis.com/](https://inferencemax.semianalysis.com/))  
+  Benchmarks popular models on major hardware platforms and updates benchmarks as new software versions are released.  
+  For each model–hardware combination, InferenceMAX sweeps across different tensor parallelism configurations and maximum concurrent request counts, producing comprehensive throughput-vs-latency graphs.
+
+- **MLPerf Training** ([mlcommons.org/benchmarks/training/](https://mlcommons.org/benchmarks/training/))  
+  The MLPerf Training benchmark suite measures how quickly systems can train models to a specified target quality metric.
+
+- **GPU Benchmark** ([perf.svcfusion.com/](https://perf.svcfusion.com/))  
+  - Supports viewing FP32, FP16, and BF16 performance across different compute GPUs.  
+  - All data points are manually generated using standardized benchmark scripts—no theoretical or spec-sheet numbers are used—and the platform allows anyone to upload their own benchmark results.  
+  - Each result is labeled with the test platform name, enabling direct comparison of GPU performance across different hardware setups.
 
 
 
