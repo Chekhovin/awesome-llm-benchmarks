@@ -28,6 +28,14 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   一个综合性评测网站。包含benchmark汇总（[llm-stats.com/benchmarks](https://llm-stats.com/benchmarks)）
 
+- vals.ai（[www.vals.ai/home](https://www.vals.ai/home)）
+
+  一个综合性评测网站，分为综合、法律、金融、医疗、数学、学术、教育、编码、游戏等类别。
+
+  - Vals Index
+
+    衡量 AI 模型在金融、法律与软件工程领域执行真实任务的能力。通过计算模型在关键行业中的表现加权平均值来实现这一目标，权重则对应各行业对美国经济的贡献。
+
 - SEAL LLM Leaderboards（[scale.com/leaderboard](https://scale.com/leaderboard)）
 
   评估最新 LLM 的智能体能力、前沿性能、安全性及公众情绪。
@@ -159,6 +167,10 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
   旨在评估大语言模型（LLMs）在竞赛级别的代码推理能力。我们的数据集专注于人类编程竞赛，包含 232 道经过严格筛选的竞赛题目，来源为中国全国信息学奥林匹克竞赛（NOI）和国际大学生程序设计竞赛（ICPC）。每道题目均根据参赛者投票和真实提交数据，细致划分为三个难度等级：简单、中等和困难。OJBench 支持 Python 和 C++ 双语评估。
 
 - Roo Code evals（[Evals | Roo Code](https://roocode.com/evals)）
+
+- cto bench（[cto.new/bench](https://cto.new/bench)）
+
+  模型在来自cto.new用户的真实端到端编码任务上的成功率
 
 - CodeClash（[CodeClash](https://codeclash.ai/)）
 
@@ -677,4 +689,20 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 - OpenDataArena（[opendataarena.github.io/](https://opendataarena.github.io/)）
 
   让每个训练后数据集都具备可测量性、可比性和可验证性，评估多个领域（通用、数学、代码、科学和长链推理）和多种模态（文本、图像）的训练后数据。通过使用固定模型规模（Llama3 / Qwen2 / Qwen3 / Qwen3-VL 7-8B）和一致的训练配置来控制变量。数据血缘分析现代数据集通常存在高度冗余和隐藏依赖的问题。ODA推出了业内首个数据血缘分析工具，用于可视化开源数据的“谱系”。结构建模：映射数据集之间的关系，包括继承、混合和蒸馏。
+
+# AI硬件性能
+- InferenceMAX（[inferencemax.semianalysis.com/](https://inferencemax.semianalysis.com/)）
+
+  通过在主流硬件平台上对热门模型进行基准测试，并在新软件版本发布时更新测试标准。
+  对于每种模型与硬件组合，InferenceMAX 都会遍历不同的张量并行规模和最大并发请求数，生成一张完整的吞吐量与延迟对比图。
+
+- MLPerf Training（[mlcommons.org/benchmarks/training/](https://mlcommons.org/benchmarks/training/)）
+
+  MLPerf 训练基准套件衡量系统训练模型达到目标质量指标的速度。
+
+- GPU Benchmark（[perf.svcfusion.com/](https://perf.svcfusion.com/)）
+
+  - 支持查看不同计算卡的 FP32、FP16、BF16 性能
+  - 每一条数据都由人工同 benchmark 脚本跑出来的，不直接搬运纸面数据，并且支持所有人上传自己跑出来的数据
+  - 标注测试平台名称，可以对比不同平台显卡性能的差距
 ‍
