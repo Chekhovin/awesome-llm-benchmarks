@@ -515,6 +515,10 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   通过测试 AI 智能体能否成功对其他语言模型进行训练后优化，来衡量 AI 研发的自动化水平。每个智能体将获得四个基础模型（Qwen 3 1.7B、Qwen 3 4B、SmolLM3-3B 和 Gemma 3 4B）、一台 H100 GPU，以及十小时的时间限制，以通过训练后优化提升模型性能。
 
+- YapBench（[huggingface.co/spaces/tabularisai/YapBench](https://huggingface.co/spaces/tabularisai/YapBench)）
+
+  衡量在简短回答即可的情况下，大型语言模型（LLMs）的啰嗦程度（存在长度偏好）。每个条目都包含一个单轮提示词、一个精心筛选的最小充分基准答案以及一个类别标签。主要指标YapScore以字符为单位衡量超出基准的响应长度，无需依赖任何特定的分词器，不同模型的结果也具有可比性。包含三百多个英文提示词，涵盖三种常见的追求简洁的场景：（A）最小化/模糊输入，理想的应对方式是简短的澄清；（B）封闭式事实性问题，答案简短且固定；（C）单行编码任务，只需一个命令/代码片段即可完成。
+
 ## AI4S（特化领域）
 
 - AIME25（[AIME 2025 Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/aime-2025)）
