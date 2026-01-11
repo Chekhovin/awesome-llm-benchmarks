@@ -658,6 +658,11 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
 
   Measures the level of automation in AI research and development by testing whether AI agents can successfully perform post-training optimization on other language models. Each agent is given four base models (Qwen 3 1.7B, Qwen 3 4B, SmolLM3-3B, and Gemma 3 4B), access to a single H100 GPU, and a 10-hour time limit to improve model performance through post-training.
 
+- **YapBench** ([huggingface.co/spaces/tabularisai/YapBench](https://huggingface.co/spaces/tabularisai/YapBench))
+
+  Measures the verbosity (length preference) of large language models (LLMs) in situations where a short answer would suffice. Each entry contains a single-turn prompt, a carefully curated minimally sufficient ground truth answer, and a category label. The primary metric, YapScore, measures the response length beyond the ground truth in characters, without relying on any specific tokenizer, making results comparable across different models. Contains over 300 English prompts, covering three common scenarios where conciseness is desired: (A) Minimal/ambiguous input, where the ideal response is a brief clarification; (B) Closed-ended factual questions, with short and fixed answers; (C) Single-line coding tasks, requiring only one command/code snippet.
+
+
 ------
 
 ## AI4S (Specialized Domains)
@@ -899,6 +904,7 @@ Structural Modeling: Maps relationships among datasets, including inheritance, m
   - Supports viewing FP32, FP16, and BF16 performance across different compute GPUs.  
   - All data points are manually generated using standardized benchmark scripts—no theoretical or spec-sheet numbers are used—and the platform allows anyone to upload their own benchmark results.  
   - Each result is labeled with the test platform name, enabling direct comparison of GPU performance across different hardware setups.
+
 
 
 
