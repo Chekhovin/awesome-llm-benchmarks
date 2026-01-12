@@ -612,6 +612,10 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   国内机构推出。包含六大类别（如数量变化、空间关系、属性比较）的 1000 道人工验证题目，从多维度考察多模态大模型的视觉推理能力。
 
+- BabyVision（[xbench.org/agi/babyVision](https://xbench.org/agi/babyVision)）
+
+  xbench 的 AGI 对齐系列的一部分，专注于评估 “无法言说” 挑战中的视觉理解能力。
+
 - OCRBench v2（[99franklin.github.io/ocrbench_v2/](https://99franklin.github.io/ocrbench_v2/)）
 
   一个用于评估大型多模态模型在视觉文本定位与推理方面的改进基准。包含 10000 组人工验证的问答，且高难度样本占比很高。覆盖31 个不同场景，包括街景、收据、公式、图表等
