@@ -482,7 +482,7 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
   - A user persona with static attributes (e.g., demographics)
   - Dynamic attributes (e.g., evolving preferences)
 
-  Users interact with chatbots in multi-turn sessions on topics such as food, travel planning, and counseling. As preferences evolve, the benchmark provides labeled queries to test whether LLMs can deliver the most appropriate responses to first-person user queries.
+  Users interact with chatbots in multi-turn sessions on topics such as food, travel planning, 和 counseling. As preferences evolve, the benchmark provides labeled queries to test whether LLMs can deliver the most appropriate responses to first-person user queries.
 
 - **Personalized Deep Research**
    ([arxiv.org/abs/2509.25106](https://arxiv.org/abs/2509.25106))
@@ -553,7 +553,7 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
 
   1. All evaluation sets (public, semi-private, and private) now contain 120 tasks each (increased from 100).
   2. Tasks susceptible to brute-force search have been removed from the evaluation sets—specifically, all tasks solved in the 2020 Kaggle competition.
-  3. Controlled human testing has been conducted to calibrate task difficulty, ensure Inter-Human Difficulty Disparity (IDD), and verify that at least two humans can solve each task under a pass@2 criterion (aligned with the rules applied to AI systems).
+  3. Controlled human testing has been conducted to calibrate task difficulty, ensure Inter-Human Difficulty Disparity (IDD), 和 verify that at least two humans can solve each task under a pass@2 criterion (aligned with the rules applied to AI systems).
   4. New tasks have been designed based on research insights—including symbolic interpretation, compositional reasoning, and contextual rule learning—to specifically challenge AI reasoning systems.
 
 - **MMLU-Pro**
@@ -780,6 +780,10 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
 
   A domestic benchmark of 1,000 human-verified questions across six categories (e.g., quantitative changes, spatial relations, attribute comparisons) testing visual reasoning from multiple angles.
 
+- **BabyVision** ([xbench.org/agi/babyVision](https://xbench.org/agi/babyVision))
+
+  Part of xbench's AGI alignment series, focusing on evaluating visual understanding capabilities within the “ineffable” challenge.
+
 - **OCRBench v2**
    ([ocrbench_v2](https://99franklin.github.io/ocrbench_v2/))
 
@@ -904,6 +908,7 @@ Structural Modeling: Maps relationships among datasets, including inheritance, m
   - Supports viewing FP32, FP16, and BF16 performance across different compute GPUs.  
   - All data points are manually generated using standardized benchmark scripts—no theoretical or spec-sheet numbers are used—and the platform allows anyone to upload their own benchmark results.  
   - Each result is labeled with the test platform name, enabling direct comparison of GPU performance across different hardware setups.
+
 
 
 
