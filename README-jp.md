@@ -266,6 +266,10 @@ Hugging Face公式が提供するオープンなベンチマークのまとめ�
   LLM の「コンテストレベルのコード推論能力」を評価するベンチマーク。
    中国 NOI（全国情報学オリンピック）、ICPC（国際大学対抗プログラミングコンテスト）から 232 問を厳選し、実際の提出・投票データに基づいて「易・中・難」の 3 ランクに分類。Python / C++ の 2 言語をサポート。
 
+- **OctoCodingBench**（[https://huggingface.co/datasets/MiniMaxAI/OctoCodingBench）](https://huggingface.co/datasets/MiniMaxAI/OctoCodingBench%EF%BC%89)
+
+  厳選された72件の事例を含み、コードリポジトリのシーンにおける足場認識（scaffolding-aware）の命令遵守能力を評価します。エージェントが7種の異質な命令ソースをどの程度遵守するかをテストします：System Prompt、System Reminder、User Query、プロジェクトレベル制約（Agents.md）、スキル（skill）、メモリ（Memory）、Tool Schema。タスク完了とルール遵守を区別します：高いタスク成功率 ≠ 高い命令遵守率。複数の足場をサポート：Claude Code、Kilo、Droid — 実際の本番環境の足場。競合の検出：エージェントが矛盾する命令をどう解決するかをテストします。
+
 - **Roo Code evals**
    （[Evals | Roo Code](https://roocode.com/evals)）
 
@@ -1181,6 +1185,7 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
   - 各種コンピュートカードのFP32、FP16、BF16性能を確認できます。  
   - 全てのデータは、人が実際にベンチマークスクリプトを実行して取得したものであり、仕様書上の理論値をそのまま転載していません。また、誰でも自分で実行した結果をアップロードできます。  
   - テストに使用したプラットフォーム名が明記されており、異なるプラットフォーム間でのGPU性能の差を比較可能です。
+
 
 
 
