@@ -13,6 +13,18 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
 ([https://huggingface.co/spaces/OpenEvals/open_benchmark_index](https://huggingface.co/spaces/OpenEvals/open_benchmark_index))
 
 ------
+- **Relative Adoption Metric (RAM)** ([atomproject.ai/relative-adoption-metric](https://atomproject.ai/relative-adoption-metric))
+
+  The Relative Adoption Metric (RAM). “RAM score”: this is a more appropriate metric for evaluating downloads of new open‑source models of different scales.  
+  Score = (downloads of the model) / (median downloads of the top‑10 models in the same size category). A score of 1 means the model is poised to become one of the top‑10 most‑downloaded models in its size bracket.
+
+  **Data collection (median used)**
+  - For each size group, the top‑10 models ranked by total downloads (from HuggingFace)
+  - Cumulative downloads at milestone moments: Day 7, Day 14, Day 30, Day 60, Day 90, Day 180, and Day 365 after release
+  - Total cumulative HuggingFace downloads for each model over time
+
+
+------
 
 # Comprehensive Benchmarks
 
@@ -908,6 +920,7 @@ Structural Modeling: Maps relationships among datasets, including inheritance, m
   - Supports viewing FP32, FP16, and BF16 performance across different compute GPUs.  
   - All data points are manually generated using standardized benchmark scripts—no theoretical or spec-sheet numbers are used—and the platform allows anyone to upload their own benchmark results.  
   - Each result is labeled with the test platform name, enabling direct comparison of GPU performance across different hardware setups.
+
 
 
 
