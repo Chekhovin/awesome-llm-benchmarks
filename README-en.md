@@ -217,6 +217,11 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
 
   Evaluates LLMs’ contest-level code reasoning capabilities. The dataset focuses on human competitive programming and contains 232 carefully filtered problems from NOI (China National Olympiad in Informatics) and ICPC (International Collegiate Programming Contest). Each problem is labeled with difficulty (easy/medium/hard) based on contestant votes and real submissions. OJBench supports both Python and C++.
 
+-   OctoCodingBench ([https://huggingface.co/datasets/MiniMaxAI/OctoCodingBench](https://huggingface.co/datasets/MiniMaxAI/OctoCodingBench))
+
+    Contains 72 curated instances and evaluates scaffolding-aware instruction-following capabilities in code repository scenarios. It measures the extent to which an agent follows instructions from seven heterogeneous sources: System Prompt, System Reminder, User Query, project-level constraints (Agents.md), skills, Memory, and Tool Schema. Distinguishes between task completion and rule adherence: a high task success rate ≠ a high instruction-following rate. Supports multiple scaffolds: Claude Code, Kilo, Droid — real-world production scaffolds. Conflict detection: tests how agents resolve contradictory instructions.
+
+
 - **Roo Code evals**
    ([Evals | Roo Code](https://roocode.com/evals))
 
@@ -920,6 +925,7 @@ Structural Modeling: Maps relationships among datasets, including inheritance, m
   - Supports viewing FP32, FP16, and BF16 performance across different compute GPUs.  
   - All data points are manually generated using standardized benchmark scripts—no theoretical or spec-sheet numbers are used—and the platform allows anyone to upload their own benchmark results.  
   - Each result is labeled with the test platform name, enabling direct comparison of GPU performance across different hardware setups.
+
 
 
 
