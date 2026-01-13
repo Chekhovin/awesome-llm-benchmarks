@@ -13,6 +13,19 @@ Hugging Face公式が提供するオープンなベンチマークのまとめ�
 （[https://huggingface.co/spaces/OpenEvals/open_benchmark_index](https://huggingface.co/spaces/OpenEvals/open_benchmark_index)）
 
 ------
+- Relative Adoption Metric (RAM)（[atomproject.ai/relative-adoption-metric](https://atomproject.ai/relative-adoption-metric)）
+
+  Relative Adoption Metric（RAM）。 「RAM スコア」：これは、異なる規模の新しいオープンソースモデルのダウンロード状況を評価するための、より適切な指標です。  
+  スコア ＝ （モデルのダウンロード数） / （同じ規模カテゴリにおけるダウンロード数トップ10のモデルの中央値）。  
+  スコアが1であれば、そのモデルは自規模の中でダウンロード数トップ10のモデルとなる可能性が高いことを意味します。
+
+  データ収集（中央値を採用）
+  - 総ダウンロード数でランク付けされた各サイズグループの上位10モデル（HuggingFaceより）
+  - マイルストーン時点での累積ダウンロード数：リリース後7日、14日、30日、60日、90日、180日、365日
+  - 各モデルの時間経過に伴うHuggingFace累積ダウンロード総数
+
+
+------
 
 # 総合ベンチマーク
 
@@ -1168,6 +1181,7 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
   - 各種コンピュートカードのFP32、FP16、BF16性能を確認できます。  
   - 全てのデータは、人が実際にベンチマークスクリプトを実行して取得したものであり、仕様書上の理論値をそのまま転載していません。また、誰でも自分で実行した結果をアップロードできます。  
   - テストに使用したプラットフォーム名が明記されており、異なるプラットフォーム間でのGPU性能の差を比較可能です。
+
 
 
 
