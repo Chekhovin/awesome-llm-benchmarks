@@ -12,6 +12,16 @@ Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，
 
 Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏览任务，并搜索任务描述。（[huggingface.co/spaces/OpenEvals/open_benchmark_index](https://huggingface.co/spaces/OpenEvals/open_benchmark_index)）
 
+- Relative Adoption Metric (RAM)（[atomproject.ai/relative-adoption-metric](https://atomproject.ai/relative-adoption-metric)）
+
+  相对采纳指标（Relative Adoption Metric, RAM）。“RAM 得分”：这是一个更合适的指标，可用于评估不同规模的新开源模型的下载情况。
+  得分 \= （模型的下载量） / （同一规模类别中排名前十的模型下载量的中位数）得分为1意味着该模型有望成为其所属规模中下载量排名前十的模型之一。
+
+  数据收集（选用中位数）
+  按总下载量排名的每个尺寸分组前 10 大模型（来自 HuggingFace）
+  里程碑时刻的累计下载量：发布后第7天、14天、30天、60天、90天、180天、365天
+  各模型随时间推移的累计 HuggingFace 下载总量
+
 # 综合评测
 
 - Artificial Analysis（[AI Model & API Providers Analysis | Artificial Analysis](https://artificialanalysis.ai/)）
