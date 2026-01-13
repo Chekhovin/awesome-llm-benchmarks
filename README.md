@@ -176,6 +176,10 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   旨在评估大语言模型（LLMs）在竞赛级别的代码推理能力。我们的数据集专注于人类编程竞赛，包含 232 道经过严格筛选的竞赛题目，来源为中国全国信息学奥林匹克竞赛（NOI）和国际大学生程序设计竞赛（ICPC）。每道题目均根据参赛者投票和真实提交数据，细致划分为三个难度等级：简单、中等和困难。OJBench 支持 Python 和 C++ 双语评估。
 
+- OctoCodingBench（[https://huggingface.co/datasets/MiniMaxAI/OctoCodingBench/blob/m...](https://huggingface.co/datasets/MiniMaxAI/OctoCodingBench/blob/main/README_CN.md)）
+
+  包含 72 个精选实例，评估代码仓库场景下的脚手架感知指令遵循能力。测试智能体对 7 种异构指令来源的遵循程度：System Prompt、System Reminder、User Query、项目级约束(Agents.md)、技能(skill)、记忆(Memory)、Tool Schema。区分任务完成与规则遵循：高任务成功率 ≠ 高指令遵循率；多脚手架支持：Claude Code、Kilo、Droid — 真实生产环境脚手架；冲突检测：测试智能体如何解决矛盾指令。
+
 - Roo Code evals（[Evals | Roo Code](https://roocode.com/evals)）
 
 - cto bench（[cto.new/bench](https://cto.new/bench)）
