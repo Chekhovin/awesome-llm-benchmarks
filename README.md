@@ -589,6 +589,8 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
 # 视觉理解与推理
 
+视觉评估存在不稳定性，主要原因分为三个：一是数据集规模小；二是标记样式等细节变化会显著影响模型准确率和排名；三是 JPEG 压缩等 对人“不可见” 变化会改变基准测试排名。（参见[lisadunlap.github.io/vpbench/](https://lisadunlap.github.io/vpbench/)）
+
 - MMMU（[mmmu-benchmark.github.io/](https://mmmu-benchmark.github.io/)）
 
   面向专家级通用人工智能的大规模多学科多模态理解与推理基准测试。包含从大学考试、测验和教材中精心收集的 11.5 万个多模态问题，涵盖艺术与设计、商业、科学、健康与医学、人文与社会科学、技术与工程六大核心学科。这些问题横跨 30 个学科和 183 个子领域，包含 30 种高度异质的图像类型，如图表、示意图、地图、表格、乐谱和化学结构等。与现有基准不同，MMMU 聚焦于结合领域专业知识的进阶感知与推理能力，挑战模型完成类似专家所面临的任务。
@@ -695,16 +697,21 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   一个用于在 Roblox 游戏开发任务中评估 LLMs 的框架。
 
-# 独立评测
+# 社区评测
 
 以下为AI社区大佬们的独立评测
 
 - nao老师的LLM Benchmark（[llm2014.github.io/llm_benchmark/](https://llm2014.github.io/llm_benchmark/)）
 
   个人性质，使用滚动更新的私有题库进行长期跟踪评测。侧重模型对逻辑，数学，编程，人类直觉等问题的测试。题库规模不大，长期维持在30题/240个用例以内，不使用任何互联网公开题目。题目每月会有滚动更新。题目不公开，意图是分享一种评测思路，以及个人见解。
+
 - ACG-SimpleQA（[github.com/prnake/ACG-SimpleQA](https://github.com/prnake/ACG-SimpleQA)）
 
   是面向中文二次元（ACG，Animation、Comic、Game）领域的客观知识问答数据集，包含 4242 条自动生成精心设计的问答样本。本基准测试旨在评估大语言模型在二次元文化领域的事实性能力。约 99%样本来源于萌娘百科。
+
+- Kaggle Benchmarks（[www.kaggle.com/benchmarks?type=community](https://www.kaggle.com/benchmarks?type=community)）
+
+  包括两种主要类型的基准测试：1）研究基准测试，即由AI实验室的研究人员创建的评估；2）社区基准测试，即由 Kaggle 社区创建的评估，用户能够设计、运行并分享他们自己用于评估人工智能模型的自定义基准测试。指导：[https://www.kaggle.com/docs/benchmarks#How%20to%20create%20a%20b...](https://www.kaggle.com/docs/benchmarks#How%20to%20create%20a%20benchmark)
 
 # 数据质量评估
 
