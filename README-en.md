@@ -86,7 +86,7 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
   Text tasks include the following subtasks:
 
   - **Problem Solving**
-    - University course problems, word puzzles, and decoding
+    - University course problems, word puzzles, 和 decoding
   - **Algorithmic Coding**
     - Recently released programming problems
   - **Task Completion**
@@ -95,6 +95,10 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
     - Long-tail knowledge
   - **Safety**
     - Harmful content generation and jailbreaks
+
+- **Kaggle Benchmarks** ([www.kaggle.com/benchmarks?type=community](https://www.kaggle.com/benchmarks?type=community))
+
+  Include two main types of benchmarks: 1) Research benchmarks, which are evaluations created by researchers from AI labs; and 2) Community benchmarks, which are evaluations created by the Kaggle community, allowing users to design, run, and share their own custom benchmarks for evaluating AI models. Guide: [https://www.kaggle.com/docs/benchmarks#How%20to%20create%20a%20b...](https://www.kaggle.com/docs/benchmarks#How%20to%20create%20a%20benchmark)
 
 ------
 
@@ -275,7 +279,7 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
 - **Gaia2 Leaderboard**
    ([Gaia2 Agents Evaluation Leaderboard](https://huggingface.co/spaces/meta-agents-research-environments/leaderboard))
 
-  A benchmark designed to measure general agent intelligence. Unlike traditional search-and-execute tasks, Gaia2 runs asynchronously, requiring agents to handle ambiguity and noise, adapt to dynamic environments, collaborate with other agents, and operate under time constraints. It evaluates dimensions such as:
+  A benchmark designed to measure general agent intelligence. Unlike traditional search-and-execute tasks, Gaia2 runs asynchronously, requiring agents to handle ambiguity and noise, adapt to dynamic environments, collaborate with other agents, 和 operate under time constraints. It evaluates dimensions such as:
 
   - Execution (instruction following, multi-step tool use)
   - Search (information retrieval)
@@ -548,7 +552,7 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
 - **OSWorld-G**
    ([osworld-grounding.github.io](https://osworld-grounding.github.io/))
 
-  Evaluates fine-grained functional component understanding with 564 carefully annotated samples covering tasks such as text matching, element recognition, layout understanding, and precise manipulation.
+  Evaluates fine-grained functional component understanding with 564 carefully annotated samples covering tasks such as text matching, element recognition, layout understanding, 和 precise manipulation.
 
 - **MMBench-GUI**
    ([MMBench-GUI](https://github.com/open-compass/MMBench-GUI))
@@ -754,6 +758,8 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
 
 # Visual Understanding & Reasoning
 
+Visual evaluation exhibits instability, primarily due to three reasons: first, the dataset is small in scale; second, subtle changes such as labeling styles can significantly affect model accuracy and ranking; third, "invisible" alterations like JPEG compression can alter benchmark rankings. (Refer to [lisadunlap.github.io/vpbench/](https://lisadunlap.github.io/vpbench/))
+
 - **MMMU**
    ([mmmu-benchmark.github.io](https://mmmu-benchmark.github.io/))
 
@@ -925,6 +931,7 @@ Structural Modeling: Maps relationships among datasets, including inheritance, m
   - Supports viewing FP32, FP16, and BF16 performance across different compute GPUs.  
   - All data points are manually generated using standardized benchmark scripts—no theoretical or spec-sheet numbers are used—and the platform allows anyone to upload their own benchmark results.  
   - Each result is labeled with the test platform name, enabling direct comparison of GPU performance across different hardware setups.
+
 
 
 
