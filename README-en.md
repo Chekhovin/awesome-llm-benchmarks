@@ -165,7 +165,7 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
    ([Terminal-Bench --- Terminal-Bench](https://www.tbench.ai/))
    ([Artificial Analysis](https://artificialanalysis.ai/evaluations/terminalbench-hard))
 
-  A suite of tasks and an evaluation framework for assessing AI agents performing complex tasks in a terminal environment. Example tasks include compiling and packaging code repositories, downloading datasets and training classifiers on them, and setting up servers. Each Terminal-Bench task consists of:
+  A suite of tasks and an evaluation framework for assessing AI agents performing complex tasks in a terminal environment. Example tasks include compiling and packaging code repositories, downloading datasets and training classifiers on them, 和 setting up servers. Each Terminal-Bench task consists of:
 
   - A natural language description
   - A Docker environment
@@ -185,7 +185,7 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
 
   The first large-scale benchmark and training corpus for **feature-driven development (FDD)**—the practical task of adding *new features* to an existing codebase.
 
-- **LiveCodeBench**
+- **LiveCodeBench**(LCB)
    ([LiveCodeBench: Holistic and Contamination Free Evaluation of Large Language Models for Code](https://livecodebench.github.io/index.html))
    ([Artificial Analysis](https://artificialanalysis.ai/evaluations/livecodebench))
 
@@ -931,6 +931,7 @@ Structural Modeling: Maps relationships among datasets, including inheritance, m
   - Supports viewing FP32, FP16, and BF16 performance across different compute GPUs.  
   - All data points are manually generated using standardized benchmark scripts—no theoretical or spec-sheet numbers are used—and the platform allows anyone to upload their own benchmark results.  
   - Each result is labeled with the test platform name, enabling direct comparison of GPU performance across different hardware setups.
+
 
 
 
