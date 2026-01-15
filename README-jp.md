@@ -227,7 +227,7 @@ Hugging Face公式が提供するオープンなベンチマークのまとめ�
 
   「Feature-Driven Development（FDD）」＝既存コードベースに新機能を追加するタスクに特化した、初の大規模ベンチマーク兼トレーニングコーパス。
 
-- **LiveCodeBench**
+- **LiveCodeBench**(LCB)
    （[LiveCodeBench](https://livecodebench.github.io/index.html) / [Artificial Analysis](https://artificialanalysis.ai/evaluations/livecodebench)）
 
   LeetCode、AtCoder、Codeforces の定期コンテスト問題を継続的に収集して構築したベンチマーク。
@@ -1191,6 +1191,7 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
   - 各種コンピュートカードのFP32、FP16、BF16性能を確認できます。  
   - 全てのデータは、人が実際にベンチマークスクリプトを実行して取得したものであり、仕様書上の理論値をそのまま転載していません。また、誰でも自分で実行した結果をアップロードできます。  
   - テストに使用したプラットフォーム名が明記されており、異なるプラットフォーム間でのGPU性能の差を比較可能です。
+
 
 
 
