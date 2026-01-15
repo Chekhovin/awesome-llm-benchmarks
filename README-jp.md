@@ -110,6 +110,10 @@ Hugging Face公式が提供するオープンなベンチマークのまとめ�
   - **安全性**
     - 有害コンテンツ生成、越獄（Jailbreak）の評価
 
+- **Kaggle Benchmark** ([www.kaggle.com/benchmarks?type=community](https://www.kaggle.com/benchmarks?type=community))
+
+  主に2種類のベンチマークが含まれます：1）**研究ベンチマーク** - AIラボの研究者によって作成された評価。2）**コミュニティベンチマーク** - Kaggleコミュニティによって作成された評価で、ユーザーはAIモデルを評価するための独自のカスタムベンチマークを設計、実行、共有することができます。ガイド：[https://www.kaggle.com/docs/benchmarks#How%20to%20create%20a%20b...](https://www.kaggle.com/docs/benchmarks#How%20to%20create%20a%20benchmark)
+
 ------
 
 # Coding Benchmarks
@@ -975,6 +979,8 @@ Hugging Face公式が提供するオープンなベンチマークのまとめ�
 
 # 視覚理解と推論
 
+視覚評価には不安定性が存在し、主な原因は三つに分けられます。一つは、データセットの規模が小さいこと。二つ目は、ラベル付けのスタイルなどの詳細な変更が、モデルの精度やランキングに大きく影響を与えること。三つ目は、JPEG圧縮など、人間には「見えない」変化がベンチマークのランキングを変えてしまうことです。（参照：[lisadunlap.github.io/vpbench/](https://lisadunlap.github.io/vpbench/)）
+
 - **MMMU**
    （[mmmu-benchmark.github.io](https://mmmu-benchmark.github.io/)）
 
@@ -1185,6 +1191,7 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
   - 各種コンピュートカードのFP32、FP16、BF16性能を確認できます。  
   - 全てのデータは、人が実際にベンチマークスクリプトを実行して取得したものであり、仕様書上の理論値をそのまま転載していません。また、誰でも自分で実行した結果をアップロードできます。  
   - テストに使用したプラットフォーム名が明記されており、異なるプラットフォーム間でのGPU性能の差を比較可能です。
+
 
 
 
