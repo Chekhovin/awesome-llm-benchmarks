@@ -150,7 +150,7 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   首个面向功能驱动开发（FDD）的大规模基准与训练语料库——FDD 是向现有代码库添加新功能的实际任务。
 
-- LiveCodeBench（[LiveCodeBench: Holistic and Contamination Free Evaluation of Large Language Models for Code](https://livecodebench.github.io/index.html)）（[Artificial Analysis](https://artificialanalysis.ai/evaluations/livecodebench)）
+- LiveCodeBench（LCB）（[LiveCodeBench: Holistic and Contamination Free Evaluation of Large Language Models for Code](https://livecodebench.github.io/index.html)）（[Artificial Analysis](https://artificialanalysis.ai/evaluations/livecodebench)）
 
   从 LeetCode、AtCoder 和 Codeforces 平台的定期竞赛中收集问题，并用于构建一个全面的基准，以持续评估 LLMs 在各种代码相关场景中的表现。关注更广泛的代码相关能力，例如自我修复、代码执行和测试输出预测，而不仅仅是代码生成。
 
