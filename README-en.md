@@ -404,7 +404,7 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
   2. Verifying and integrating multiple sources
   3. Forming evidence-based judgments under time pressure
 
-  FinSearchComp provides an end-to-end evaluation framework for open financial tasks. It covers three subtasks across two subsets (global and Greater China): timely data acquisition, simple historical queries, and complex historical investigations.
+  FinSearchComp provides an end-to-end evaluation framework for open financial tasks. It covers three subtasks across two subsets (global and Greater China): timely data acquisition, simple historical queries, 和 complex historical investigations.
 
 - **GDPval-AA** ([artificialanalysis.ai/evaluations/gdpval-aa](https://artificialanalysis.ai/evaluations/gdpval-aa))
 
@@ -584,7 +584,7 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
 
 - **Frames**
 
-  A comprehensive dataset for evaluating Retrieval-Augmented Generation (RAG) systems on factuality, retrieval accuracy, and reasoning. It has 824 challenging multi-hop questions requiring information from 2–15 Wikipedia articles across topics like history, sports, science, animals, and health.
+  A comprehensive dataset for evaluating Retrieval-Augmented Generation (RAG) systems on factuality, retrieval accuracy, 和 reasoning. It has 824 challenging multi-hop questions requiring information from 2–15 Wikipedia articles across topics like history, sports, science, animals, 和 health.
 
 - **SealQA**
    ([vtllms/sealqa](https://huggingface.co/datasets/vtllms/sealqa))
@@ -731,7 +731,7 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
 - **GPQA Diamond**
    ([GPQA Diamond Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/gpqa-diamond))
 
-  The hardest 198 questions from the GPQA benchmark, explicitly “Google-proof,” requiring true scientific expertise instead of search skills. These graduate-level physics, biology, and chemistry questions can only be reliably answered by PhD-level experts, making them ideal for testing deep scientific reasoning.
+  The hardest 198 questions from the GPQA benchmark, explicitly “Google-proof,” requiring true scientific expertise instead of search skills. These graduate-level physics, biology, 和 chemistry questions can only be reliably answered by PhD-level experts, making them ideal for testing deep scientific reasoning.
 
 - **CritPt**
    ([CritPt Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/critpt))
@@ -916,7 +916,7 @@ In OCR model evaluation, performance can vary widely across document types, lang
 
   Making every post-training dataset measurable, comparable, 和 verifiable. We evaluate post-training data across multiple domains (general, mathematics, code, science, 和 long-chain reasoning) and modalities (text and images). To ensure fair comparisons, we control variables by using fixed model scales (Llama3 / Qwen2 / Qwen3 / Qwen3-VL 7–8B) and consistent training configurations.
   Data Lineage Analysis: Modern datasets often suffer from high redundancy and hidden dependencies. ODA introduces the industry’s first data lineage analysis tool to visualize the “genealogy” of open-source data.
-Structural Modeling: Maps relationships among datasets, including inheritance, mixing, and distillation.
+Structural Modeling: Maps relationships among datasets, including inheritance, mixing, 和 distillation.
 
 # AI Hardware Performance
 
@@ -927,10 +927,15 @@ Structural Modeling: Maps relationships among datasets, including inheritance, m
 - **MLPerf Training** ([mlcommons.org/benchmarks/training/](https://mlcommons.org/benchmarks/training/))  
   The MLPerf Training benchmark suite measures how quickly systems can train models to a specified target quality metric.
 
+- **AI Hardware Benchmarking & Performance Analysis** ([artificialanalysis.ai/benchmarks/hardware](https://artificialanalysis.ai/benchmarks/hardware))
+
+  Comprehensive benchmarks for AI acceleration systems targeting language model inference. Using Deepseek R1, Llama 4 Maverick, Llama 3.3 70B, and GPT-OSS 120B, performance trends under concurrent loads are measured on NVIDIA 8×H100, 8×H200, and 8×B200 systems.
+
 - **GPU Benchmark** ([perf.svcfusion.com/](https://perf.svcfusion.com/))  
   - Supports viewing FP32, FP16, and BF16 performance across different compute GPUs.  
   - All data points are manually generated using standardized benchmark scripts—no theoretical or spec-sheet numbers are used—and the platform allows anyone to upload their own benchmark results.  
   - Each result is labeled with the test platform name, enabling direct comparison of GPU performance across different hardware setups.
+
 
 
 
