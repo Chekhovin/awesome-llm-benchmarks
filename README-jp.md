@@ -1187,10 +1187,15 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
 - **MLPerf Training**（[mlcommons.org/benchmarks/training/](https://mlcommons.org/benchmarks/training/)）  
   MLPerfトレーニングベンチマークスイートは、システムがモデルを所定の品質目標に達するまで訓練するのに要する時間を測定します。
 
+- AI Hardware Benchmarking & Performance Analysis（[artificialanalysis.ai/benchmarks/hardware](https://artificialanalysis.ai/benchmarks/hardware)）
+
+  言語モデル推論用AIアクセラレーションシステムの包括的なベンチマーク。Deepseek R1、Llama 4 Maverick、Llama 3.3 70B、GPT-OSS 120Bを使用して、NVIDIA 8×H100、8×H200、8×B200システム上で、並列負荷時の性能変化を測定します。
+
 - **GPU Benchmark**（[perf.svcfusion.com/](https://perf.svcfusion.com/)）  
   - 各種コンピュートカードのFP32、FP16、BF16性能を確認できます。  
   - 全てのデータは、人が実際にベンチマークスクリプトを実行して取得したものであり、仕様書上の理論値をそのまま転載していません。また、誰でも自分で実行した結果をアップロードできます。  
   - テストに使用したプラットフォーム名が明記されており、異なるプラットフォーム間でのGPU性能の差を比較可能です。
+
 
 
 
