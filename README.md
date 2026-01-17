@@ -729,6 +729,10 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   MLPerf 训练基准套件衡量系统训练模型达到目标质量指标的速度。
 
+- AI Hardware Benchmarking & Performance Analysis（[artificialanalysis.ai/benchmarks/hardware](https://artificialanalysis.ai/benchmarks/hardware)）
+
+  针对语言模型推理的 AI 加速系统全面基准测试。使用 Deepseek R1、Llama 4 Maverick、Llama 3.3 70B 和 GPT-OSS 120B，在 NVIDIA 8×H100、8×H200 和 8×B200 系统上测量性能随并发负载的变化趋势。
+
 - GPU Benchmark（[perf.svcfusion.com/](https://perf.svcfusion.com/)）
 
   - 支持查看不同计算卡的 FP32、FP16、BF16 性能
