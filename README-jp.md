@@ -1,6 +1,6 @@
 # 大規模モデル評価ベンチマークまとめ 
 
-Tips：ベンチマーク（Benchmark）はモデル性能を評価する事実上の標準になっているが、テスト自体が常に正確というわけではなく、τ²-bench のように体系的な欠陥を含むケースもある。（論文：[arxiv.org/abs/2511.16842](https://arxiv.org/abs/2511.16842)）
+Tips：ベンチマーク（Benchmark）はモデル性能を評価する事実上の標準になっているが、テスト自体が常に正確というわけではなく、τ²-bench,MMLU-Pro のように体系的な欠陥を含むケースもある。（論文：[arxiv.org/abs/2511.16842](https://arxiv.org/abs/2511.16842)）
 
 LLMの評価における現在の課題と限界については、epoch.ai のブログ記事「Why benchmarking is hard」（epoch.ai/gradient-updates/why-benchmarking-is-hard）をご参照ください。
 
@@ -11,6 +11,8 @@ Hugging Face公式チュートリアルを参照してください：inspect-ai 
 
 Hugging Face公式が提供するオープンなベンチマークのまとめです。言語やタグでタスクを閲覧したり、タスクの説明文を検索したりできます。
 （[https://huggingface.co/spaces/OpenEvals/open_benchmark_index](https://huggingface.co/spaces/OpenEvals/open_benchmark_index)）
+
+現在、HF Open-LLM-Leaderboardに基づいて公開されているすべてのモデルのスコアとランキングは、空白文字の脆弱性の影響を受けています。lm-evaluation-harness（実運用で最も一般的に使用されているLLM評価ツールキット）にこの脆弱性が存在することが発見されました（前に空白文字があると、正解の選択肢が正しく選択できなくなります）。
 
 ------
 - Relative Adoption Metric (RAM)（[atomproject.ai/relative-adoption-metric](https://atomproject.ai/relative-adoption-metric)）
@@ -729,12 +731,12 @@ Hugging Face公式が提供するオープンなベンチマークのまとめ�
   3. 評価セットの難易度を適切に調整し、人間間の難易度差異（IDD: Inter-Human Difficulty Disparity）を確保するとともに、少なくとも2人の人間がAIと同等の条件（pass@2）でタスクを解けることを確認するため、制御された人間テストが実施されました。
   4. 記号的解釈、構成的推論、文脈依存ルールなどの研究知見に基づき、AIの推論システムに挑戦する新しいタスクが設計されました。
 
-- **MMLU-Pro**
-   （[MMLU-Pro Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/mmlu-pro)）
+- **MMLU-Pro**（[MMLU-Pro Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/mmlu-pro)）（脆弱性あり）
 
-  多タスク理解ベンチマーク。
-   多数の学問領域から 12,000 の複雑な問題を収録し、各問題は 10 択。
-   より「推論に重きを置いた問題構成」になっている。
+  大規模言語モデルを厳密に評価することを目的としたマルチタスク理解データセットです。各分野から1万2,000の複雑な問題が含まれています。各問題は10個の回答選択肢を持ち、推論を中心とする問題がより多く統合されています。
+
+  （脆弱性：1. 正解の一部では、スペースが先頭文字となります。つまり、ランダム推測に加えて「先頭がスペースならその選択肢を選ぶ」という戦略をとると、かなり大きなアドバンテージが得られ、化学・物理・数学に関連するテスト結果に影響を及ぼします。2. 常に最も長い回答を選ぶと、ベンチマーク全体で同程度のスコア上昇効果が得られます）
+
 
 - **Frames**
 
@@ -1195,6 +1197,7 @@ OCR モデルを評価する際、文書種別・言語などによって性能�
   - 各種コンピュートカードのFP32、FP16、BF16性能を確認できます。  
   - 全てのデータは、人が実際にベンチマークスクリプトを実行して取得したものであり、仕様書上の理論値をそのまま転載していません。また、誰でも自分で実行した結果をアップロードできます。  
   - テストに使用したプラットフォーム名が明記されており、異なるプラットフォーム間でのGPU性能の差を比較可能です。
+
 
 
 
