@@ -1,6 +1,6 @@
 # Summary of Large Model Benchmark Leaderboards 
 
-Tips: Benchmarks constitute the de-facto standard for evaluating model performance, but the tests themselves are not infallible and may even have systemic flaws—for example τ²-bench.(Paper: [arxiv.org/abs/2511.16842](https://arxiv.org/abs/2511.16842))
+Tips: Benchmarks constitute the de-facto standard for evaluating model performance, but the tests themselves are not infallible and may even have systemic flaws—for example τ²-bench、MMLU-Pro.(Paper: [arxiv.org/abs/2511.16842](https://arxiv.org/abs/2511.16842))
 
 For the current challenges and limitations in evaluating LLMs, see the epoch.ai blog post "Why benchmarking is hard" (epoch.ai/gradient-updates/why-benchmarking-is-hard).
 
@@ -10,7 +10,9 @@ Self-Deployed Model Evaluation: Refer to the official Hugging Face tutorials on 
 ([https://huggingface.co/docs/lighteval/main/en/index](https://huggingface.co/docs/lighteval/main/en/index))
 
 Hugging Face's official collection of open benchmarks allows you to browse evaluation tasks by language and tags, and search task descriptions:
-([https://huggingface.co/spaces/OpenEvals/open_benchmark_index](https://huggingface.co/spaces/OpenEvals/open_benchmark_index))
+([https://huggingface.co/spaces/OpenEvals/open_benchmark_index](https://huggingface.co/spaces/OpenEvals/open_benchmark_index)) 
+
+Currently, all model scores and rankings published based on the HF Open-LLM-Leaderboard are affected by the whitespace vulnerability. The lm-evaluation-harness (the most commonly used LLM evaluation toolkit in practice) was found to contain this vulnerability (if whitespace is present before the text, the correct option cannot be selected correctly).
 
 ------
 - **Relative Adoption Metric (RAM)** ([atomproject.ai/relative-adoption-metric](https://atomproject.ai/relative-adoption-metric))
@@ -577,10 +579,11 @@ Hugging Face's official collection of open benchmarks allows you to browse evalu
   3. Controlled human testing has been conducted to calibrate task difficulty, ensure Inter-Human Difficulty Disparity (IDD), 和 verify that at least two humans can solve each task under a pass@2 criterion (aligned with the rules applied to AI systems).
   4. New tasks have been designed based on research insights—including symbolic interpretation, compositional reasoning, and contextual rule learning—to specifically challenge AI reasoning systems.
 
-- **MMLU-Pro**
-   ([MMLU-Pro Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/mmlu-pro))
+- **MMLU-Pro** ([MMLU-Pro Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/mmlu-pro)) (vulnerable)
 
-  A multi-task understanding dataset to rigorously evaluate LLMs. It contains 12k complex questions across many disciplines. Each question has 10 options and emphasizes reasoning-centric problems.
+  A multitask understanding dataset designed to rigorously evaluate large language models. It contains 12,000 complex questions from various academic disciplines. Each question has 10 answer options, incorporating more reasoning-centric questions.
+  (Vulnerability: 1. For a subset of correct answers, a space appears as the first character. This means that adopting a strategy of random guessing combined with "select the option if it starts with a space" would yield a significant advantage, affecting test results related to chemistry, physics, and mathematics. 2. Always guessing the longest answer achieves similar performance improvements across the entire benchmark.)
+
 
 - **Frames**
 
@@ -935,6 +938,7 @@ Structural Modeling: Maps relationships among datasets, including inheritance, m
   - Supports viewing FP32, FP16, and BF16 performance across different compute GPUs.  
   - All data points are manually generated using standardized benchmark scripts—no theoretical or spec-sheet numbers are used—and the platform allows anyone to upload their own benchmark results.  
   - Each result is labeled with the test platform name, enabling direct comparison of GPU performance across different hardware setups.
+
 
 
 
