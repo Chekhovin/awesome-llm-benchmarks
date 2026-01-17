@@ -3,14 +3,14 @@
 
 # 大模型评测榜单汇总
 
-Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，但测试本身并非准确无误，甚至可能存在系统性缺陷，典型案例τ²-bench。（参见[mp.weixin.qq.com/s/mrr2oDR2V8OvTT7JD918RQ](https://mp.weixin.qq.com/s/mrr2oDR2V8OvTT7JD918RQ)）（论文：[arxiv.org/abs/2511.16842](https://arxiv.org/abs/2511.16842)）
+Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，但测试本身并非准确无误，甚至可能存在系统性缺陷，典型案例τ²-bench、MMLU-Pro。（参见[mp.weixin.qq.com/s/mrr2oDR2V8OvTT7JD918RQ](https://mp.weixin.qq.com/s/mrr2oDR2V8OvTT7JD918RQ)）（论文：[arxiv.org/abs/2511.16842](https://arxiv.org/abs/2511.16842)）
 收录规则为：1、近三个月内榜单有更新；2、所纳入新模型已更新至GPT-5、Qwen3-VL这一最新世代
 
 当前对LLM进行评测的难点和缺陷参见epoch.ai的博客《Why benchmarking is hard》（epoch.ai/gradient-updates/why-benchmarking-is-hard）
 
 参考Hugging Face官方教程：使用inspect-ai和lighteval（[https://huggingface.co/docs/inference-providers/guides/evaluatio...](https://huggingface.co/docs/inference-providers/guides/evaluation-inspect-ai)）（[github.com/huggingface/lighteval](https://github.com/huggingface/lighteval)）（[huggingface.co/docs/lighteval/main/en/index](https://huggingface.co/docs/lighteval/main/en/index)）
 
-Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏览任务，并搜索任务描述。（[huggingface.co/spaces/OpenEvals/open_benchmark_index](https://huggingface.co/spaces/OpenEvals/open_benchmark_index)）
+Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏览任务，并搜索任务描述。（[huggingface.co/spaces/OpenEvals/open_benchmark_index](https://huggingface.co/spaces/OpenEvals/open_benchmark_index)）目前所有基于 HF Open-LLM-Leaderboard 发布的模型评分和排名都受到空白字符漏洞影响。lm-evaluation-harness（实际应用中最常用的 LLM 评估工具包）被发现存在存在该漏洞（如果前面存在空白字符，就会导致正确选项无法被正确选中）。
 
 - Relative Adoption Metric (RAM)（[atomproject.ai/relative-adoption-metric](https://atomproject.ai/relative-adoption-metric)）
 
@@ -441,9 +441,11 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
   3. 进行了受控的人类测试，以校准评估集的难度，确保 IDD，并验证至少两名人类能够通过 pass@2 解决（以符合 AI 规则）。
   4. 基于研究（符号解释、组合推理、上下文规则等），设计了新的任务以挑战 AI 推理系统。
 
-- MMLU-Pro（[MMLU-Pro Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/mmlu-pro)）
+- MMLU-Pro（[MMLU-Pro Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/mmlu-pro)）（存在漏洞）
 
   多任务理解数据集，旨在严格评估大型语言模型。它包含来自各个学科领域的1.2万个复杂问题。每个问题有10个答案选项，整合了更多以推理为核心的问题
+
+  （漏洞：1、对于正确答案的子集而言，空格会成为第一个字符。这意味着，采用随机猜测再加上“如果以空格开头就选择该选项”的策略，将会带来相当大的优势，会影响化学、物理和数学相关的测试结果。2、总是猜测最长的答案，在整个测试基准中能获得类似的提升效果）
 
 - Frames
 
