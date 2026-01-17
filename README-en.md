@@ -109,7 +109,7 @@ Currently, all model scores and rankings published based on the HF Open-LLM-Lead
 - **SWE-bench**
    ([SWE-bench Leaderboards](https://www.swebench.com/index.html))
 
-  One of the most popular evaluation suites in software engineering—SWE-bench is a benchmark for assessing the ability of large language models (LLMs) to solve real-world software issues from GitHub. The benchmark requires an agent to take in a code repository and an issue description, and then generate a patch that solves the problem.
+  One of the most popular evaluation suites in software engineering—SWE-bench is a benchmark for assessing the ability of large language models (LLMs) to solve real-world software issues from GitHub. The benchmark requires an agent to take in a code repository and an issue description, 和 then generate a patch that solves the problem.
 
   - **Details**
 
@@ -420,7 +420,7 @@ Currently, all model scores and rankings published based on the HF Open-LLM-Lead
 - **VitaBench**
    ([VitaBench](https://vitabench.github.io/))
 
-  Benchmarks LLM agents with versatile interactive tasks in real-world applications, using frequent life scenarios such as food delivery, dining out, and travel. It has 66 tools and cross-scenario composite tasks, evaluating agents along three dimensions: deep reasoning, tool use, and user interaction.
+  Benchmarks LLM agents with versatile interactive tasks in real-world applications, using frequent life scenarios such as food delivery, dining out, 和 travel. It has 66 tools and cross-scenario composite tasks, evaluating agents along three dimensions: deep reasoning, tool use, 和 user interaction.
 
 - **Toolathlon**
    ([Tool Decathlon - Toolathlon](https://toolathlon.xyz/introduction))
@@ -582,7 +582,8 @@ Currently, all model scores and rankings published based on the HF Open-LLM-Lead
 - **MMLU-Pro** ([MMLU-Pro Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/mmlu-pro)) (vulnerable)
 
   A multitask understanding dataset designed to rigorously evaluate large language models. It contains 12,000 complex questions from various academic disciplines. Each question has 10 answer options, incorporating more reasoning-centric questions.
-  (Vulnerability: 1. For a subset of correct answers, a space appears as the first character. This means that adopting a strategy of random guessing combined with "select the option if it starts with a space" would yield a significant advantage, affecting test results related to chemistry, physics, and mathematics. 2. Always guessing the longest answer achieves similar performance improvements across the entire benchmark.)
+
+   (Vulnerability: 1. For a subset of correct answers, a space appears as the first character. This means that adopting a strategy of random guessing combined with "select the option if it starts with a space" would yield a significant advantage, affecting test results related to chemistry, physics, 和 mathematics. 2. Always guessing the longest answer achieves similar performance improvements across the entire benchmark.)
 
 
 - **Frames**
@@ -605,7 +606,7 @@ Currently, all model scores and rankings published based on the HF Open-LLM-Lead
 - **AA-LCR**
    ([Artificial Analysis Long Context Reasoning Benchmark Leaderboard](https://artificialanalysis.ai/evaluations/artificial-analysis-long-context-reasoning))
 
-  A benchmark for long-context reasoning across multiple documents. Inputs are up to 100k tokens (cl100k_base), and models must integrate information from multiple positions across documents to infer answers. It covers seven text-only document types: corporate reports, industry reports, government consultations, academic papers, legal documents, marketing materials, and survey reports.
+  A benchmark for long-context reasoning across multiple documents. Inputs are up to 100k tokens (cl100k_base), 和 models must integrate information from multiple positions across documents to infer answers. It covers seven text-only document types: corporate reports, industry reports, government consultations, academic papers, legal documents, marketing materials, 和 survey reports.
 
 - **Fiction-liveBench**
    ([Fiction.liveBench Sept 29 2025](https://fiction.live/stories/Fiction-liveBench-Sept-06-2025/oQdzQvKHw8JyXbN87/home))
@@ -938,6 +939,7 @@ Structural Modeling: Maps relationships among datasets, including inheritance, m
   - Supports viewing FP32, FP16, and BF16 performance across different compute GPUs.  
   - All data points are manually generated using standardized benchmark scripts—no theoretical or spec-sheet numbers are used—and the platform allows anyone to upload their own benchmark results.  
   - Each result is labeled with the test platform name, enabling direct comparison of GPU performance across different hardware setups.
+
 
 
 
