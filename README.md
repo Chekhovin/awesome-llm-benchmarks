@@ -226,15 +226,6 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   Grounding Benchmark - v2，这是一个扩展基准，用于测试模型在给定提示的上下文中提供基于事实依据的答案的能力。
 
-- DeepSearchQA（[www.kaggle.com/benchmarks/google/dsqa/leaderboard](https://www.kaggle.com/benchmarks/google/dsqa/leaderboard)）
-
-  谷歌推出的一个包含 900 个提示的基准测试，用于评估代理在 17 个不同领域中完成困难的多步信息检索任务的能力。与传统仅针对单答案检索或广泛事实准确性的基准不同，DeepSearchQA 包含一组具有挑战性的手工构建任务，旨在评估代理执行复杂搜索计划以生成详尽答案列表的能力。
-  每个任务都构造成一个“因果链”，其中完成某一步的信息发现依赖于前一步的成功完成，强调长期规划和上下文保留。
-
-- DeepResearch Bench（[https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leader...](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard)）
-
-  面向深度研究代理的综合性基准测试，包含 100 个博士级研究任务，每个任务均由 22 个不同领域的领域专家精心设计，其中 50 个为中文任务，50 个为英文任务。
-
 - FutureX（[futurex-ai.github.io/](https://futurex-ai.github.io/)）
 
   一个旨在预测未知未来的动态基准测试，核心特性：
@@ -344,9 +335,38 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   一个旨在评估网络智能体在真实网站性能的基准测试，涵盖 136 个热门网的 300项任务，涉及多个领域，并采用可靠的 LLM 即法官（WebJudge）自动评估机制。根据人工标注所需步骤数，任务分为三个难度等级：简单（1-5 步）、中等（6-10 步）和困难（11 步以上）。
 
+## DeepResearch
+
+- DeepSearchQA（[www.kaggle.com/benchmarks/google/dsqa/leaderboard](https://www.kaggle.com/benchmarks/google/dsqa/leaderboard)）
+
+  谷歌推出的一个包含 900 个提示的基准测试，用于评估代理在 17 个不同领域中完成困难的多步信息检索任务的能力。与传统仅针对单答案检索或广泛事实准确性的基准不同，DeepSearchQA 包含一组具有挑战性的手工构建任务，旨在评估代理执行复杂搜索计划以生成详尽答案列表的能力。
+  每个任务都构造成一个“因果链”，其中完成某一步的信息发现依赖于前一步的成功完成，强调长期规划和上下文保留。
+
+- DeepResearch Bench（[https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leader...](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard)）
+
+  面向深度研究代理的综合性基准测试，包含 100 个博士级研究任务，每个任务均由 22 个不同领域的领域专家精心设计，其中 50 个为中文任务，50 个为英文任务。
+
+- DeepResearch Bench II（[https://github.com/imlrz/DeepResearch-Bench-II?tab=readme-ov-fil...](https://github.com/imlrz/DeepResearch-Bench-II?tab=readme-ov-file)）
+
+  建立在原始的 DeepResearch Bench 主题分布和任务设计之上。包含
+
+  - 作为基础信号的现实世界中由专家撰写的研究报告。
+  - 不依赖裁判模型内部领域知识的细粒度、可完全验证的评分标准。
+  - 深度研究质量的三个核心维度：
+
+    - 信息回忆——智能体能否识别、检索并交叉核对回答任务所需的所有关键信息？
+    - 分析——智能体能否将检索到的信息综合成更高层次的结论和见解？
+    - 呈现——智能体能否以结构化、易读且易于验证的方式呈现信息？
+
 - Mind2Web 2（[osu-nlp-group.github.io/Mind2Web-2/#leaderboard](https://osu-nlp-group.github.io/Mind2Web-2/#leaderboard)）
 
   一个包含 130 个真实、高质量的长期任务的基准，用于测试Deep Research系统的能力。这些任务需要实时网页浏览和广泛的信息综合。由超过 1000 小时的人工劳动构建而成，每个任务均经过数小时的专家打磨与验证。
+
+- DeepResearchEval（[infinity-ailab.github.io/deep_research_eval/](https://infinity-ailab.github.io/deep_research_eval/)）
+
+  深度研究任务构建与智能体评估的自动化框架。包括：（1）一个基于角色的任务构建流程，该流程生成以不同用户画像为基础的真实研究任务，并应用两阶段筛选（任务资格筛选和搜索必要性筛选）；（2）一个自适应逐点质量评估框架，该框架动态推导出特定于任务的评估维度和标准；（3）一个主动事实核查智能体，即使在缺少引用的情况下，该智能体也能主动检索外部证据来验证报告陈述。
+
+- xbench-DeepSearch（[xbench.org/agi/aisearch](https://xbench.org/agi/aisearch)）
 
 ## LLM记忆与个性化
 
