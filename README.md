@@ -28,7 +28,7 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   - AA Intelligence（[Artificial Analysis Intelligence Index | Artificial Analysis](https://artificialanalysis.ai/evaluations/artificial-analysis-intelligence-index)）
 
-    一个综合基准，整合七项具有挑战性的评估，全面衡量人工智能在数学、科学、编程和推理方面的能力。综合了七项评估的表现：MMLU-Pro、GPQA Diamond、HLE、LCB、SciCode、AIME 2025、IFBench、LCR、Terminal-Bench Hard、𝜏²-Bench Telecom。
+    一个综合基准，整合七项具有挑战性的评估，全面衡量人工智能在数学、科学、编程和推理方面的能力。综合了10项评估的表现：GDPval-AA, 𝜏²-Bench Telecom, Terminal-Bench Hard, SciCode, AA-LCR, AA-Omniscience, IFBench, HLE, GPQA Diamond, CritPt。
 
   - Artificial Analysis Openness Index（[https://artificialanalysis.ai/evaluations/artificial-analysis-op...](https://artificialanalysis.ai/evaluations/artificial-analysis-openness-index)）
 
@@ -74,23 +74,7 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
 - LRM-Eval（[LRM-Eval](https://flageval-baai.github.io/LRM-Eval/)）
 
-  文本任务包括以下子任务：
-
-  - 问题解决
-
-    - 大学课程问题、文字谜题和解码
-  - 算法编码
-
-    - 近期发布的编程问题
-  - 任务完成
-
-    - 指令遵循、多轮指令遵循、长上下文理解
-  - 事实性与回避
-
-    - 长尾知识
-  - 安全性
-
-    - 有害内容生成与越狱
+  文本任务包括以下子任务：问题解决（大学课程问题、文字谜题和解码）、算法编码（近期发布的编程问题）、任务完成（指令遵循、多轮指令遵循、长上下文理解）、事实性与回避（长尾知识）、安全性（有害内容生成与越狱）。
 
 # Coding Benchmarks
 
@@ -278,14 +262,6 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
     专注于评估搜索和信息检索场景中的工具使用能力，贴合中文语境。
 
-  - xbench-Profession-Recruiting
-
-    专注于真实的招聘工作流程和行业标准，涵盖职位需求分解、人才画像定位、候选人体验补充、简历筛选、人脉关系理解以及开放人才搜索等任务，用以评估 Agent 在行业认知、人才搜寻能力与评估技能等多方面的表现。
-
-  - xbench-Profession-Marketing
-
-    专注于真实的营销流程和行业标准，主要聚焦于 KOL 搜索任务。在客户需求咨询与 KOL 匹配中的沟通交互，以及内容分发中的监控与策略调整
-
 - IFBench（[IFBench 基准测试排行榜 | Artificial Analysis --- IFBench Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/ifbench)）
 
   通过 58 种多样且可验证的域外约束，评估模型在遵循精确指令方面的泛化能力，检验模型是否能遵守特定的输出要求。
@@ -447,10 +423,6 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   （漏洞：1、对于正确答案的子集而言，空格会成为第一个字符。这意味着，采用随机猜测再加上“如果以空格开头就选择该选项”的策略，将会带来相当大的优势，会影响化学、物理和数学相关的测试结果。2、总是猜测最长的答案，在整个测试基准中能获得类似的提升效果）
 
-- Frames
-
-  是一个综合评估数据集，旨在测试检索增强生成（RAG）系统在事实性、检索准确性和推理能力方面的表现。824 个具有挑战性的多跳问题，需要从 2-15 篇维基百科文章中获取信息，问题涵盖历史、体育、科学、动物、健康等多样主题。评估 RAG 系统的性能，评估语言模型的事实准确性与推理能力。
-
 - SealQA（[vtllms/sealqa · Datasets at Hugging Face](https://huggingface.co/datasets/vtllms/sealqa)）
 
   Seal-0，用于评估在事实查询问题上使用网络搜索时，搜索结果存在冲突、噪声或无帮助情况下的搜索增强型语言模型。聚焦于最具挑战性的问题——在这些问题上，聊天模型（如 GPT-4.1）通常准确率接近零。
@@ -507,9 +479,17 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   一个用于评估 LLMs 指令遵循能力的基准测试，评估 LLMs 作为人类工作生产力助手的基准。
 
-- SpeechMap（[SpeechMap.AI Explorer](https://speechmap.ai/)）
+- SimpleQA
 
-  旨在探索人工智能言论的边界。测试不同提供商、国家和话题下，语言模型对敏感和争议性提示的反应。大多数 AI 基准衡量的是模型能做什么，而我们关注的是它们不能做什么：它们回避、拒绝或屏蔽的内容。
+  OpenAI推出的基准测试，用在评估大型语言模型回答简短、寻求事实问题的能力。SimpleQA包含4326个问题，每个问题设计为只有一个正确答案，易于评分。
+
+- PostTrainBench（[posttrainbench.com/](https://posttrainbench.com/)）
+
+  通过测试 AI 智能体能否成功对其他语言模型进行训练后优化，来衡量 AI 研发的自动化水平。每个智能体将获得四个基础模型（Qwen 3 1.7B、Qwen 3 4B、SmolLM3-3B 和 Gemma 3 4B）、一台 H100 GPU，以及十小时的时间限制，以通过训练后优化提升模型性能。
+
+- KernelBench v3（[elliotarledge.com/kernelbench-v3](https://elliotarledge.com/kernelbench-v3)）
+
+  GPU内核优化基准测试，在H100和B200 GPU上针对41个CUDA问题对大语言模型（LLMs）进行评估。有三个关键指标需要考量：代码能否成功编译？计算结果是否正确？其性能是否优于 PyTorch 的基准测试结果？分为四个难度等级，第四级考察现代推理优化技术：DeepSeek MLA、DeepSeek MoE、GQA、FP8 Matmul、INT4 GEMM、GatedDeltaNet、KimiDeltaAttention。
 
 - WeirdML（[htihle.github.io/weirdml.html](https://htihle.github.io/weirdml.html)）
 
@@ -519,21 +499,6 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
   根据终端输出和测试集上的准确率，在五次迭代中调试并改进解决方案
   充分利用有限的计算资源和时间
 
-- SimpleQA
-
-  OpenAI推出的基准测试，用在评估大型语言模型回答简短、寻求事实问题的能力。SimpleQA包含4326个问题，每个问题设计为只有一个正确答案，易于评分。
-
-- Vending-Bench 2（[andonlabs.com/evals/vending-bench-2](https://andonlabs.com/evals/vending-bench-2)）
-
-  一个用于衡量 AI 模型在长时间范围内运营企业表现的基准测试。模型需在一年内模拟运营自动售货机业务，并以其期末银行账户余额进行评分。
-
-- PostTrainBench（[posttrainbench.com/](https://posttrainbench.com/)）
-
-  通过测试 AI 智能体能否成功对其他语言模型进行训练后优化，来衡量 AI 研发的自动化水平。每个智能体将获得四个基础模型（Qwen 3 1.7B、Qwen 3 4B、SmolLM3-3B 和 Gemma 3 4B）、一台 H100 GPU，以及十小时的时间限制，以通过训练后优化提升模型性能。
-
-- YapBench（[huggingface.co/spaces/tabularisai/YapBench](https://huggingface.co/spaces/tabularisai/YapBench)）
-
-  衡量在简短回答即可的情况下，大型语言模型（LLMs）的啰嗦程度（存在长度偏好）。每个条目都包含一个单轮提示词、一个精心筛选的最小充分基准答案以及一个类别标签。主要指标YapScore以字符为单位衡量超出基准的响应长度，无需依赖任何特定的分词器，不同模型的结果也具有可比性。包含三百多个英文提示词，涵盖三种常见的追求简洁的场景：（A）最小化/模糊输入，理想的应对方式是简短的澄清；（B）封闭式事实性问题，答案简短且固定；（C）单行编码任务，只需一个命令/代码片段即可完成。
 
 ## AI4S（特化领域）
 
@@ -587,6 +552,24 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 - SUPERChem（[superchem.pku.edu.cn/leaderboard](https://superchem.pku.edu.cn/leaderboard)）
 
   一个由专家精心构建、以推理为核心的多模态基准，用于严格评估大型语言模型（LLMs）和多模态大型语言模型（MLLMs）在化学深度推理方面的能力。包含 500 道化学问题，涵盖多个不同子领域，并提供多模态和纯文本两种格式。
+
+## 特定行业基准
+
+- Medmarks（[medmarks.ai/](https://medmarks.ai/)）
+
+  专门用于评估大语言模型的医疗应用能力。分为：Medmarks-Verifiable: 14 个可验证的基准测试，主要为选择题解答任务和医疗计算；Medmarks-OE: 6 个开放性基准测试，例如回答患者提出的问题。
+
+## 特殊场景
+
+- Vending-Bench 2（[andonlabs.com/evals/vending-bench-2](https://andonlabs.com/evals/vending-bench-2)）
+
+  一个用于衡量 AI 模型在长时间范围内运营企业表现的基准测试。模型需在一年内模拟运营自动售货机业务，并以其期末银行账户余额进行评分。
+- SpeechMap（[SpeechMap.AI Explorer](https://speechmap.ai/)）
+
+  旨在探索人工智能言论的边界。测试不同提供商、国家和话题下，语言模型对敏感和争议性提示的反应。大多数 AI 基准衡量的是模型能做什么，而我们关注的是它们不能做什么：它们回避、拒绝或屏蔽的内容。
+- YapBench（[huggingface.co/spaces/tabularisai/YapBench](https://huggingface.co/spaces/tabularisai/YapBench)）
+
+  衡量在简短回答即可的情况下，大型语言模型（LLMs）的啰嗦程度（存在长度偏好）。每个条目都包含一个单轮提示词、一个精心筛选的最小充分基准答案以及一个类别标签。主要指标YapScore以字符为单位衡量超出基准的响应长度，无需依赖任何特定的分词器，不同模型的结果也具有可比性。包含三百多个英文提示词，涵盖三种常见的追求简洁的场景：（A）最小化/模糊输入，理想的应对方式是简短的澄清；（B）封闭式事实性问题，答案简短且固定；（C）单行编码任务，只需一个命令/代码片段即可完成。
 
 
 # 视觉理解与推理
