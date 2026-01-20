@@ -370,6 +370,8 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
 ## LLM记忆与个性化
 
+https://github.com/IAAR-Shanghai/Awesome-AI-Memory
+
 - LoCoMo（[snap-research.github.io/locomo/](https://snap-research.github.io/locomo/)）
 
   评估 LLM 智能体的超长期对话记忆，用于衡量模型的长时记忆能力，涵盖问答、事件总结和多模态对话生成任务。
