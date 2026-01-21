@@ -3,23 +3,28 @@
 
 # 大模型评测榜单汇总
 
-Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，但测试本身并非准确无误，甚至可能存在系统性缺陷，典型案例τ²-bench、MMLU-Pro。（参见[mp.weixin.qq.com/s/mrr2oDR2V8OvTT7JD918RQ](https://mp.weixin.qq.com/s/mrr2oDR2V8OvTT7JD918RQ)）（论文：[arxiv.org/abs/2511.16842](https://arxiv.org/abs/2511.16842)）
-收录规则为：1、近三个月内榜单有更新；2、所纳入新模型已更新至GPT-5、Qwen3-VL这一最新世代
+Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，但测试本身并非准确无误，甚至可能存在系统性缺陷，典型案例τ²-bench、MMLU-Pro、GPQA、HLE。（参见论文：*[Fantastic Bugs and Where to Find Them in AI Benchmarks](https://arxiv.org/abs/2511.16842)*）（案例说明见下面子项介绍）
 
-当前对LLM进行评测的难点和缺陷参见epoch.ai的博客《Why benchmarking is hard》（epoch.ai/gradient-updates/why-benchmarking-is-hard）
+当前对LLM进行评测的难点和缺陷参见epoch.ai的博客*[Why benchmarking is hard](https://epoch.ai/gradient-updates/why-benchmarking-is-hard)*
 
-参考Hugging Face官方教程：使用inspect-ai和lighteval（[https://huggingface.co/docs/inference-providers/guides/evaluatio...](https://huggingface.co/docs/inference-providers/guides/evaluation-inspect-ai)）（[github.com/huggingface/lighteval](https://github.com/huggingface/lighteval)）（[huggingface.co/docs/lighteval/main/en/index](https://huggingface.co/docs/lighteval/main/en/index)）
+自部署模型测试：参考Hugging Face官方教程：使用inspect-ai和lighteval（[https://huggingface.co/docs/inference-providers/guides/evaluatio...](https://huggingface.co/docs/inference-providers/guides/evaluation-inspect-ai)）（[github.com/huggingface/lighteval](https://github.com/huggingface/lighteval)）（[huggingface.co/docs/lighteval/main/en/index](https://huggingface.co/docs/lighteval/main/en/index)）
 
-Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏览任务，并搜索任务描述。（[huggingface.co/spaces/OpenEvals/open_benchmark_index](https://huggingface.co/spaces/OpenEvals/open_benchmark_index)）目前所有基于 HF Open-LLM-Leaderboard 发布的模型评分和排名都受到空白字符漏洞影响。lm-evaluation-harness（实际应用中最常用的 LLM 评估工具包）被发现存在存在该漏洞（如果前面存在空白字符，就会导致正确选项无法被正确选中）。
+Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏览任务，并搜索任务描述。（[huggingface.co/spaces/OpenEvals/open_benchmark_index](https://huggingface.co/spaces/OpenEvals/open_benchmark_index)）
+
+目前所有基于 HF Open-LLM-Leaderboard 发布的模型评分和排名都受到空白字符漏洞影响。lm-evaluation-harness（实际应用中最常用的 LLM 评估工具包）被发现存在存在该漏洞（如果前面存在空白字符，就会导致正确选项无法被正确选中）。
+
+- X用户@SeunghyunSEO7整理的表格
+
+  <img width="2044" height="1584" alt="image" src="https://github.com/user-attachments/assets/e3313b85-0dec-4f7d-b6fb-5ee4c2f5ed76" />
 
 - Relative Adoption Metric (RAM)（[atomproject.ai/relative-adoption-metric](https://atomproject.ai/relative-adoption-metric)）
 
-  相对采纳指标（Relative Adoption Metric, RAM）。“RAM 得分”：这是一个更合适的指标，可用于评估不同规模的新开源模型的下载情况。
+  相对采纳指标（Relative Adoption Metric, RAM）。“RAM 得分”：这是一个更合适的指标，可用于评估不同规模的新开源模型的下载情况。  
   得分 \= （模型的下载量） / （同一规模类别中排名前十的模型下载量的中位数）得分为1意味着该模型有望成为其所属规模中下载量排名前十的模型之一。
 
-  数据收集（选用中位数）
-  按总下载量排名的每个尺寸分组前 10 大模型（来自 HuggingFace）
-  里程碑时刻的累计下载量：发布后第7天、14天、30天、60天、90天、180天、365天
+  数据收集（选用中位数）  
+  按总下载量排名的每个尺寸分组前 10 大模型（来自 HuggingFace）  
+  里程碑时刻的累计下载量：发布后第7天、14天、30天、60天、90天、180天、365天  
   各模型随时间推移的累计 HuggingFace 下载总量
 
 # 综合评测
@@ -106,10 +111,10 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
     2. 任务多样性不足：许多基准测试未能涵盖现实世界软件挑战的完整范围，而仅聚焦于简单的工具库。
     3. 问题过于简化：模糊或未明确说明的问题常被从基准测试中剔除，而这与真实开发者的实际工作流程不符。
     4. 不可靠且无法复现的测试：不一致的环境设置使得难以判断解决方案是否真正有效，还是仅仅因为环境配置错误。
-   
-   - SWE-bench Multilingual
 
-     旨在评估 LLMs 在多种编程语言中的软件工程能力。SWE-bench Multilingual 包含 300 个精心挑选的软件工程任务，这些任务源自 42 个 GitHub 仓库和 9 种编程语言的真实拉取请求（涵盖 9 种流行编程语言（C、C++、Go、Java、JavaScript、TypeScript、PHP、Ruby 和 Rust））。这些仓库涵盖广泛的应用领域，包括 Web 框架、数据存储与处理工具、核心工具以及常用库。
+  - SWE-bench Multilingual
+
+    旨在评估 LLMs 在多种编程语言中的软件工程能力。SWE-bench Multilingual 包含 300 个精心挑选的软件工程任务，这些任务源自 42 个 GitHub 仓库和 9 种编程语言的真实拉取请求（涵盖 9 种流行编程语言（C、C++、Go、Java、JavaScript、TypeScript、PHP、Ruby 和 Rust））。这些仓库涵盖广泛的应用领域，包括 Web 框架、数据存储与处理工具、核心工具以及常用库。
 
   - Multi-SWE-Bench（[Multi-SWE-bench --- Multi-SWE-bench](https://multi-swe-bench.github.io/#/)）
 
@@ -122,6 +127,7 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 - terminal-bench（[Terminal-Bench --- Terminal-Bench](https://www.tbench.ai/)）（[Artificial Analysis](https://artificialanalysis.ai/evaluations/terminalbench-hard)）
 
   是一组任务和评估框架，用于评估 AI 智能体在终端环境中完成复杂任务的表现。任务示例包括：编译和打包代码仓库，下载数据集并在其上训练分类器，设置服务器。Terminal-Bench 中的每个任务包括一段英文描述，一个 Docker 环境，用于验证代理是否成功完成任务的测试脚本，解决该任务的参考（“理想”）方案。
+
   - Terminal-Bench Pro（[alibaba.github.io/terminal-bench-pro/](https://alibaba.github.io/terminal-bench-pro/)）
 
     阿里发布的一个用于在真实终端环境中测试 AI 智能体的扩展基准测试数据集。从编译代码到训练模型、设置服务器，Terminal-Bench Pro 评估智能体处理真实世界端到端任务的能力——完全自主地执行。包含 200+ 个任务 **。**
@@ -220,8 +226,8 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
 - FACTS Benchmark（[www.kaggle.com/benchmarks/google/facts/leaderboard](https://www.kaggle.com/benchmarks/google/facts/leaderboard)）
 
-  一个参数化基准，用于衡量模型在事实性问答场景中准确调用其内部知识的能力，包含一个由 1052 个问题组成的公开集和一个由 1052 个问题组成的私有集。
-  一个搜索基准，用于测试模型将搜索作为工具以检索信息并正确整合信息的能力，包含一个由 890 个条目组成的公开数据集和一个由 994 个条目组成的私有数据集。
+  一个参数化基准，用于衡量模型在事实性问答场景中准确调用其内部知识的能力，包含一个由 1052 个问题组成的公开集和一个由 1052 个问题组成的私有集。  
+  一个搜索基准，用于测试模型将搜索作为工具以检索信息并正确整合信息的能力，包含一个由 890 个条目组成的公开数据集和一个由 994 个条目组成的私有数据集。  
   一个多模态基准，用于测试模型以事实准确的方式回答与输入图像相关提示的能力，包含一个 711 项的公开数据集和一个 811 项的私有数据集。
 
   Grounding Benchmark - v2，这是一个扩展基准，用于测试模型在给定提示的上下文中提供基于事实依据的答案的能力。
@@ -257,14 +263,6 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   通过 58 种多样且可验证的域外约束，评估模型在遵循精确指令方面的泛化能力，检验模型是否能遵守特定的输出要求。
 
-- Humanity's Last Exam（[人类的最后一次考试 --- Humanity's Last Exam](https://lastexam.ai/)）（[Artificial Analysis](https://artificialanalysis.ai/evaluations/humanitys-last-exam)）
-
-  一个处于人类知识前沿的多模态基准，旨在成为涵盖广泛学科的最后一个封闭式学术基准。该数据集包含跨越百余门学科的 2,500 道高难度问题。我们公开发布这些问题，同时保留一个未公开的测试集，用于评估模型过拟合情况。
-
-  在 HLE 上取得高准确率将证明模型在封闭式、可验证的问题以及前沿科学知识方面具备专家级表现，但这本身并不意味着其具备自主研究能力或“通用人工智能”。HLE 测试的是结构化的学术问题，而非开放式的科研或创造性解决问题的能力，因此它是一种聚焦于技术知识与推理能力的衡量标准。
-
-  分为 (w/ tools)有工具（测试angentic能力）和 (w/o tools)（无工具）（测试模型本身智能）两种情况
-
 - τ²-bench（[τ-bench --- τ-bench](https://taubench.com/#home)）（[Artificial Analysis](https://artificialanalysis.ai/evaluations/tau2-bench)）（被发现存在重大缺陷）
 
   用于评估跨多个领域客户服务代理的模拟框架，在协作的现实场景中对 AI 代理进行基准测试。τ-bench 要求代理**在复杂的企业领域中协调、引导并协助用户**实现共同目标。分为总体、零售、电信、航空。
@@ -273,7 +271,7 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   重大缺陷：
 
-  在对原始的τ²-bench进行验证时，我们发现了几类问题：
+  在对原始的τ²-bench进行验证时，亚马逊AI团队发现了几类问题：
 
   1. 政策合规问题：预期行动违反了规定的领域政策的任务（例如，在政策不允许的情况下提供补偿、取消已起飞的航班）
   2. 数据库准确性问题：存在物品ID、乘客信息或支付方式参考不正确且与实际数据库不匹配的任务
@@ -335,11 +333,15 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   一个旨在评估网络智能体在真实网站性能的基准测试，涵盖 136 个热门网的 300项任务，涉及多个领域，并采用可靠的 LLM 即法官（WebJudge）自动评估机制。根据人工标注所需步骤数，任务分为三个难度等级：简单（1-5 步）、中等（6-10 步）和困难（11 步以上）。
 
+- AgentIF-OneDay（[xbench.org/agi/agentif](https://xbench.org/agi/agentif)）
+
+  一个用于日常场景中通用人工智能智能体的任务级指令遵循基准，包含104项任务。围绕三个以用户为中心的类别构建：开放式工作流执行，用于评估对明确且复杂工作流的遵循程度；潜在指令，要求智能体从附件中推断隐含指令；以及迭代优化，涉及对正在进行的工作进行修改或扩展。
+
 ## DeepResearch
 
 - DeepSearchQA（[www.kaggle.com/benchmarks/google/dsqa/leaderboard](https://www.kaggle.com/benchmarks/google/dsqa/leaderboard)）
 
-  谷歌推出的一个包含 900 个提示的基准测试，用于评估代理在 17 个不同领域中完成困难的多步信息检索任务的能力。与传统仅针对单答案检索或广泛事实准确性的基准不同，DeepSearchQA 包含一组具有挑战性的手工构建任务，旨在评估代理执行复杂搜索计划以生成详尽答案列表的能力。
+  谷歌推出的一个包含 900 个提示的基准测试，用于评估代理在 17 个不同领域中完成困难的多步信息检索任务的能力。与传统仅针对单答案检索或广泛事实准确性的基准不同，DeepSearchQA 包含一组具有挑战性的手工构建任务，旨在评估代理执行复杂搜索计划以生成详尽答案列表的能力。  
   每个任务都构造成一个“因果链”，其中完成某一步的信息发现依赖于前一步的成功完成，强调长期规划和上下文保留。
 
 - DeepResearch Bench（[https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leader...](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard)）
@@ -406,8 +408,8 @@ https://github.com/IAAR-Shanghai/Awesome-AI-Memory
 
   在人机交互与 MCP 增强环境中评估自主移动智能体，包含来自 20 个应用程序的 201 项任务，涵盖长周期、跨应用任务，以及智能体-用户交互和 MCP 增强型任务等新颖任务类别。
 
-  难度体现在两个方面：
-  长周期、跨应用任务。Mobile World 的任务平均需要 27.8 个完成步骤，几乎是 AndroidWorld 所需 14.3 步的两倍。此外，62.2% 的任务涉及跨应用工作流，而 AndroidWorld 中这一比例仅为 9.5%。
+  难度体现在两个方面：  
+  长周期、跨应用任务。Mobile World 的任务平均需要 27.8 个完成步骤，几乎是 AndroidWorld 所需 14.3 步的两倍。此外，62.2% 的任务涉及跨应用工作流，而 AndroidWorld 中这一比例仅为 9.5%。  
   新颖的任务类别。Mobile World 通过引入（1）智能体-用户交互任务（占 22.4%），评估智能体通过协作对话处理模糊指令的能力，以及（2）MCP 增强任务（占 19.9%），要求结合 GUI 导航与通过模型上下文协议调用外部工具的混合使用。
 
 - ScreenSpot-V2（[https://gui-agent.github.io/grounding-leaderboard/screenspot.htm...](https://gui-agent.github.io/grounding-leaderboard/screenspot.html)）
@@ -426,7 +428,9 @@ https://github.com/IAAR-Shanghai/Awesome-AI-Memory
 
   旨在全面评测GUI Agent在Windows、macOS、Linux、iOS、Android和Web等六大主流平台上的综合能力。它不仅关注任务是否成功，更创新性地提出了 效率-质量面积（Efficiency-Quality Area, EQA） 指标，用于衡量 Agent完成任务的效率。包含四个评估层级：图形用户界面内容理解、图形用户界面元素定位、图形用户界面任务自动化以及图形用户界面任务协同。
 
-‍
+- cua-bench（[cuabench.ai/cuabench/leaderboard](https://cuabench.ai/cuabench/leaderboard)）
+
+  一个灵活且可扩展的框架，用于构建可验证的动态计算机使用环境
 
 # Intelligence Benchmarks
 
@@ -441,51 +445,19 @@ https://github.com/IAAR-Shanghai/Awesome-AI-Memory
 
 - MMLU-Pro（[MMLU-Pro Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/mmlu-pro)）（存在漏洞）
 
-  多任务理解数据集，旨在严格评估大型语言模型。它包含来自各个学科领域的1.2万个复杂问题。每个问题有10个答案选项，整合了更多以推理为核心的问题
+  多任务理解数据集，旨在严格评估大型语言模型。它包含来自各个学科领域的1.2万个复杂问题。每个问题有10个答案选项，整合了更多以推理为核心的问题。
 
   （漏洞：1、对于正确答案的子集而言，空格会成为第一个字符。这意味着，采用随机猜测再加上“如果以空格开头就选择该选项”的策略，将会带来相当大的优势，会影响化学、物理和数学相关的测试结果。2、总是猜测最长的答案，在整个测试基准中能获得类似的提升效果）
 
-- SealQA（[vtllms/sealqa · Datasets at Hugging Face](https://huggingface.co/datasets/vtllms/sealqa)）
+- AA-Omniscience（[Artificial Analysis Omniscience Index | Artificial Analysis](https://artificialanalysis.ai/evaluations/omniscience)）
 
-  Seal-0，用于评估在事实查询问题上使用网络搜索时，搜索结果存在冲突、噪声或无帮助情况下的搜索增强型语言模型。聚焦于最具挑战性的问题——在这些问题上，聊天模型（如 GPT-4.1）通常准确率接近零。
+  涵盖 6 个领域（“商业”、“人文与社会科学”、“健康”、“法律”、“软件工程”和“科学、工程与数学”）中 42 个主题的 6,000 道问题。三项指标：准确率（正确百分比）、幻觉率（错误答案占所有非回避答案的百分比）、全知指数（回答正确+1，回答错误-1，回避回答 0）。
 
 - Stanford HELM（[Capabilities - Holistic Evaluation of Language Models (HELM)](https://crfm.stanford.edu/helm/capabilities/latest/#/leaderboard)）
 
 - Zenmux（[Benchmark - ZenMux](https://zenmux.ai/benchmark)）
 
   分为性价比曲线和评分榜两部分。为每个模型独立测试所有可用的提供商通道。使用 Scale AI 公开发布的数据集《人类最后的考试（文本版）》作为主要评估基准。
-
-- AA-LCR（[Artificial Analysis Long Context Reasoning Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/artificial-analysis-long-context-reasoning)）
-
-  专为评估语言模型在多个长文档间进行推理能力而设计的基准。要求模型阅读 10 万 token 的输入（使用 cl100k\_base 分词器衡量），整合输入文档中多个位置的信息，并据此推导出答案。旨在真实还原知识工作者期望语言模型执行的推理任务。涵盖 7 种纯文本文档类型（即公司报告、行业报告、政府咨询、学术文献、法律文件、营销材料和调查报告）。
-
-- Fiction-liveBench（[Fiction.liveBench Sept 29 2025](https://fiction.live/stories/Fiction-liveBench-Sept-06-2025/oQdzQvKHw8JyXbN87/home)）
-
-  评估 AI 模型的长上下文理解能力（针对故事写作），基于一组精选的十几个非常长且复杂的故事情节以及大量经过验证的测验，我们根据这些故事的精简版本生成了测试题。
-
-- Context Arena（[contextarena.ai/](https://contextarena.ai/)）
-
-- Context-Bench（[Letta Leaderboard](https://leaderboard.letta.com/)）
-
-  评估语言模型在链式文件操作、追踪实体关系以及管理多步骤信息检索方面的能力。
-
-- Needle in a Haystack（[LLM-NeedleInAHaystack/README_CN.md at main · Lianues/LLM-NeedleInAHaystack](https://github.com/Lianues/LLM-NeedleInAHaystack/blob/main/README_CN.md)）
-
-  大语言模型召回率测试，通过一种类似于"大海捞针"的方法，对现有主流大语言模型进行召回率的测试。
-
-  本测试方法通过以下步骤进行：
-
-  1. **构造测试文本**：在一个固定token长度的上下文中，随机插入多个四位数（1000-9999）
-  2. **模型任务**：要求模型从文本中提取所有四位数，并按出现顺序输出为JSON格式
-  3. **评分算法**：使用基于编辑距离（Levenshtein Distance）的算法对模型回答进行评分
-
-- Hallucination Leaderboard（[LLM Hallucination Leaderboard - a Hugging Face Space by vectara](https://huggingface.co/spaces/vectara/leaderboard)）
-
-  评估 LLM 在总结文档时引入幻觉的频率。输入短文档，并要求它们仅依据文档中呈现的事实对每篇短文进行摘要。评估的是摘要的事实一致性率，而非整体事实准确性
-
-- AA-Omniscience（[Artificial Analysis Omniscience Index | Artificial Analysis](https://artificialanalysis.ai/evaluations/omniscience)）
-
-  涵盖 6 个领域（“商业”、“人文与社会科学”、“健康”、“法律”、“软件工程”和“科学、工程与数学”）中 42 个主题的 6,000 道问题。三项指标：准确率（正确百分比）、幻觉率（错误答案占所有非回避答案的百分比）、全知指数（回答正确+1，回答错误-1，回避回答 0）。
 
 - R-HORIZON（[R-HORIZON: How Far Can Your Large Reasoning Model Really Go in Breadth and Depth?](https://reasoning-horizon.github.io/)）
 
@@ -515,12 +487,46 @@ https://github.com/IAAR-Shanghai/Awesome-AI-Memory
 
 - WeirdML（[htihle.github.io/weirdml.html](https://htihle.github.io/weirdml.html)）
 
-  向 LLMs 提出了一系列奇特且非传统的机器学习任务，这些任务需要细致的思考和真正的理解才能解决，旨在测试 LLM 的以下能力：
-  真正理解数据的特性与问题本质
-  为问题设计合适的机器学习架构与训练配置，并生成可运行的 PyTorch 代码来实现解决方案
-  根据终端输出和测试集上的准确率，在五次迭代中调试并改进解决方案
+  向 LLMs 提出了一系列奇特且非传统的机器学习任务，这些任务需要细致的思考和真正的理解才能解决，旨在测试 LLM 的以下能力：  
+  真正理解数据的特性与问题本质  
+  为问题设计合适的机器学习架构与训练配置，并生成可运行的 PyTorch 代码来实现解决方案  
+  根据终端输出和测试集上的准确率，在五次迭代中调试并改进解决方案  
   充分利用有限的计算资源和时间
 
+## 幻觉与上下文召回
+
+关于长上下文召回和推理问题，参考这篇文章*[Evaluating Long Context (Reasoning) Ability](https://nrehiew.github.io/blog/long_context/)*
+
+- Hallucination Leaderboard（[LLM Hallucination Leaderboard - a Hugging Face Space by vectara](https://huggingface.co/spaces/vectara/leaderboard)）
+
+  评估 LLM 在总结文档时引入幻觉的频率。输入短文档，并要求它们仅依据文档中呈现的事实对每篇短文进行摘要。评估的是摘要的事实一致性率，而非整体事实准确性
+
+- SealQA（[vtllms/sealqa · Datasets at Hugging Face](https://huggingface.co/datasets/vtllms/sealqa)）
+
+  Seal-0，用于评估在事实查询问题上使用网络搜索时，搜索结果存在冲突、噪声或无帮助情况下的搜索增强型语言模型。
+
+- AA-LCR（[Artificial Analysis Long Context Reasoning Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/artificial-analysis-long-context-reasoning)）
+
+  专为评估语言模型在多个长文档间进行推理能力而设计的基准。要求模型阅读 10 万 token 的输入（使用 cl100k\_base 分词器衡量），整合输入文档中多个位置的信息，并据此推导出答案。旨在真实还原知识工作者期望语言模型执行的推理任务。涵盖 7 种纯文本文档类型（即公司报告、行业报告、政府咨询、学术文献、法律文件、营销材料和调查报告）。
+
+- Fiction-liveBench（[Fiction.liveBench Sept 29 2025](https://fiction.live/stories/Fiction-liveBench-Sept-06-2025/oQdzQvKHw8JyXbN87/home)）
+
+  评估 AI 模型的长上下文理解能力（针对故事写作），基于一组精选的十几个非常长且复杂的故事情节以及大量经过验证的测验，我们根据这些故事的精简版本生成了测试题。
+
+- Context Arena（MRCR v2）（[contextarena.ai/](https://contextarena.ai/)）
+
+  数据来源为OpenAI发布的MRCR。OpenAI的MRCR测试旨在评估大型语言模型（LLM）处理复杂对话历史的能力。其关键方面包括：  
+  核心任务：在冗长的对话（“干草堆”）中找到并区分多个相同的信息片段（“针”）。  
+  设置： 受谷歌的[MRCR评估](https://arxiv.org/pdf/2409.12640v2)启发，此版本会插入2、4或8个相同的请求（例如，“写一首关于貘的诗”）以及干扰性请求。关键信息/干扰信息由GPT-4o生成，以实现自然融入。  
+  挑战：模型必须根据顺序检索一个特定实例（例如，第二首诗），这需要仔细跟踪对话。它还必须在答案前加上一个特定的随机代码（哈希值）。
+
+- Context-Bench（[Letta Leaderboard](https://leaderboard.letta.com/)）
+
+  评估语言模型在链式文件操作、追踪实体关系以及管理多步骤信息检索方面的能力。
+
+- LoCoDiff（[abanteai.github.io/LoCoDiff-bench/index.html](https://abanteai.github.io/LoCoDiff-bench/index.html)）
+
+  长上下文基准。采用自然关联的内容 ，而非人为生成或填充的上下文；无冗余上下文 ：上下文的每一部分都是完成任务所必需的；检验编码智能体至关重要的真实技能 ：追踪已编辑文件的状态；考验模型生成长篇输出的能力；推理模型在处理这些问题时极为困难；可轻松通过程序生成 ：任何 Git 仓库中的任意文件都能转化为基准测试用例。
 
 ## AI4S（特化领域）
 
@@ -532,13 +538,13 @@ https://github.com/IAAR-Shanghai/Awesome-AI-Memory
 
   用于MathArena Leaderboard的2025年2月HMMT数学竞赛（哈佛-麻省理工大学数学竞赛）的问题
 
-- AMO-Bench（[AMO-Bench: Large Language Models Still Struggle in High School Math Competitions](https://amo-bench.github.io/)）
-
-  美团 LongCat 团队发布，该评测集共包含 50 道竞赛专家原创试题，所有题目均对标甚至超越 IMO 竞赛难度。
-
 - IMO Bench（[imobench.github.io/](https://imobench.github.io/)）
 
   该基准测试集经过了一组IMO奖牌获得者和数学家的审核（他们总共获得了10枚IMO金牌和5枚IMO银牌）。由于IMO的题目难度极高，既需要严谨的多步骤推理，又需要超越简单套用已知公式的创造力，因此IMO-Bench专门以IMO的难度水平为目标。IMO-Bench由三个基准测试组成，用于评估模型的多种能力：IMO-AnswerBench——一项大规模的正确答案测试，IMO-ProofBench——用于证明写作的更高层次评估，以及IMO-GradingBench——旨在推动对长篇答案的自动评估取得进一步进展。
+
+- AMO-Bench（[AMO-Bench: Large Language Models Still Struggle in High School Math Competitions](https://amo-bench.github.io/)）
+
+  美团 LongCat 团队发布，该评测集共包含 50 道竞赛专家原创试题，所有题目均对标甚至超越 IMO 竞赛难度。
 
 - FrontierMath（[epoch.ai/frontiermath](https://epoch.ai/frontiermath)）
 
@@ -552,10 +558,22 @@ https://github.com/IAAR-Shanghai/Awesome-AI-Memory
 
   在普特南数学竞赛中对形式化数学推理进行基准测试。包含 1712 个手工构建的形式化问题，题目源自北美顶尖本科数学竞赛——威廉·洛厄尔·普特南数学竞赛。其中 660 个问题使用 Lean 4 形式化，640 个使用 Isabelle 形式化，412 个使用 Coq 形式化。
 
-- GPQA Diamond（[GPQA 钻石基准排行榜 | Artificial Analysis --- GPQA Diamond Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/gpqa-diamond)）
+- GPQA Diamond（[GPQA 钻石基准排行榜 | Artificial Analysis --- GPQA Diamond Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/gpqa-diamond)）（有严重缺陷）
 
   GPQA 基准中最难的 198 个问题，专为“防谷歌”设计，需要真正的科学专业知识，而非搜索技巧。  
   这些研究生级别的物理、生物和化学问题，只有具备博士学位的领域专家才能稳定解答，因此非常适合用于测试真正的科学推理能力。
+
+  被发现题目在OCR识别和录入过程中存在大量错误，数据处理的工程流程堪称灾难。（来源：[Humanity's Last Hallucination : A Forensic Audit of the Scientific Insolvency in GPQA and HLE](https://zenodo.org/records/18293568)）
+
+- Humanity's Last Exam（[人类的最后一次考试 --- Humanity's Last Exam](https://lastexam.ai/)）（[Artificial Analysis](https://artificialanalysis.ai/evaluations/humanitys-last-exam)）（有严重缺陷）
+
+  一个处于人类知识前沿的多模态基准，旨在成为涵盖广泛学科的最后一个封闭式学术基准。该数据集包含跨越百余门学科的 2,500 道高难度问题。我们公开发布这些问题，同时保留一个未公开的测试集，用于评估模型过拟合情况。
+
+  在 HLE 上取得高准确率将证明模型在封闭式、可验证的问题以及前沿科学知识方面具备专家级表现，但这本身并不意味着其具备自主研究能力或“通用人工智能”。HLE 测试的是结构化的学术问题，而非开放式的科研或创造性解决问题的能力，因此它是一种聚焦于技术知识与推理能力的衡量标准。
+
+  分为 (w/ tools)有工具（测试angentic能力）和 (w/o tools)（无工具）（测试模型本身智能）两种情况
+
+  被发现题目在OCR识别和录入过程中存在大量错误，数据处理的工程流程堪称灾难。（来源：[Humanity's Last Hallucination : A Forensic Audit of the Scientific Insolvency in GPQA and HLE](https://zenodo.org/records/18293568)）
 
 - CritPt（[CritPt Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/critpt)）
 
@@ -577,22 +595,31 @@ https://github.com/IAAR-Shanghai/Awesome-AI-Memory
 
 ## 特定行业基准
 
+### 医学
+
 - Medmarks（[medmarks.ai/](https://medmarks.ai/)）
 
   专门用于评估大语言模型的医疗应用能力。分为：Medmarks-Verifiable: 14 个可验证的基准测试，主要为选择题解答任务和医疗计算；Medmarks-OE: 6 个开放性基准测试，例如回答患者提出的问题。
+
+### 法律
+
+法律领域Benchmarks参考*[LLM Agents in Law: Taxonomy, Applications, and Challenges](https://arxiv.org/pdf/2601.06216)*附录3
+
+### 金融
 
 ## 特殊场景
 
 - Vending-Bench 2（[andonlabs.com/evals/vending-bench-2](https://andonlabs.com/evals/vending-bench-2)）
 
   一个用于衡量 AI 模型在长时间范围内运营企业表现的基准测试。模型需在一年内模拟运营自动售货机业务，并以其期末银行账户余额进行评分。
+
 - SpeechMap（[SpeechMap.AI Explorer](https://speechmap.ai/)）
 
   旨在探索人工智能言论的边界。测试不同提供商、国家和话题下，语言模型对敏感和争议性提示的反应。大多数 AI 基准衡量的是模型能做什么，而我们关注的是它们不能做什么：它们回避、拒绝或屏蔽的内容。
+
 - YapBench（[huggingface.co/spaces/tabularisai/YapBench](https://huggingface.co/spaces/tabularisai/YapBench)）
 
   衡量在简短回答即可的情况下，大型语言模型（LLMs）的啰嗦程度（存在长度偏好）。每个条目都包含一个单轮提示词、一个精心筛选的最小充分基准答案以及一个类别标签。主要指标YapScore以字符为单位衡量超出基准的响应长度，无需依赖任何特定的分词器，不同模型的结果也具有可比性。包含三百多个英文提示词，涵盖三种常见的追求简洁的场景：（A）最小化/模糊输入，理想的应对方式是简短的澄清；（B）封闭式事实性问题，答案简短且固定；（C）单行编码任务，只需一个命令/代码片段即可完成。
-
 
 # 视觉理解与推理
 
@@ -652,8 +679,10 @@ https://github.com/IAAR-Shanghai/Awesome-AI-Memory
   一个面向多模态、多学科的基准，用于评估 LMMs 从视频中获取和运用知识的能力。Video-MMMU 包含六个专业领域（30个细分学科）中精心挑选的 300 个专家级视频和 900 个人工标注的问题，通过与认知阶段对齐的问题-答案对（感知、理解、适应）来评估知识获取能力。每个视频包含三组问答对，分别对应知识获取的三个阶段：感知（识别与知识相关的关键信息）、理解（掌握底层概念）和适应（将知识应用于新情境）。此外，评估模型“增量准确率”——即在观看视频后性能的提升幅度。
 
 ## 世界模型
-- WorldScore（huggingface.co/spaces/Howieeeee/WorldScore_Leaderboard）
-    统一评估 3D、4D 和 视频模型在根据指令生成世界方面的能力。与现有专注于单场景质量的基准不同，该基准基于明确的摄像机轨迹，将世界生成分解为一系列后续场景生成任务，同时衡量可控性、质量和动态表现。
+
+- WorldScore（[huggingface.co/spaces/Howieeeee/WorldScore_Leaderboard](https://huggingface.co/spaces/Howieeeee/WorldScore_Leaderboard)）
+
+  统一评估 3D、4D 和 视频模型在根据指令生成世界方面的能力。与现有专注于单场景质量的基准不同，该基准基于明确的摄像机轨迹，将世界生成分解为一系列后续场景生成任务，同时衡量可控性、质量和动态表现。
 
 # OCR与嵌入评测
 
@@ -720,6 +749,16 @@ https://github.com/IAAR-Shanghai/Awesome-AI-Memory
 
   包括两种主要类型的基准测试：1）研究基准测试，即由AI实验室的研究人员创建的评估；2）社区基准测试，即由 Kaggle 社区创建的评估，用户能够设计、运行并分享他们自己用于评估人工智能模型的自定义基准测试。指导：[https://www.kaggle.com/docs/benchmarks#How%20to%20create%20a%20b...](https://www.kaggle.com/docs/benchmarks#How%20to%20create%20a%20benchmark)
 
+- Needle in a Haystack（[LLM-NeedleInAHaystack/README_CN.md at main · Lianues/LLM-NeedleInAHaystack](https://github.com/Lianues/LLM-NeedleInAHaystack/blob/main/README_CN.md)）
+
+  大语言模型召回率测试，通过一种类似于"大海捞针"的方法，对现有主流大语言模型进行召回率的测试。
+
+  本测试方法通过以下步骤进行：
+
+  1. **构造测试文本**：在一个固定token长度的上下文中，随机插入多个四位数（1000-9999）
+  2. **模型任务**：要求模型从文本中提取所有四位数，并按出现顺序输出为JSON格式
+  3. **评分算法**：使用基于编辑距离（Levenshtein Distance）的算法对模型回答进行评分
+
 # 数据质量评估
 
 - OpenDataArena（[opendataarena.github.io/](https://opendataarena.github.io/)）
@@ -727,9 +766,10 @@ https://github.com/IAAR-Shanghai/Awesome-AI-Memory
   让每个训练后数据集都具备可测量性、可比性和可验证性，评估多个领域（通用、数学、代码、科学和长链推理）和多种模态（文本、图像）的训练后数据。通过使用固定模型规模（Llama3 / Qwen2 / Qwen3 / Qwen3-VL 7-8B）和一致的训练配置来控制变量。数据血缘分析现代数据集通常存在高度冗余和隐藏依赖的问题。ODA推出了业内首个数据血缘分析工具，用于可视化开源数据的“谱系”。结构建模：映射数据集之间的关系，包括继承、混合和蒸馏。
 
 # AI硬件性能
+
 - InferenceMAX（[inferencemax.semianalysis.com/](https://inferencemax.semianalysis.com/)）
 
-  通过在主流硬件平台上对热门模型进行基准测试，并在新软件版本发布时更新测试标准。
+  通过在主流硬件平台上对热门模型进行基准测试，并在新软件版本发布时更新测试标准。  
   对于每种模型与硬件组合，InferenceMAX 都会遍历不同的张量并行规模和最大并发请求数，生成一张完整的吞吐量与延迟对比图。
 
 - MLPerf Training（[mlcommons.org/benchmarks/training/](https://mlcommons.org/benchmarks/training/)）
@@ -745,4 +785,5 @@ https://github.com/IAAR-Shanghai/Awesome-AI-Memory
   - 支持查看不同计算卡的 FP32、FP16、BF16 性能
   - 每一条数据都由人工同 benchmark 脚本跑出来的，不直接搬运纸面数据，并且支持所有人上传自己跑出来的数据
   - 标注测试平台名称，可以对比不同平台显卡性能的差距
-‍
+
+‍‍
