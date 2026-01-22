@@ -302,6 +302,10 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   一个评估语言智能体在真实环境中通用工具使用能力的基准。它涵盖基于现实世界软件环境的32 个软件应用和 604 个工具。每项任务都需要通过长程工具调用才能完成，共包含 108 个手动设计或编写的任务，平均每个任务需跨越约 20 轮交互。
 
+- AgencyBench-V2（[agencybench.opensii.ai/](https://agencybench.opensii.ai/)）
+
+  在100万tokens条件的现实世界环境中对自主智能体的发展前沿进行测试，涵盖138项任务和32个场景，每个场景平均约90次工具调用，考验小时级执行时间。评分涵盖 6 项核心能力：游戏开发/前端开发/后端开发/代码编写/研究/MCP。
+
 - BFCL-V4（[gorilla.cs.berkeley.edu/leaderboard.html](https://gorilla.cs.berkeley.edu/leaderboard.html)）
 
   全称Berkeley Function-Calling Leaderboard，评估 LLM 准确调用函数（即工具）的能力。
@@ -442,6 +446,10 @@ https://github.com/IAAR-Shanghai/Awesome-AI-Memory
   2. 已从评估集中移除容易受到暴力搜索影响的任务（即 2020 年 Kaggle 竞赛中的所有已解决任务）。
   3. 进行了受控的人类测试，以校准评估集的难度，确保 IDD，并验证至少两名人类能够通过 pass@2 解决（以符合 AI 规则）。
   4. 基于研究（符号解释、组合推理、上下文规则等），设计了新的任务以挑战 AI 推理系统。
+
+- MultiChallenge（[scale.com/leaderboard/multichallenge](https://scale.com/leaderboard/multichallenge)）
+
+  用于评估大型语言模型（LLMs）与人类用户进行多轮对话的能力。主要考验指令记忆、对用户信息的推理处理、对材料的控制编辑功能和自我一致性四大能力。
 
 - MMLU-Pro（[MMLU-Pro Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/mmlu-pro)）（存在漏洞）
 
