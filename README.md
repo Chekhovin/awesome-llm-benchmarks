@@ -186,6 +186,8 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   以 AI 智能体能够完成的任务长度来衡量 AI 性能。通过“模型以 x%概率成功完成的、人类所需耗时的长度”来刻画某一模型的能力（当前模型在人类耗时少于 4 分钟的任务上成功率接近 100%，但在人类耗时超过约 4 小时的任务上成功率低于 10%）。
 
+  对该基准的进一步解释：*[Clarifying limitations of time horizon](https://metr.org/notes/2026-01-22-time-horizon-limitations/)*
+
 - Codeforces
 
   全世界最大的算法练习和竞赛平台之一
