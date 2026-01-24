@@ -196,6 +196,12 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   全世界最大的算法练习和竞赛平台之一
 
+- ABC-Bench（[dawning-road.github.io/blog/abc-bench](https://dawning-road.github.io/blog/abc-bench)）
+
+  面向真实开发场景的智能体完整后端开发生命周期能力评测，要求智能体完成从代码仓库探索到容器化服务部署的全流程任务，并通过端到端 API 测试进行功能验证。包含从真实开源仓库中精选的 224 个工程任务，覆盖范围如下：8 种编程语言：Python、JavaScript、Java、Go、Ruby、C#、PHP、Rust；19 个主流后端框架：Spring Boot、Express、Ruby on Rails、Laravel、FastAPI、Gin、ASP.NET Core 等。
+
+  任务划分为两类：逻辑实现任务（Logic Implementation, 132个）：在预配置的运行环境中完成核心代码逻辑的编写；全生命周期任务（Full-Lifecycle, 92个）：要求智能体自主完成环境配置、Dockerfile 编写及容器化服务部署。
+
 ## AI编码智能体
 
 - LiveSWEBench（[LiveSWEBench](https://liveswebench.ai/)）
