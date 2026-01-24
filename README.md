@@ -3,7 +3,11 @@
 
 # 大模型评测榜单汇总
 
-Tips：基准测试（Benchmarks）构成了评价模型性能的事实标准，但测试本身并非准确无误，甚至可能存在系统性缺陷，典型案例τ²-bench、MMLU-Pro、GPQA、HLE。（参见论文：*[Fantastic Bugs and Where to Find Them in AI Benchmarks](https://arxiv.org/abs/2511.16842)*）（案例说明见下面子项介绍）
+Tips：
+
+同一领域甚至不同领域的不同基准测试分数均具有很高的相关性，参见*[Benchmark scores are well correlated, even across domains](https://epoch.ai/data-insights/benchmark-correlations)*
+
+基准测试（Benchmarks）构成了评价模型性能的事实标准，但测试本身并非准确无误，甚至可能存在系统性缺陷，典型案例τ²-bench、MMLU-Pro、GPQA、HLE。（参见论文：*[Fantastic Bugs and Where to Find Them in AI Benchmarks](https://arxiv.org/abs/2511.16842)*）（案例说明见下面子项介绍）
 
 当前对LLM进行评测的难点和缺陷参见epoch.ai的博客*[Why benchmarking is hard](https://epoch.ai/gradient-updates/why-benchmarking-is-hard)*
 
