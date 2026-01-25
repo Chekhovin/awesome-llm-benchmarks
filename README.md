@@ -128,7 +128,7 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
     基于静态数据集的评估 inherently 有限，SWE-bench 也不例外。由于该基准由对公共 GitHub 仓库的抓取组成，预训练于互联网文本的大型基础模型很可能在这些任务上受到污染。此外，SWE-bench 仅涵盖模型自主性中等风险水平的狭窄分布，因此必须辅以其他评估方式。
 
-- terminal-bench（[Terminal-Bench --- Terminal-Bench](https://www.tbench.ai/)）（[Artificial Analysis](https://artificialanalysis.ai/evaluations/terminalbench-hard)）
+- terminal-bench（[Terminal-Bench --- Terminal-Bench](https://www.tbench.ai/)）（[Artificial Analysis](https://artificialanalysis.ai/evaluations/terminalbench-hard)）（人工设计和验证）
 
   一个包含89个精心筛选的任务的数据集，涵盖软件工程、系统管理、数据科学、安全、科学计算等多个领域，用于评估 AI 智能体在终端环境中完成复杂任务的表现。Terminal-Bench 中的每个任务包括一段任务指令，一个 Docker 环境，一个测试套件，一个参考解决方案（人类编写）。代理需要通过命令行工具（如运行Bash命令、编辑文件）与环境交互来探索和解决问题。结果驱动，只关注任务最终完成的状态（通过测试验证），不限制代理的具体实现方法。
 
@@ -383,6 +383,10 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 - DeepResearchEval（[infinity-ailab.github.io/deep_research_eval/](https://infinity-ailab.github.io/deep_research_eval/)）
 
   深度研究任务构建与智能体评估的自动化框架。包括：（1）一个基于角色的任务构建流程，该流程生成以不同用户画像为基础的真实研究任务，并应用两阶段筛选（任务资格筛选和搜索必要性筛选）；（2）一个自适应逐点质量评估框架，该框架动态推导出特定于任务的评估维度和标准；（3）一个主动事实核查智能体，即使在缺少引用的情况下，该智能体也能主动检索外部证据来验证报告陈述。
+
+- MMDeepResearch-Bench（[mmdeepresearch-bench.github.io/](https://mmdeepresearch-bench.github.io/)）（人工设计和验证）
+
+  评估端到端的多模态深度研究，包含了涵盖 19 个不同领域的 140 个任务。每一项任务都被打包成图像-文本组合的形式（图像被视为证据：研究代理必须解读这些图像，验证其中的信息，并在最终报告中注明信息来源）。从两个能力层面来评估各类智能体：在基础层，我们主要考察其视觉感知、网络搜索、长上下文理解和指令遵循能力；在深度研究阶段，智能体必须展现出多模态任务理解能力、基于视觉的规划、基于引用的推理以及长篇报告的合成技术。
 
 - xbench-DeepSearch（[xbench.org/agi/aisearch](https://xbench.org/agi/aisearch)）
 
