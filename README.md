@@ -160,6 +160,11 @@ Hugging Face官方推出的开放Benchmark汇总，可以按语言、标签浏�
 
   在 C++、Go、Java、JavaScript、Python 和 Rust 中的 225 个具有挑战性的 Exercism 编程练习上对 LLM 进行测试。
 
+
+- REFUTE（[BGPT-OFFICIAL/refute](https://huggingface.co/datasets/BGPT-OFFICIAL/refute)）（[Technical Report](https://huggingface.co/datasets/BGPT-OFFICIAL/refute/blob/main/TECHNICAL_REPORT.md)）
+
+  Apache-2.0 科学论文摘要批判与认识论校准基准：测试模型在最新科学摘要上的 falsification、局限识别、过度主张纠正、缺失证据拒答、校准与 planted-flaw 辨别。核心发现：批判技能与校准可分离（Skill != truth）。含 Inspect AI 与 lm-eval 适配器及公开排行榜。
+
 - SciCode（[SciCode - SciCode 基准测试 --- SciCode - SciCode Benchmark](https://scicode-bench.github.io/)）（[Artificial Analysis](https://artificialanalysis.ai/evaluations/scicode)）
 
   旨在评估语言模型（LMs）生成代码以解决真实科学研问题的能力。它涵盖了来自物理、数学、材料科学、生物和化学六大领域的 16 个子领域。展现了科学家日常工作的真实流程：识别关键的科学概念与事实，然后将其转化为计算与模拟代码。
