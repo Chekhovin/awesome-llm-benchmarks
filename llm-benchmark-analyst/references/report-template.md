@@ -1,145 +1,72 @@
-# Report Templates
+# 输出方式与证据字段
 
-Use the user's language. Keep benchmark descriptions short, concrete, and capability-focused.
+按用户的问题组织输出，不强制套完整研究报告。先回答结论，再解释最关键证据和局限。只有影响判断的维度才展开；单条分数查询通常一段话或一个短表即可。
 
-## Template A — single-model strength and weakness report
+## 共用证据表
 
-Use for: `analyze model x`, `write a report on model x`, `what is this model good or bad at`.
+需要横向比较时可采用下列字段；配置复杂则拆成两张表，避免一张宽表无法阅读。
 
-```markdown
-# [model] benchmark report
+| 基准/子榜与测量任务 | 模型或系统原始行名 | 分数、单位与方向 | 版本、条件与预算 | 结果/访问时间 | 来源与局限 |
+| --- | --- | --- | --- | --- | --- |
 
-## scope and identity
-- target model:
-- normalized model row names searched:
-- access date or time window:
-- core dimensions covered:
-- benchmark universe restriction: only benchmarks from the approved source document
-- important exclusions:
+每条实质性数值都附支持它的具体页面、结果文件或可定位截图。结果日期未知时明确写未知；不能用访问日期代替。`未找到`、`无法核验`、`不适用` 保留为文字，不填零或虚构名次。
 
-## executive summary
-[3-6 sentences summarizing the strongest dimensions, biggest gaps, and how confident the evidence is.]
+对引用同一基准的多行，任务说明和公共配置可以放在表前一次说明。无需每次重复基准介绍。
 
-## strengths by core dimension
-### [dimension]
-- finding:
-- evidence:
-- why it matters:
+## 单模型与模型比较
 
-### [dimension]
-- finding:
-- evidence:
-- why it matters:
+交代精确型号、用途、时间范围和清单边界，然后按真实子任务说明优势、相对不足和数据空缺。
 
-## weaknesses or gaps
-### [dimension]
-- finding:
-- evidence:
-- why it matters:
+- 优势或不足对应同条件对照及具体证据，不将无参评记录写成短板。
+- 软件工程区分真实代码库质量、终端任务、长程任务与科研代码；不能只凭某一类得分代表全部编码能力。
+- 智能体结果标明框架、工具、预算；跨框架差异归属于系统组合。
+- 结论互相冲突时，指出不同任务和配置，不靠综合平均数抹平。
 
-## benchmark evidence table
-| benchmark | what it tests | score | variant or split | time point | comparison note | warning |
-| --- | --- | --- | --- | --- | --- | --- |
+可用结构：结论段 → 按任务的证据表 → 适用条件与未覆盖部分。完整报告才增加详细方法说明。
 
-## anchor comparisons
-- code or agentic coding:
-- multimodal:
-- intelligence or reasoning:
+## 领域选型
 
-## predecessor comparison
-- compared predecessor:
-- where it improved:
-- where gains are unclear:
-- where no clean comparison was available:
+说明“适合谁、做什么、依据是什么”。有充分可比证据时指出领先者；证据只覆盖部分任务时给条件化推荐，不宣布无条件总冠军。
 
-## data-defect warnings and confidence
-- inline warning summary:
-- overall confidence: high / medium / low
-- what most limits the conclusion:
+| 工作任务 | 可考虑的模型/系统 | 直接证据 | 适用条件与取舍 |
+| --- | --- | --- | --- |
 
-## methodology and exclusions
-- sources prioritized:
-- benchmark variants intentionally excluded:
-- any vendor-reported rows or image-extracted rows:
-```
+成本、速度、正确性、安全性与开放程度分开呈现。用户没有提供取舍权重时，不编造统一加权分。社区偏好或小样本结果可作为补充，并说明覆盖范围。
 
-## Template B — domain leader report
+## 代际进步
 
-Use for: `best models in coding`, `who leads in multimodal`, `top models for deep research`, `models that perform best in finance`.
+确认前后代身份与评测设置后，可使用：
 
-```markdown
-# [domain] benchmark leaders
+| 基准/条件 | 前代结果 | 当前结果 | 可比差值 | 解释限制 |
+| --- | --- | --- | --- | --- |
 
-## scope
-- domain:
-- core dimensions used:
-- benchmark shortlist:
-- access date or time window:
-- benchmark universe restriction:
+条件不一致的行写“不可直接比较”，保留原始成绩，不计算净提升。工具、框架、预算或题集更新需要在差值旁提示。
 
-## executive summary
-[Summarize the current leaders, the most important benchmark signals, and the major caveats.]
+## 基准解释或单项查分
 
-## current leaders
-### frontier leaders
-- [model]: [why it leads]
-- [model]: [why it leads]
+依次回答：测什么 → 评分如何解释 → 当前所查型号的可核验结果 → 关键局限。
 
-### specialized or workflow-specific leaders
-- [model]: [what exact sub-task it leads]
-- [model]: [what exact sub-task it leads]
+没有实时检索时只解释 [benchmark-source.md](benchmark-source.md) 中的定义，明确当前分数未查证。来源存在歧义时说明冲突，不用常识补完。
 
-## benchmark evidence table
-| model | benchmark | what it tests | score | variant or split | time point | warning |
-| --- | --- | --- | --- | --- | --- | --- |
+## 覆盖与时效核验
 
-## interpretation
-- where the leaders agree across benchmarks:
-- where the leaders split by sub-skill:
-- which benchmark differences are not directly comparable:
+明确目标型号集合、统计单位和访问时间，再交付逐项账本：
 
-## data-defect warnings and confidence
-- warning summary:
-- overall confidence:
+| 条目/子榜 | 目标型号 | 状态 | 有效成绩或核验范围 | 页面/结果时间 | 证据链接及未解决问题 |
+| --- | --- | --- | --- | --- | --- |
 
-## methodology and exclusions
-- why these benchmarks were chosen:
-- overlap benchmarks that changed the answer:
-- excluded benchmarks and why:
-```
+状态定义见 [search-playbook.md](search-playbook.md)。汇总可以按已找到型号数分组，但仅完整核验项给精确命中数；部分核验项单列或给已确认下界。不把未知算零，不把 URL 数称作基准数，不重复统计同型号别名。
 
-## Template C — benchmark explainer or benchmark lookup
+## 工具、数据与基础设施比较
 
-Use for: `what does benchmark x test`, `how should i read benchmark x`, `what score does model x have on benchmark x`.
+比较的主体必须说清楚：训练数据集、解析方案、服务平台、硬件系统、优化器或评测 SDK，未必是基础模型。
 
-```markdown
-# [benchmark] explainer
+例如 InferenceMAX 的吞吐/延迟需要带硬件、并行和负载条件；AA-AgentPerf 需要服务水平及能耗口径；OpenDataArena 需要固定模型和训练配置。不能用这些结果单独给语言模型智力排名。
 
-## what it tests
-[One short paragraph.]
+## 交付前核对
 
-## why it is relevant
-[One short paragraph.]
-
-## scoring notes
-- main score:
-- important sub-scores or splits:
-- comparison traps:
-
-## current lookup
-- target model row:
-- score:
-- variant or split:
-- time point:
-- source note:
-
-## data-defect warning
-[Only if applicable.]
-```
-
-## Writing rules
-- For every benchmark mention, include a short `what it tests` description.
-- Prefer 5-12 words in the `what it tests` field.
-- Put warnings close to the affected benchmark, not only in the appendix.
-- Use dimension-level synthesis first; do not dump long benchmark lists unless the user explicitly asks for exhaustive coverage.
-- If evidence is mixed, say which benchmarks disagree instead of flattening them into one verdict.
+- 所有候选都能定位到本包源文档中的正式条目或明确子项，没有从旧清单补回项目。
+- 模型行名、赛道、单位、指标方向与时间可追溯，表中引用确实支持对应数值。
+- 不混用平台、综合指数、独立基准和方法工具；不把同一结果转引算成多个证据。
+- 缺数据、取证受限、明确弱项分别表述；所有计数与逐项账本一致。
+- 影响结论的风险在相关证据旁可见；不编造置信度，不用未执行的检索冒充当前排名。

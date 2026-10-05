@@ -1,163 +1,92 @@
-# Search Playbook
+# 检索、取证与可比性
 
-Use this playbook to keep the search token-efficient, version-correct, and benchmark-scope-safe.
+本流程只服务于 [benchmark-source.md](benchmark-source.md) 中的收录对象。使用当前宿主实际提供的工具；技能本身不授予账号访问、安装、运行评测或付费调用权限。
 
-## 1) identity-first retrieval
-Before searching any leaderboard, normalize:
-- provider
-- model family
-- exact version or release label
-- preview or stable status
-- reasoning / non-reasoning mode if the provider distinguishes them
-- tool mode if the benchmark has with-tools vs without-tools tracks
-- benchmark row aliases used by the site
+## 1. 建立检索单位
 
-Never let the score search happen before identity normalization.
+一次比较的单位至少是：`基准/子榜 + 数据集版本 + 模型精确版本 + 评测配置 + 时间`。智能体任务再加框架、工具与预算；系统性能任务再加硬件、部署和负载。
 
-## 2) token-efficient search order
-Use this exact sequence whenever possible:
+- 先从用户描述定位 [core-dimensions.md](core-dimensions.md) 的相关任务，再用原文确认名称、用途、子项和入口。
+- 区分正式条目、明确子基准、平台入口、方法论引用。只在正文出现一次名称不等于它被作为独立基准收录。
+- 对模型建立有证据的名称对应表：用户称呼、供应商正式版本、榜单行名、推理档位或其他后缀。只有大小写、标点等显示差异可规范化；合并不同版本、日期、预算或框架需要明确依据。
+- “最新”必须指明是最新发布模型、最新榜单批次还是当前抓取页面。若用户只要求检查给定型号是否有成绩，就按该型号集合核验，不替换成自己选的旗舰。
 
-1. **domain routing**
-   - open `core-dimensions.md`
-   - choose 1 primary dimension, or up to 3 for broad requests
-2. **benchmark shortlist**
-   - within the chosen dimension, list the first 3-6 benchmarks most likely to answer the question
-   - confirm each benchmark is inside `benchmark-source.md`
-3. **website retrieval**
-   - search official pages for those shortlisted benchmarks
-   - extract exact rows, variants, and dates
-4. **overlap expansion**
-   - inspect benchmark descriptions and overlap tags
-   - add only the secondary benchmarks that materially change the answer
-5. **synthesis**
-   - map evidence back to the dimension level
-   - only then write the report
+## 2. 选择互补证据
 
-## 3) benchmark shortlisting rules
-Pick benchmarks that are:
-- recent enough to reflect current models
-- official or benchmark-author maintained
-- directly relevant to the asked capability
-- strong enough to avoid one-benchmark narratives
+先选直接测目标任务且具备可核验结果的条目。数量由问题和可用证据决定，不为凑数搜索。
 
-Do not over-search by default. Start narrow, expand when:
-- scores conflict
-- one benchmark is clearly noisy or defective
-- the user asked for `comprehensive` or `exhaustive`
-- the question spans multiple sub-capabilities
+存在冲突、缺陷或重要子能力空缺时再跨栏目补充。完整清单核验应先建立全部约定对象的清册，逐项处理；不能把平台首页访问成功当成其子榜已核验。
 
-## 4) overlap expansion rules
-After shortlisting, inspect benchmark descriptions for latent overlaps.
+比较对象优先使用用户指定型号，其次是同条件榜单中与目标相关的参评系统。代际比较只在继任关系和评测条件可确认时计算变化。不要强制追加固定厂商对照。
 
-### for coding
-Search not only classic coding boards, but also:
-- terminal and repo benchmarks
-- agentic coding benchmarks
-- research/science benchmarks with code generation or optimization components
-- project-level builders, review, and long-horizon coding tasks
+## 3. 找到与结果对应的来源
 
-### for multimodal
-Search not only vision boards, but also:
-- OCR and document understanding
-- GUI/computer-use benchmarks
-- multimodal deep-research benchmarks
-- audio/video/omni tasks
+从原文链接进入具体榜单、结果文件或维护方说明；搜索引擎用于发现当前入口。论文、README 与发布说明用于解释方法。第三方复测与厂商自报可以补充，但必须标记评测方、设置与来源类型。
 
-### for reasoning
-Search not only academic reasoning boards, but also:
-- composite boards with reasoning-heavy mixes
-- math/science research benchmarks
-- community reasoning or adversarial consistency boards
+Artificial Analysis、Scale、Vals 等对自建评测或自己执行的复测可以提供一手结果；对于转引他人的成绩，仍应追溯来源。不能只按站点品牌统一判定权威程度。
 
-### for vertical domains
-Search not only the domain benchmark, but also:
-- tool-use and planning benchmarks for the workflow shape
-- multimodal or document benchmarks if the domain task depends on documents or images
-- long-context or grounding benchmarks if the task requires retrieval and synthesis
+链接重定向时记录原始入口与最终地址，确认它们仍指向同一收录对象。若跳到新基准、新代际、首页或营销页面，不自动认定原项目有效。搜索摘要、缓存和转载只能提供线索，不能独立证明最新成绩或确定缺席。
 
-## 5) evidence collection checklist
-For each benchmark row, capture:
-- benchmark name
-- what it tests in a short clause
-- exact score and unit
-- exact model row name
-- rank or relative placement if visible
-- variant or split
-- time point or access date
-- official vs vendor-reported vs aggregator note
-- warning tag from `data-defect-warnings.md`
+## 4. 从页面提取有效结果
 
-## 6) source priority
-Prefer sources in this order:
-1. benchmark official leaderboard or official benchmark site
-2. benchmark paper, official README, or benchmark-author post
-3. authoritative aggregator that clearly cites benchmark sources
-4. vendor self-report
-5. community spreadsheet or screenshot as a last resort
+优先读取可定位的表格、下载文件或公开数据响应，并检查列名、筛选条件和赛道。动态站点可使用可用浏览器渲染、分页、筛选与滚动。图像或画布只提取清晰可见的值，标注 `image-extracted` 并保留截图定位；模糊值留空。
 
-When using vendor self-reports, label them clearly as `vendor-reported`.
+**有效命中必须关联到目标基准及其结果。**
 
-## 7) exact comparison rules
-Never compare unlike-with-unlike.
+- 有精确模型行名、对应指标或明确的测评结果、目标赛道与来源位置，才能记录“已找到成绩”。
+- 全站模型选择器、导航、推荐卡片、厂商目录、隐藏的共用组件、脚本里的名字，不能证明模型参加当前基准。
+- 内嵌 JSON 或服务端渲染数据必须能关联到当前 benchmark 标识、筛选条件与结果字段。仅在一个页面的 HTML 中同时找到模型名和数字不够。
+- 官网文字若明确描述该基准中的模型表现，可作为文字证据；不能将“领先”自行转成精确名次、得分或完整榜单覆盖率。
+- 只看到首屏、排行榜前几名、虚拟化片段或部分分页时，不能判定其他模型未上榜。
 
-Always preserve:
-- verified vs original benchmark
-- public vs private split
-- with-tools vs without-tools
-- easy / medium / hard
-- pass@1 vs pass@k
-- exact score unit (accuracy, solved %, elo, success rate, index score, cost-adjusted score, time horizon, etc.)
+## 5. 逐条证据记录
 
-Do not average raw scores across different metrics. If you need synthesis, use narrative convergence, rank patterns, or bucketed strength calls.
+| 字段 | 内容 |
+| --- | --- |
+| 基准身份 | 原文条目名、子榜/赛道、数据集版本与样本批次 |
+| 评测对象 | 模型原始行名、正式版本、别名依据；需要时记录框架及版本 |
+| 结果 | 原始数值、单位、指标名称与方向；只有可见时记录名次、区间、样本量 |
+| 配置 | 公开/私有集、有无工具、推理档位、pass@k、重复次数、时间/token/成本预算 |
+| 环境 | 工具集、部署入口、硬件和负载等会改变结论的条件 |
+| 时间 | 结果日期、页面更新时间、访问时间分别记录；未知项明确写未知 |
+| 来源 | 原始链接、最终链接、评测方、提取方式及支持结论的行或摘录 |
+| 局限 | 原文缺陷、当前核验状态、缺失字段与不可比原因 |
 
-## 8) anchor-comparison rules
-When the user asks for a report on a target model, add these comparisons if relevant:
+只记录当前比较需要的字段。未知条件不能填成默认值；抓取时间不能替代评测时间。
 
-### code or agentic coding
-Compare with:
-- current latest Claude Opus
-- current latest Claude Sonnet
-- current latest GPT-family model
+## 6. 同条件比较
 
-### multimodal
-Compare with:
-- current latest Gemini-family model
-- current latest GPT-family multimodal model if relevant
+以下差异会改变解释，需明确保留：
 
-### intelligence / reasoning
-Compare with:
-- current latest GPT-family model
-- optionally a second frontier reference if it is clearly central to the discussion
+- **变体与子榜**：FrontierCode 的三档、SWE Atlas 的三榜、FrontierMath 难度层、HLE 工具模式及 HLE-Diamond 子集。
+- **评测方与指标**：AutomationBench 与 AutomationBench-AA，MLCR 与 MLCR-AA，APEX 与 APEX-Agents。名字近似不代表同一测量。
+- **框架与预算**：PawBench 的模型/框架组合；Kilo Bench 的框架；科研、终端和长程任务的运行时间、GPU 与权限。
+- **指标方向**：准确率、通过率、余额通常越高越好；幻觉率、成本和延迟通常越低越好，仍以该页面定义为准；复合分数不能凭名称判断。
+- **条件分布**：OCR 的语言和文档类型，图像压缩与标注，长上下文长度和针数，系统性能的并发及吞吐/延迟约束。
 
-Search the `latest` anchor names first; do not trust memory.
+直接比较百分比用百分点差；相对提升只有分母有意义且条件一致时才计算。不能平均不同单位、不同任务或不同方向的原始分数。官方综合指数可以照录，但必须保留定义，不重新拼装。
 
-## 9) predecessor-comparison rules
-If the model family has a meaningful predecessor:
-- prefer the immediate prior generation or last generally available comparable model
-- compare only where the benchmark mode matches
-- if the predecessor is missing from most modern leaderboards, say the comparison is partial
-- do not force a predecessor comparison when the naming or deployment mode changed too much
+结果冲突时先排查身份、时间、配置和样本，而不是多数票裁决。多个榜单可能共享题库或高度相关；指数及其组成项尤其不能充当多份独立验证。
 
-## 10) image-only leaderboard fallback
-If the leaderboard page hides the table in a canvas, chart, screenshot, or image:
-- switch to multimodal inspection
-- extract only visible numbers
-- mark them as `image-extracted`
-- avoid reading tiny or blurred text aggressively
-- if the image is too poor, say `leaderboard appears image-only but the visible text is not reliable enough to extract`
+## 7. 覆盖与时效核验
 
-## 11) confidence rubric
-Use an explicit confidence note in the report.
+先声明清册单位是条目、子榜还是 URL。三者不等价：一个条目可能有多个地址，平台有多个子榜，多项基准也可能共用一个入口。按约定单位去重并保留父子关系。
 
-- **high confidence**: multiple fresh official benchmarks agree, low warning burden, exact row match
-- **medium confidence**: some official evidence but partial freshness gaps, moderate benchmark warnings, or a few vendor-reported rows
-- **low confidence**: evidence depends on warned benchmarks, image-extracted values, stale rows, or ambiguous model aliases
+对每个“基准/子榜 × 目标型号”记录一种状态：
 
-## 12) common failure modes to avoid
-- using a stale benchmark row for a newer model version
-- comparing with-tools and without-tools as if they are one number
-- using the wrong benchmark variant
-- over-weighting a benchmark with published defects
-- ignoring sub-scores and only quoting totals
-- skipping overlap benchmarks because they live in a different section of the source document
-- adding a benchmark that is not in `benchmark-source.md`
+| 状态 | 适用条件 |
+| --- | --- |
+| 已找到有效结果 | 精确型号与该基准结果绑定，保存分数或明确结果证据 |
+| 已核验未找到 | 已覆盖当前有效赛道、筛选和完整可查结果，仍未找到该型号；仅说明这次检索范围 |
+| 无法核验 | 页面不可访问、缺表、渲染不全、身份歧义或数据归属不明 |
+| 不适用 | SDK、教程、硬件/数据指标等不适合本次目标模型上榜问题；说明原因 |
+
+如果用户要求按命中型号数分组，同一型号在一个约定单位内只计一次。只有所有目标型号都核验完，才能给精确命中数；仍有未知项时给已确认下界或单列未完成项，不能把未知算成零。
+
+所有清册项必须能回到账本。可按基准汇总“完整核验/部分核验/未能核验/不适用”，或按上表汇总型号级状态，但总数必须对应同一统计单位。说明缺席范围，不据此断言全球不存在该结果。
+
+## 8. 停止与交付
+
+当证据已经回答约定问题且关键矛盾处理完，停止扩展。遇到无法突破的访问限制时，记录已尝试的合法路径与缺失项，不将它包装成无成绩。无网络环境仅交付定义、路由或本地证据分析，并说明没有实时核验。
+
+按 [report-template.md](report-template.md) 呈现，风险依据见 [data-defect-warnings.md](data-defect-warnings.md)。不把搜索建议、未来评测计划或未执行的测试写成完成事实。

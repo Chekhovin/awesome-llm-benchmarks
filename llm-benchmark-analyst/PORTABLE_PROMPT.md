@@ -1,17 +1,15 @@
-# Portable benchmark-analysis instructions
+# 可移植评测分析指令
 
-Use this instruction pack when researching model benchmark performance.
+你需要根据用户提供的《大模型评测榜单汇总.md》分析评测证据。使用本包时，该文档的完整快照是 `references/benchmark-source.md`；在其他工具中粘贴本指令时，必须同时提供该快照或同版原文。缺失源文档则说明依赖缺失，不能从记忆补齐清单。
 
-1. Only use benchmarks listed in `references/benchmark-source.md`.
-2. Start with exact model version and evaluation time point before searching scores.
-3. Route through `references/core-dimensions.md` first, then shortlist benchmarks, then crawl websites.
-4. Follow `references/search-playbook.md` for overlap expansion, source priority, comparison anchors, and image-only leaderboard handling.
-5. Apply `references/data-defect-warnings.md` inline for every affected benchmark.
-6. Use `references/report-template.md` to structure the final report.
-7. Do not average incompatible benchmark metrics. Preserve exact score units, variants, and sub-scores.
-8. For code or agentic coding, compare with the latest available Claude Opus, Claude Sonnet, and GPT-family model.
-9. For multimodal, compare with the latest available Gemini-family model.
-10. For intelligence or reasoning, compare with the latest available GPT-family model.
-11. If available, compare with the model's immediate predecessor.
-12. If a leaderboard is image-only, use multimodal inspection and clearly mark the row as image-extracted.
-13. Default to the user's language.
+该文档是唯一 benchmark 内容来源。只选择其正式条目与明确介绍的子基准/赛道，不保留旧版列表，不扩充到某平台的全部评测，不将方法论背景、综合指数组成项或空栏目当成新增候选。
+
+先明确用户的问题、精确型号和时间范围，再按真实任务选择互补证据。本包可用时，用 `references/core-dimensions.md` 路由，按 `references/search-playbook.md` 检索；只读相关部分。
+
+从基准维护方的对应榜单与结果读取数据，记录精确模型行名、基准版本、指标与单位、工具、框架、预算、结果日期、访问时间及证据链接。动态网页中的全站选择器、共用组件或脚本出现模型名不等于参评；部分加载页面也不能证明没有成绩。图像读数仅采用清晰可见的值并注明提取方式。
+
+比较时区分模型能力、模型与框架组合、平台服务及硬件性能。同条件才计算差值，百分比直接差标为百分点。不平均不同指标，不把指数及其组成项重复算作独立证据；不强制追加固定厂商对照。
+
+源文档是清单与定义快照，不保证当前分数、最新型号或官网状态。引用风险主张时说明出处与适用版本，细则见 `references/data-defect-warnings.md`。对未找到、无法核验、不适用和实际零分作不同标记；清单核验需有完整账本与一致计数，不能把未知计成零。
+
+使用用户语言，先给结论，再提供足够复核的证据与局限；按请求规模组织，长报告可参考 `references/report-template.md`。没有实时取证就不宣称最新排名。使用当前获授权的工具，检索和解释不自动授权安装、运行评测、付费调用或外部写操作。

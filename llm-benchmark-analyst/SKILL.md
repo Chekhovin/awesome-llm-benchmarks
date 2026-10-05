@@ -1,115 +1,57 @@
 ---
 name: llm-benchmark-analyst
-description: search and analyze llm benchmark results within a fixed benchmark universe, then produce evidence-based model strength and weakness reports or domain-leader summaries. use when comparing a model across benchmarks, ranking the best models by domain, explaining what a benchmark measures, checking predecessor-vs-current progress, or writing benchmark reports that must prioritize exact model version, evaluation date, benchmark variant, score semantics, sub-scores, and benchmark defect warnings. works with browser, web, and multimodal extraction for text, table, canvas, or image-only leaderboards.
+description: 基于《大模型评测榜单汇总》的限定清单检索和分析模型评测证据，用于模型优劣与代际比较、领域选型、基准解释及榜单覆盖与时效核验。区分模型、智能体框架、服务平台和硬件结果，核对精确版本、评测配置、分数含义及证据局限。不自动运行评测或扩充基准清单。
 ---
 
 # LLM Benchmark Analyst
 
-## Overview
-Use this skill to research benchmark evidence and write structured reports about:
-1. a single model's strengths and weaknesses
-2. best models in a capability domain
-3. what a benchmark measures and how trustworthy it is
-4. predecessor vs current-model progress
+根据用户的问题选择合适的评测证据，回答模型或系统在哪些任务上表现如何，以及证据能支持多强的结论。默认使用用户的语言，结论先行，输出规模随问题而定。
 
-Default to the user's language. Never invent scores, ranks, dates, benchmark variants, or missing table values.
+## 唯一内容来源与范围
 
-## Core constraints
-- Restrict the benchmark universe to `references/benchmark-source.md`. If a benchmark is not in that file, exclude it.
-- Use `references/core-dimensions.md` to collapse scattered benchmarks into a small set of report dimensions.
-- Follow `references/search-playbook.md` for routing, overlap expansion, evidence gathering, and comparison anchors.
-- Follow `references/report-template.md` for output structure.
-- Apply `references/data-defect-warnings.md` benchmark by benchmark, inline and again in the limitations section.
-- Prefer official benchmark or benchmark-author pages. Use aggregators mainly to discover links and context.
-- Record the evaluation mode exactly: benchmark version, split, difficulty, public/private, verified/original, with-tools/without-tools, pass@k, and any visible sub-score names.
-- Keep score units exact. Do not average incompatible metrics into a fake composite.
+[references/benchmark-source.md](references/benchmark-source.md) 是《大模型评测榜单汇总.md》于 2026-10-05 导入的完整快照，也是本 skill 唯一的 benchmark 内容来源。所有领域映射、名称、子项与专属缺陷说明均从这份文档重建；不加载旧清单、旧映射、历史白名单或兼容分支。
 
-## Required workflow
-1. **Normalize the model identity before searching**
-   - Resolve exact provider, family, generation, version suffix, and release label.
-   - Put time and version first. Reject ambiguous aliases like `claude`, `gemini pro`, `gpt latest`, or `qwen max` until you have the exact currently relevant model string for the searched leaderboard rows.
-   - Capture the evaluation time point or access date for every key score.
+- 可选对象是原文正式列出的条目，以及条目明确介绍的子基准、赛道和子榜。平台入口不等于允许使用该站所有评测；综合指数的组成项也不自动变成独立候选。
+- 方法论引用、背景比较、训练用模型、工具教程与数据来源不属于新增基准。原文空栏目不代表存在可用榜单。
+- 名称是否收录以原文为准；本地快照不证明官网仍可访问、某模型已上榜或分数仍是最新。研究时核对同一收录对象的现行页面和评测说明，记录差异，不自动引入未收录的新基准或新代际。
+- 用户指定清单外对象时，说明范围缺口；只有用户明确改变范围后才扩展。不得从记忆、常识或旧版本补齐。
+- 源文档缺失时报告依赖缺失。源文档内部有矛盾时保留不确定性，查证后说明，不能静默修正成猜测。
 
-2. **Route the request through core dimensions before web crawling**
-   - Start with `references/core-dimensions.md` to select the primary dimension(s).
-   - Then list candidate benchmarks inside those dimensions.
-   - Only then start website-by-website retrieval.
-   - Keep the first pass narrow and token-efficient: start from the best 3-6 benchmarks for the asked domain, then expand only if needed.
+## 按任务加载
 
-3. **Expand beyond section labels**
-   - Do not let the source document's headings blind you.
-   - After selecting the primary dimension, inspect benchmark descriptions and overlap tags to find relevant benchmarks that live in other sections.
-   - Example: a coding analysis may need coding benchmarks, agentic coding benchmarks, general benchmarks with coding components, and research/math benchmarks with strong code components.
-   - Example: a multimodal analysis may need vision benchmarks, OCR, GUI/computer-use, multimodal deep-research, and omni/video/audio benchmarks.
+| 请求 | 需要的材料与结果 |
+| --- | --- |
+| 解释一个基准、查询一个分数 | 查原文对应条目；仅加载相关检索与风险规则，给直接答案 |
+| 分析一个模型、比较模型或代际 | 用 [core-dimensions.md](references/core-dimensions.md) 选择任务维度，再查对应原文与榜单 |
+| 寻找领域领先者 | 用领域路由组成互补证据，明确比较对象是模型还是模型与框架组合 |
+| 核查榜单覆盖、最新性或完整清单 | 用 [search-playbook.md](references/search-playbook.md) 的覆盖核验规则，维护逐项状态与计数 |
+| 输出较长报告 | 按 [report-template.md](references/report-template.md) 选用必要字段，保留证据链接与局限 |
 
-4. **Collect evidence in this order**
-   - official leaderboard or benchmark site
-   - benchmark paper or benchmark README
-   - benchmark-author blog or release note
-   - trusted aggregator
-   - vendor blog only as secondary evidence, clearly labeled as vendor-reported if no independent leaderboard row exists
+应用 [data-defect-warnings.md](references/data-defect-warnings.md) 中与本次条目有关的风险。不要为简单查询预读全部参考文件。
 
-5. **Use multimodal extraction when the leaderboard is not machine-readable**
-   - If the page uses images, canvas, screenshots, or chart-only rendering and plain text extraction misses the table, inspect screenshots or page images.
-   - Extract only values that are clearly visible.
-   - Mark the provenance as `image-extracted`.
-   - If the image is unreadable or partially occluded, say so instead of guessing.
+## 执行流程
 
-6. **Apply anchor comparisons**
-   - For code or agentic coding, compare against the latest available Claude Opus, latest Claude Sonnet, and latest GPT family model.
-   - For multimodal analysis, compare against the latest available Gemini model. Add the latest GPT multimodal model if relevant.
-   - For intelligence or reasoning analysis, compare against the latest available GPT family model.
-   - Never assume which model is currently `latest`. Search that first.
+1. **确定问题与身份。** 明确能力、时间范围和交付类型。模型记录供应商、精确版本、页面行名、推理模式；系统记录框架、工具和运行条件。用户使用含糊名称时先核对公开身份，只有歧义会改变结果时才询问。
+2. **从新清单选择证据。** 先按任务维度选少量互补条目，再回到原文核对名称、用途、子项与链接。跨栏目扩展必须有任务依据；完整核验则覆盖约定范围全部条目，不能用抽样代替。
+3. **读取对应结果。** 使用当前宿主可用且获授权的检索、网页、浏览器或文件工具。优先获取该基准维护方的榜单或结果数据，用论文、说明与代码解释配置。检索工具不固定，不自动安装工具、启动额外应用或运行付费评测。
+4. **建立可追溯记录。** 每条数值保留目标模型行、基准与版本、指标与单位、配置、结果时间及访问时间、来源链接和必要摘录。动态页面必须证明数据属于当前基准及赛道，而非站点共用模型列表。
+5. **比较同条件结果。** 分开处理数据集版本、私有/公开集、有无工具、框架、计算预算及指标方向。只在条件可比时计算差值；百分比得分的直接差值标为“百分点”。
+6. **解释证据边界。** 区分表现较弱、未参评、未找到数据和无法核验。缺数据不等于零分。小幅差距、强相关基准与共享题库不能被包装成多份独立证明。
+7. **交付结论。** 先回答用户的问题，再提供足以复核的证据。将影响结论的风险紧贴对应结果，不用机械信心分档、虚构统计置信度或跨指标平均分替代分析。
 
-7. **Apply predecessor comparison**
-   - If data exists, compare the target model with its immediate predecessor or last broadly comparable prior generation from the same provider/family.
-   - Only compare like-for-like benchmark variants. If the predecessor only appears under a different benchmark mode, say the comparison is not clean.
+## 比较中的关键边界
 
-8. **Attach defect warnings**
-   - Any benchmark with a known quality or methodology issue must carry an inline warning from `references/data-defect-warnings.md`.
-   - If the report's conclusion depends heavily on warned benchmarks, lower confidence and say so explicitly.
+- 代理评测衡量的常是 **Model × Harness × Tools × Budget × Environment**。框架或环境不同，结果应归属于系统组合；不能全部归因于底层模型。
+- 综合指数、偏好投票、学术问答、成果物质量、服务延迟、开放程度、下载采纳率及硬件效率回答不同问题，不合成自造总榜。
+- 子榜与总榜分开，原版与第三方复测分开；同一底层评测在多个站点展示不重复算作独立证据。
+- 对照模型由用户目标及同榜可比记录决定，不强制指定品牌或“最新旗舰”。涉及“最新”时核对发布时间与精确版本，不能只按搜索排序判断。
+- 代际比较需确认继任关系和相同评测条件。条件变更可并列展示，但不能声称净提升来自模型升级。
+- 无法获得实时数据时，可以解释原文中的定义和方法；明确未核验当前分数与排名，不沿用快照中的历史例子充当今日结果。
 
-## Decision rules
-- When the user asks for `best models in a domain`, do not use only one benchmark. Use a cluster of relevant benchmarks and explain why each one matters.
-- When the user asks for `what is this model good or bad at`, synthesize at the core-dimension level first, then support with benchmark evidence.
-- When benchmark scores conflict, prefer freshness, exact version match, official source quality, and the number of agreeing benchmarks over one standout score.
-- Treat very small gaps as non-decisive when the benchmark is noisy, image-extracted, or known to be unstable.
-- Always include one short clause describing what each benchmark actually tests.
+## 典型请求
 
-## Minimum evidence to capture
-For every benchmark you cite, capture:
-- benchmark name
-- what it tests in one short phrase
-- exact model row name
-- exact score and unit
-- rank or relative placement if visible
-- benchmark variant, split, or mode
-- date or access time point
-- source quality note if not official
-- data warning if applicable
-
-## Output expectations
-Use the matching template in `references/report-template.md`.
-
-At minimum, every substantive report must include:
-- a scope and identity section
-- a short executive summary
-- strengths
-- weaknesses or gaps
-- evidence table
-- comparison section
-- data-defect warnings and confidence
-- methodology or exclusions
-
-## Resource map
-- `references/core-dimensions.md`: benchmark routing and de-fragmentation map
-- `references/search-playbook.md`: token-efficient search order, overlap expansion, and comparison rules
-- `references/data-defect-warnings.md`: warning catalog and ready-to-use caution language
-- `references/report-template.md`: output structures for single-model, domain-leader, and benchmark-explainer tasks
-- `references/benchmark-source.md`: full allowed benchmark universe copied from the user's benchmark document
-
-## Example tasks
-- `analyze gpt-5's coding and agentic coding strengths and weaknesses, and compare it with the latest claude opus, claude sonnet, and gpt model`
-- `find the best multimodal models right now using only the approved benchmark list and explain each benchmark briefly`
-- `write a report on qwen's reasoning strengths, benchmark gaps, predecessor comparison, and all data-quality caveats`
-- `tell me which models lead in deep research and search, with benchmark-specific warnings and freshness notes`
+- 比较指定模型在真实代码库、长程软件工程和科研编程上的差异。
+- 解释 PawBench 中模型与框架两条轴，判断结果能否归因于模型。
+- 比较 MLCR-AA 的医学文档推理与 HealthBench Professional 的临床工作任务。
+- 核查新清单内哪些榜单已出现指定模型的有效成绩，分别列出未找到和无法核验项。
+- 区分 InferenceBench 的智能体优化能力与 InferenceMAX、AA-AgentPerf 的系统性能。

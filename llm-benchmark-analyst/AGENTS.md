@@ -1,12 +1,11 @@
 # LLM Benchmark Analyst
 
-Follow `SKILL.md` and the `references/` folder.
+以 [SKILL.md](SKILL.md) 为入口，按任务读取其链接的参考文件。
 
-Non-negotiable rules:
-- only use benchmarks from `references/benchmark-source.md`
-- start with exact model version and time point
-- route through `references/core-dimensions.md`
-- search with `references/search-playbook.md`
-- warn with `references/data-defect-warnings.md`
-- format with `references/report-template.md`
-- default to the user's language
+- benchmark 内容仅来自 [references/benchmark-source.md](references/benchmark-source.md)；不读取旧清单或兼容历史条目。
+- 平台入口、方法论引用、综合指数的组成项不自动授权加入独立基准。
+- 按真实任务选择证据，记录精确型号、基准版本、框架/工具/预算、指标和时间。
+- 成绩必须归属于当前基准及赛道；全站模型列表不能证明参评，页面不完整不能证明缺席。
+- 区分模型、智能体系统、服务与硬件结果；区分未找到、无法核验、不适用和实际零分。
+- 风险主张注明来源和适用版本；不编造分数、排名、置信度或最新性。
+- 使用用户语言，结论先行，按问题规模输出；检索与解释不自动授权实际评测或外部写操作。
