@@ -1,1228 +1,710 @@
-# 大規模モデル評価ベンチマークまとめ 
+# awesome-llm-benchmarks
 
-Tips：ベンチマーク（Benchmark）はモデル性能を評価する事実上の標準になっているが、テスト自体が常に正確というわけではなく、τ²-bench,MMLU-Pro のように体系的な欠陥を含むケースもある。（論文：[arxiv.org/abs/2511.16842](https://arxiv.org/abs/2511.16842)）
+[中文](./README.md) | [English](./README-en.md)
 
-LLMの評価における現在の課題と限界については、epoch.ai のブログ記事「Why benchmarking is hard」（epoch.ai/gradient-updates/why-benchmarking-is-hard）をご参照ください。
+大規模言語モデル評価ランキング集：総合評価、コーディング、エージェント、推論、マルチモーダル、業界ベンチマークなど、大規模言語モデル評価のための各種ランキングやベンチマークリソースを収録しており、継続的に更新中。
 
-Hugging Face公式チュートリアルを参照してください：inspect-ai および lighteval の使用方法
-（[https://huggingface.co/docs/inference-providers/guides/evaluation-inspect-ai](https://huggingface.co/docs/inference-providers/guides/evaluation-inspect-ai)）
-（[https://github.com/huggingface/lighteval](https://github.com/huggingface/lighteval)）
-（[https://huggingface.co/docs/lighteval/main/en/index](https://huggingface.co/docs/lighteval/main/en/index)）
+ヒント：
 
-Hugging Face公式が提供するオープンなベンチマークのまとめです。言語やタグでタスクを閲覧したり、タスクの説明文を検索したりできます。
-（[https://huggingface.co/spaces/OpenEvals/open_benchmark_index](https://huggingface.co/spaces/OpenEvals/open_benchmark_index)）
+同一ドメイン内はもちろん、異なるドメイン間においても各種ベンチマークのスコア間には高い相関性が見られる。詳細は*[Benchmark scores are well correlated, even across domains](https://epoch.ai/data-insights/benchmark-correlations)*を参照のこと。
 
-現在、HF Open-LLM-Leaderboardに基づいて公開されているすべてのモデルのスコアとランキングは、空白文字の脆弱性の影響を受けています。lm-evaluation-harness（実運用で最も一般的に使用されているLLM評価ツールキット）にこの脆弱性が存在することが発見されました（前に空白文字があると、正解の選択肢が正しく選択できなくなります）。
+ベンチマークはモデル性能を評価するための事実上の基準となっているが、テスト自体が完全に正確であるとは限らず、場合によってはシステム的な欠陥が存在することもある。代表的な例としてτ²-bench、MMLU-Pro、GPQA、HLEが挙げられる。（論文：*[Fantastic Bugs and Where to Find Them in AI Benchmarks](https://arxiv.org/abs/2511.16842)*を参照）（具体例については以下の各項目を参照）
 
-------
+現在LLM評価における課題や欠点については、epoch.aiのブログ*[Why benchmarking is hard](https://epoch.ai/gradient-updates/why-benchmarking-is-hard)*を参照されたい。Anthropicの研究によれば、インフラ構成の違いがエージェント型コーディング評価のスコアに数パーセント単位での変動をもたらす可能性がある（*[Quantifying infrastructure noise in agentic coding evals](https://www.anthropic.com/engineering/infrastructure-noise)*を参照）。
+
+自前でモデルをテストする場合：Hugging Face公式チュートリアルを参照し、inspect-aiおよびlightevalを利用する（[huggingface.co/docs/inference-providers/guides/evaluation-inspect-ai](https://huggingface.co/docs/inference-providers/guides/evaluation-inspect-ai)）（[github.com/huggingface/lighteval](https://github.com/huggingface/lighteval)）（[huggingface.co/docs/lighteval/main/en/index](https://huggingface.co/docs/lighteval/main/en/index)）
+
+Hugging Face公式が提供するオープンベンチマーク集。言語やタグ別にタスクを閲覧したり、タスク説明を検索したりできる（[huggingface.co/spaces/OpenEvals/open_benchmark_index](https://huggingface.co/spaces/OpenEvals/open_benchmark_index)）。
+
+epoch.aiではベンチマークの第三者品質検証も実施している（[epoch.ai/benchmarks/search?reviewed=verified&reviewed=flawed&reviewed=not-enough-info](https://epoch.ai/benchmarks/search?reviewed=verified&reviewed=flawed&reviewed=not-enough-info)）。
+
 - Relative Adoption Metric (RAM)（[atomproject.ai/relative-adoption-metric](https://atomproject.ai/relative-adoption-metric)）
 
-  Relative Adoption Metric（RAM）。 「RAM スコア」：これは、異なる規模の新しいオープンソースモデルのダウンロード状況を評価するための、より適切な指標です。  
-  スコア ＝ （モデルのダウンロード数） / （同じ規模カテゴリにおけるダウンロード数トップ10のモデルの中央値）。  
-  スコアが1であれば、そのモデルは自規模の中でダウンロード数トップ10のモデルとなる可能性が高いことを意味します。
+  相対採用指標（Relative Adoption Metric, RAM）。「RAMスコア」：これはさまざまな規模の新規オープンソースモデルのダウンロード状況を評価するためのより適切な指標である。  
+  スコア = （モデルのダウンロード数） / （同一規模カテゴリ内で上位10位に入るモデルのダウンロード数の中央値）。スコアが1ということは、そのモデルが所属する規模においてダウンロード数で上位10位以内に入る可能性が高いことを意味する。
 
-  データ収集（中央値を採用）
-  - 総ダウンロード数でランク付けされた各サイズグループの上位10モデル（HuggingFaceより）
-  - マイルストーン時点での累積ダウンロード数：リリース後7日、14日、30日、60日、90日、180日、365日
-  - 各モデルの時間経過に伴うHuggingFace累積ダウンロード総数
+  データ収集方法（中央値を採用）  
+  HuggingFace上で総ダウンロード数順に並べた各サイズカテゴリの上位10大モデル  
+  各マイルストーン時点での累積ダウンロード数：公開後7日目、14日目、30日目、60日目、90日目、180日目、365日目  
+  各モデルの時間経過に伴うHuggingFace上での累積ダウンロード総数
 
+## 総合評価
 
-------
+- Artificial Analysis（[AI Model & API Providers Analysis | Artificial Analysis](https://artificialanalysis.ai/)）
 
-# 総合ベンチマーク
+  - AA Intelligence（[Artificial Analysis Intelligence Index | Artificial Analysis](https://artificialanalysis.ai/evaluations/artificial-analysis-intelligence-index)）
 
-- Artificial Analysis
-   （[AI Model & API Providers Analysis | Artificial Analysis](https://artificialanalysis.ai/)）
+    7つの難易度の高い評価項目を統合した総合ベンチマークであり、人工知能の数学、科学、プログラミング、推論能力を総合的に測定する。GDPval-AA v2、Terminal-Bench 2.1、τ³-Bench Banking、HLE、AA-Omniscience Accuracy、SciCode、GPQA Diamond、AA-LCR、CritPt、AA-Omniscience Non-Hallucinationという10の評価結果を統合しており、それぞれの重み付け順に並べられている。
+  - Artificial Analysis Capability Indices（[artificialanalysis.ai/models/capabilities](https://artificialanalysis.ai/models/capabilities)）
 
-  - **AA Intelligence**
-     （[Artificial Analysis Intelligence Index | Artificial Analysis](https://artificialanalysis.ai/evaluations/artificial-analysis-intelligence-index)）
+    各モデルが主要な業界分野においてどのようなパフォーマンスを示すかを比較するための指標。新たに導入されたこれらの業界別指数は、プログラミング、金融・会計、法律、医療・健康、戦略・運営、工学、経済学といった分野を対象としている。
 
-    数学・科学・プログラミング・推論における AI 能力を総合的に測るため、7 つのチャレンジングな評価を統合した包括ベンチマーク。
-     使用している評価：MMLU-Pro、GPQA Diamond、HLE、LCB、SciCode、AIME 2025、IFBench、LCR、Terminal-Bench Hard、𝜏²-Bench Telecom。
+    各指数はO*NET職業分類体系に基づく一般的な業務タスクを基盤として設定されている。例えば金融モデリング、法律調査や契約書レビュー、臨床意思決定支援や患者記録の作成などが挙げられる。各タスクから対応する能力指標を抽出し、その分野の業務を最もよく表すベンチマーク項目を選定。さらに、その能力が業界内でどの程度頻繁に用いられるかをもとに重み付けを行っている。
+  - Artificial Analysis Openness Index（[artificialanalysis.ai/evaluations/artificial-analysis-openness-index](https://artificialanalysis.ai/evaluations/artificial-analysis-openness-index)）
 
-  - **Artificial Analysis Openness Index**
-     （[https://artificialanalysis.ai/evaluations/artificial-analysis-op...](https://artificialanalysis.ai/evaluations/artificial-analysis-openness-index)）
+    人工知能モデルの利用容易性や透明性の度合いを測るための標準化された独立評価指標。開放性とは単にモデルの重みをダウンロードできることだけを意味するのではない。ライセンス契約、データ、方法論も含まれる。開放性指数で100点を獲得したモデルは、重みが公開され、緩やかなライセンスが適用されており、学習用コードや事前学習データ、学習後データも完全に公開されている。これによりユーザーはモデルを利用できるだけでなく、その学習プロセスを完全に再現したり、モデル作成者の手法の一部または全部から着想を得て独自のモデルを構築したりすることも可能となる。
+- llm-stats（[llm-stats.com/](https://llm-stats.com/)）
 
-    AI モデルの「オープンさ」（利用しやすさ・透明性）を標準化して独立評価する指標。
-     オープンであることは、単にモデルの重みがダウンロード可能であるだけではなく、ライセンス、データ、方法論も含む。
-     Openness Index で 100 点を獲得するモデルは、
+  総合的な評価サイト。ベンチマークのまとめも掲載されている（[llm-stats.com/benchmarks](https://llm-stats.com/benchmarks)）
+- vals.ai（[www.vals.ai/home](https://www.vals.ai/home)）
 
-    - オープンな重み
-    - 寛容なライセンス
-    - トレーニングコード、事前学習データ、微調整データをすべて公開
-       を満たし、ユーザはモデルを「利用」できるだけでなく、トレーニング過程を完全に再現したり、開発者のノウハウを用いて自分のモデルを構築することもできる。
+  総合的な評価サイトで、総合、法律、金融、医療、数学、学術、教育、コーディング、ゲームなど様々なカテゴリに分かれている。
 
-- **llm-stats**（[llm-stats.com/](https://llm-stats.com/)）  
-  総合的な評価サイト。ベンチマークのまとめを含む（[llm-stats.com/benchmarks](https://llm-stats.com/benchmarks)）
+  - Vals Index
 
-- **vals.ai**（[www.vals.ai/home](https://www.vals.ai/home)）  
+    金融、法律、ソフトウェア工学分野においてAIモデルが実際の業務をどの程度遂行できるかを測定する指標。各業界における米国経済への貢献度に応じた重み付けを行い、モデルのパフォーマンスの加重平均値を算出することで実現している。
+- SEAL LLM Leaderboards（[scale.com/leaderboard](https://scale.com/leaderboard)）
 
-  総合的な評価を行うウェブサイトで、「総合」「法務」「金融」「医療」「数学」「学術」「教育」「コーディング」「ゲーム」などのカテゴリに分かれています。
+  最新のLLMにおけるエージェント能力、最先端の性能、安全性、および一般の反応を評価する。
+- Epoch AI（[epoch.ai/benchmarks](https://epoch.ai/benchmarks)）
 
-  - Vals Index（ヴァルス・インデックス）  
+  複数のベンチマークテストが存在する。
+
+    Epoch 能力指数（ECI）は、さまざまなAIベンチマークのスコアを統合して「汎用能力」の尺度としてまとめる。これにより、個々のベンチマークが既に飽和状態にある長期間にわたっても、モデル同士を比較することが可能となる。
+- LMArena（[arena.ai/leaderboard/](https://arena.ai/leaderboard/)）
+
+    実際のユーザーによるブラインドテスト投票およびEloランキングを基にしたクラウドソーシング型評価プラットフォーム。実際の対話環境における各大規模言語モデルの総合的なパフォーマンスを比較するために用いられる。
+- OpenCompass（[OpenCompass司南 - 評価ランキング](https://rank.opencompass.org.cn/home)）
+
+    大規模言語モデルの開発者や利用者向けのオープンソース型評価プラットフォーム。多様な能力軸や複数の評価セット、ランキングを統一的に提供している。非公開モデル向けランキング、学術用ランキング、マルチモーダルランキングなどが含まれる。
+- LiveBench（[LiveBench](https://livebench.ai/#/)）
+
+    テストセットの汚染を防ぎ、客観的な評価を実現するために設計されたLLM用ベンチマークテスト。推論、コーディング、数学、データ分析などが含まれる。
+- CAIS AI Dashboard（[dashboard.safe.ai/](https://dashboard.safe.ai/)）
+
+    テキスト、視覚、リスク、自動化、遠隔労働指数（遠隔作業の自動化度合い）という5つの指標を含む。
+- NeMo Evaluator SDK（[NVIDIA-NeMo/Evaluator: Open-source library for scalable, reproducible evaluation of AI models and benchmarks.](https://github.com/NVIDIA-NeMo/Evaluator)）
+
+    NVIDIAがオープンソースとして公開した大規模言語モデル評価用SDK。統一されたフレームワーク下で、任意のAPI互換モデルに対して大規模かつ再現性の高いベンチマーク評価を実施できる。
+
+## コーディングベンチマーク
+
+- SWE-Together（[togetherbench.com/](https://togetherbench.com/)）
+
+  実際のユーザーおよびエージェントによるプログラミングセッションを再構成して作られた、複数ラウンドからなるベンチマークセット。109件のリポジトリレベルのタスクが含まれる。
+- ITBench（[artificialanalysis.ai/evaluations/itbench-aa](https://artificialanalysis.ai/evaluations/itbench-aa)）
+
+  サイトリライアビリティエンジニアリング（SRE）のシナリオにおいてエージェントを評価するためのベンチマーク。具体的には Kubernetes における障害の根本原因分析を対象とする。今回の評価では59件の Kubernetes 障害タスクが設定されており、そのうち40件は IBM が公開したもの、残り19件は ITBench チームが独自に用意したものである。各タスクは3回ずつテストされる。各テストシナリオにおいて、エージェントはアラート情報、システムイベント、呼び出しチェーン、パフォーマンス指標、アプリケーションのトポロジ構造などを含む Kubernetes 障害のオフラインスナップショットを受け取り、デプロイメント、サービス、コンテナグループ、ネームスペース、ネットワークポリシーなど、障害を引き起こした主要なオブジェクトを明確に示す構造化された JSON 形式の診断レポートを出力する必要がある。
+- CursorBench（[cursor.com/cn/cursorbench](https://cursor.com/cn/cursorbench)）
+
+  実際のエンジニアリングチームによる Cursor セッションを基に構築された評価用データ。タスクは公開されているコードリポジトリからではなく、実際の Cursor 利用実績から抽出されている。多くのタスクは社内コードベースや制限付きソースから得られており、モデルが学習段階でこれらのタスクに触れるリスクを低減している。
+- FrontierCode（[cognition.com/blog/frontier-code-1.1](https://cognition.com/blog/frontier-code-1.1)）（人間が作成したタスク）
+
+  モデルが本当に高品質な本番コードベースの基準を満たせるかを測るためのベンチマーク。コードのマージ可能性を評価する初のベンチマークであり、正確性、テストの質、仕様の範囲、コーディングスタイル、コードベースの規定遵守状況など、エンドツーエンドのコード品質を評価対象とする。難易度は Extended、Main、Diamond の3段階に分かれており、Diamond には最も難易度の高い50件のタスク、Main にはその50件を含む最も難易度の高い100件のタスク、Extended には全150件のタスクが含まれる。
+- Kilo Bench（[kilo.ai/leaderboard](https://kilo.ai/leaderboard)）
+
+  Terminal-Bench のターミナル集約型タスクデータを基に構築されており、git 操作、パスワード解析、QEMU 自動化など、実世界のシナリオを含む89件のタスクが含まれる。モデルのテストは Kilo テストフレームワークを通じて実施される。
+- OpenHands Index（[index.openhands.dev/home](https://index.openhands.dev/home)）
+
+  人工知能コーディングエージェントが実世界のソフトウェアエンジニアリングタスクにおいてどのようなパフォーマンスを示すかを総合的に評価するベンチマーク。モデルの性能およびコスト効率も併せて示される。評価は問題解決（バグ修正）、新規プロジェクト開発（新アプリケーション構築）、フロントエンド開発（ユーザーインターフェース設計）、テスト（テストケース生成）、情報収集の5つのカテゴリから行われる。
+- APEX-SWE（[www.mercor.com/apex/apex-swe-leaderboard/](https://www.mercor.com/apex/apex-swe-leaderboard/)）
+
+  ソフトウェアエンジニアの実際の日常業務を評価するためのベンチマーク。単一のリポジトリやユニットレベルでのバグ修正を対象とする他のベンチマークとは異なり、200件のケースが用意されており、以下の2つの補完的なシナリオを含む：(1) 統合タスク：異種サービス間でエンドツーエンドのシステム構築・デプロイを行う必要があり、モデルがエンドツーエンドのワークフローを調整し、異種サービス間でデータを同期する能力を評価する。(2) 可観測性タスク：本番レベルのテレメトリ技術を用いたデバッグが求められ、モデルが現実世界のソフトウェアエンジニアリングにおける本番障害を診断・修復する能力を評価する。
+- Ramp SWE-Bench（[labs.ramp.com/swebench#explore](https://labs.ramp.com/swebench#explore)）（人間がレビューしたタスク）
+
+  Ramp のバックエンドにおけるエンジニアリング作業を基に作られた、本番環境向けの非公開コーディングベンチマーク。SWE-Bench を参考に、コーディングエージェントが Ramp のエンジニアから委託された作業をどのように処理するかを研究するための行動評価ツールとして用いられる。クレジットカード認証、請求書支払い、経費精算、会計、調達、資金管理、不正検出、エージェント関連など、80件のタスクが含まれる。
+- BridgeBench（[www.bridgemind.ai/bridgebench](https://www.bridgemind.ai/bridgebench)）
+
+  BridgeMind が提供する vibe coding 用ベンチマーク。標準化されたタスクを用いて、デバッグ、アルゴリズム、リファクタリング、コード生成、UI、セキュリティといったプログラミングシナリオにおけるモデルのパフォーマンスを評価する。
+- ALE-Bench（[sakanaai.github.io/ALE-Bench-Leaderboard/](https://sakanaai.github.io/ALE-Bench-Leaderboard/)）
+
+  スコアベースのアルゴリズムプログラミングコンテストにおいて AI システムがどのようなパフォーマンスを示すかを評価するためのベンチマーク。AtCoder Heuristic Contest (AHC) の実際のタスクを参考に、計算的に困難で正確な解法がまだ知られていない最適化問題（ルーティングやスケジューリング問題など）を取り上げている。
+- Android Bench（[developer.android.com/bench](https://developer.android.com/bench)）（人間が選定したタスク）
+
+  LLM が実世界の Android 開発課題をどの程度解決できるかを評価するためのベンチマークで、100件のタスクが含まれる。Android Bench ではライブラリ関連のタスクが多く占めている（全体の58%）。
+- Kotlin Benchmark（[kotlinlang.org/benchmark/](https://kotlinlang.org/benchmark/)）
+
+  JetBrains が提供する公式ベンチマークで、AI コーディングエージェントが Kotlin を用いたソフトウェアエンジニアリングタスクにおいてどのようなパフォーマンスを示すかを評価する。SWE-bench の手法を基に、リポジトリレベルでの Kotlin ソフトウェアエンジニアリングタスクに焦点を当てている。活発に開発されているオープンソースリポジトリから抽出された105件のエンジニアリングタスクが含まれる。各タスクでは AI エージェントが実際の問題記述を解釈し、プロジェクトの文脈を把握した上で実用可能なパッチを生成する必要がある。生成されたソリューションはすべてコンテナ化環境下で厳格に検証され、定められたテストに合格した場合にのみ「解決済み」と見なされる。
+
+- Vision2Web（[vision2web-bench.github.io/](https://vision2web-bench.github.io/)）
+
+  多モーダルコーディングエージェントが、視覚的なプロトタイプや構造化された要件に基づいて実際のウェブサイトを構築できるかを評価するためのベンチマークです。193のタスクから構成され、実環境におけるエンドツーエンドのウェブ開発能力を測定することを目的としています。各タスクでは、UIプロトタイプの画像、要件記述、開発リソースといった多モーダルな入力が与えられ、エージェントは機能的・視覚的な要件を満たす実行可能なウェブサイトを生成する必要があります。
+- CADBench（[www.seldon.global/blog/cadbench](https://www.seldon.global/blog/cadbench)）
+
+  CADBenchは、最先端のAIモデルがAutodesk Fusion上で長期的な計画を要する機械設計タスクを遂行できるか、また生成された幾何形状やフィーチャーの履歴、制約条件が確定的な検証を通過できるかを測定するためのベンチマークです。
+- Animation Bench（[www.physera.ai/research/animation](https://www.physera.ai/research/animation)）
+
+  コーディングエージェントがウェブページの外観だけでなく、その動作ロジックも再現できるかを試すためのベンチマークです。48のタスクがあり、モデルにはアニメーションから抽出された12～24枚の静止画が、タイムスタンプ情報と共に与えられます。さらに、そのウェブページの読み込みに必要なHTML、CSS、JavaScript、フォント、画像リソースが記載されたHARファイルも提供されます。モデルにはウェブサイトのソースプロジェクトファイルや動画、またフレームやタイムスタンプ以外の時間に関する情報は一切与えられません。
+
+### AIコーディングエージェント
+
+- Terminal-Bench 4.0（[www.tbench.ai/](https://www.tbench.ai/)）（人手による設計・検証）
+
+  ソフトウェアエンジニアリング、システム管理、データサイエンス、セキュリティ、科学計算など多分野にわたる89の厳選されたタスクからなるデータセットで、ターミナル環境下でAIエージェントが複雑なタスクを遂行できるかを評価します。Terminal-Benchの各タスクには、指示文、Docker環境、テストスイート、そして人間が作成した参照解が含まれます。エージェントはBashコマンドの実行やファイル編集といったコマンドラインツールを使い、環境と対話しながら問題を解決する必要があります。結果重視の設計であり、最終的なタスク達成状態（テストによる検証）のみが重視され、具体的な実装方法は制限されません。
+- SWE Atlas（[labs.scale.com/leaderboard/sweatlas-refactoring](https://labs.scale.com/leaderboard/sweatlas-refactoring)）
+
+  SWE Atlasは、さまざまな専門的なソフトウェアエンジニアリングタスクにおいてAIコーディングエージェントを評価するためのベンチマークスイートです。単一のスキルのみを測定するのではなく、ソフトウェア開発ライフサイクルにおける異なるかつ相補的な能力を測定するための3つのランキングリストを備えています。タスクはすべて、SWE-Bench Proから選ばれたGo、Python、C、TypeScriptという4種類のプログラミング言語で書かれた11の本番コードリポジトリから抽出されています。
+
+  1. [コードベース質問応答](https://labs.scale.com/leaderboard/sweatlas-qna) - 実行時解析や複数ファイルにまたがる推論を通じて、複雑なコードベースを理解する能力を測定します。124のタスクがあり、エージェントはDockerコンテナ内のコードリポジトリにアクセスし、システムの仕組みに関する高度な技術的質問に答える必要があります。これらの質問はエージェントの推論能力を要求するように設計されており、ソフトウェアを実行し、複数のファイルにわたる実行フローを追跡して総合的に結論を導き出す必要があります。
+  2. [テスト作成](https://labs.scale.com/leaderboard/sweatlas-tw) - コードリポジトリ内の特定機能に対して、実用的な本番レベルのテストを作成する能力を測定します。90のタスクがあり、エージェントはDockerコンテナ内のコードリポジトリにアクセスしますが、そこでは重要なワークフローのテストが一部欠落しています。これらのタスクはエージェント主導型の特性を持ち、プロンプトにはテスト対象となるワークフローや挙動が大まかに記述されるのみです。エージェントは自らコードベースを探索し、作成すべきテストの内容や配置場所を決定し、テスト実行後に成果を提出する必要があります。テストはプロンプトで指定された挙動を網羅しつつ、該当するコードのみを対象とし、コードベースの規約やベストプラクティスに則った、明瞭で保守性の高いコードでなければなりません。
+  3. [リファクタリング](https://labs.scale.com/leaderboard/sweatlas-refactoring) - 機能を維持したまま、パフォーマンスや可読性を向上させるためのコードリファクタリング能力を測定します。70のタスクがあり、エージェントはDockerコンテナ内のコードリポジトリにアクセスし、プロンプトに従ってリファクタリングを行います。これらのタスクもエージェント主導型の特性を持ち、プロンプトには理想的なリファクタリング構造や抽出・統合・再編成すべきコードが大まかに記述されます。エージェントは自らコードベースを探索し、既存のアーキテクチャを理解した上で、複数のファイルにまたがる内容を再構成し、既存のテストがすべて正常に通ることを確認する必要があります。リファクタリング後のコードは、指定されたコンポーネントを正しく再構成し、無効なコードや時代遅れな要素を除去し、変更内容を反映したドキュメントを更新する必要があり、かつリグレッションや破壊的な変更を引き起こしてはなりません。
+- Next.js AI Agent Evaluations（[nextjs.org/evals](https://nextjs.org/evals)）
+
+  さまざまなAIプログラミングエージェントがNext.jsにおけるコード生成や移行タスクでどのようなパフォーマンスを示すかを測るデータで、成功率や実行時間などの指標が含まれます。
+- Code Review Bench（[codereview.withmartian.com/](https://codereview.withmartian.com/)）
+
+  AIコードレビューツールの性能を評価するためのベンチマークです。
+- Real-SWE（[realswe.withspecific.com/](https://realswe.withspecific.com/)）
+
+  最先端のAIモデルが実際の企業用コードベースを扱えるかを評価するためのベンチマークです。各テストタスクは、私たちが実際の企業から使用許可を得た本番環境用のプライベートコードベースから抽出されています。
+
+### 長期タスク
+
+- DeepSWE（[deepswe.datacurve.ai/blog/deepswe-v1-1](https://deepswe.datacurve.ai/blog/deepswe-v1-1)）（人手によるタスク監査）
+
+  長期にわたるソフトウェアエンジニアリング能力を評価するためのベンチマークで、以下の4つの特徴を持ちます：
+
+  - 汚染なし：すべてのタスクは新規に作成されており、既存のコミットやプルリクエストを改変したものではありません。
+  - 高い多様性：5種類の言語（TypeScript、JavaScript、Python、Go、Rust）で書かれた91のコードリポジトリが含まれ、多岐にわたります。
+  - 現実世界の複雑さ：プロンプトの長さはSWE-bench Proの半分程度ですが、解決に必要なコード量は5.5倍、出力トークン数は約2倍となります。
+  - 信頼性の高い検証：検証者は実装の詳細ではなく、ソフトウェアの振る舞いを手動でコードを書いてテストします。
+
+- SWE-Marathon（[www.swe-marathon.org/](https://www.swe-marathon.org/)）
+
+  超長期間にわたるソフトウェアエンジニアリングタスクを対象としたAIエージェントのベンチマークで、4つのソフトウェアエンジニアリング分野を網羅する20の長期タスクが含まれる。各タスクには独立した実行環境、人間による参照解、複数層からなる検証用スイートが用意されている。
+- MirrorCode（[epoch.ai/MirrorCode](https://epoch.ai/MirrorCode)）
+
+  人工知能モデルが長期間にわたるコーディングタスクを処理できるかを検証するためのベンチマーク。MirrorCodeテストでは、モデルは元のソースコードを入手できない状態で、プログラム全体を一から再実装しなければならない。生成された解は、予約済みのテストセットを含むすべてのエンドツーエンドテストにおいて、元のプログラムの出力結果と完全に一致していなければならない。MirrorCodeで設定された25の対象プログラムは、Unixユーティリティ、データシリアライゼーション・クエリツール、バイオインフォマティクス、インタプリタ、静的解析、暗号技術、圧縮技術など、計算分野の多様な方向性をカバーしている。
+
+  AIモデルはサンドボックス内で隔離されており、インターネットへのアクセスや元のコードベースへの接触が一切許可されないため、不正行為の可能性は排除されている。さらに、コード作成中にモデルが見ることのできないエンドツーエンドテストも多数存在するため、単にルックアップテーブルを作成するだけで元のプログラムの出力を模倣することも不可能である。
+
+### 研究用途
+
+- FrontierSWE v2（[www.frontierswe.com/](https://www.frontierswe.com/)）
+
+  超長期間にわたるオープンな技術課題を含むプログラミングベンチマークで、コンパイラの最適化やタンパク質予測用の最先端モデルの訓練など、34のタスクが用意されている。平均して、各エージェントは1タスクあたり11時間稼働するが、ほぼすべてのタスクが完了不可能な状態にある。`granite_inf`タスクは、推論エンジン内部でモデル実装をエンドツーエンドで最適化できるかを評価するためのものである。
+- kernelbench hard（[kernelbench.com/hard](https://kernelbench.com/hard)）（人間による設計）
+
+  KernelBench v3の高度化版で、モデルが不正行為を行わずに迅速に Triton/CUDA/CUTLASS/CUTE-DSL/PTX コードを記述できるかをテストする。ローカルの RTX Pro 6000 Blackwell デバイス上で実施され、人間が設計した7つの課題が、実際のコードエージェント用コマンドラインインターフェースをテストフレームワークとして用いて実行される。内容は fp8 GEMM、TopK、Sonic MoE 順伝播、KimiDeltaAttention、Paged Attention デコード、Kahan Softmax、W4A16 GEMM などで、いずれも SM120 アーキテクチャに関する深い理解が求められる。
+- PostTrainBench（[posttrainbench.com/](https://posttrainbench.com/)）（欠陥あり）
+
+  AIエージェントが他の言語モデルに対して後訓練最適化を成功させられるかを検証し、AI開発の自動化レベルを測るベンチマーク。各エージェントには4つの基礎モデル（Qwen 3 1.7B、Qwen 3 4B、SmolLM3-3B、Gemma 3 4B）、1台の H100 GPU、そして10時間の制限時間が与えられ、これらを用いてモデル性能を向上させることが求められる。
+
+  欠陥点：モデルは近道として、より強力なモデルの推論軌跡を用いた教師あり微調整（すなわち蒸留）を行う。実際、ランキング上位の Claude Opus 4.8 や GLM 5.2 もこの手法を採用しているが、この蒸留処理は「再帰的自己改善」というベンチマークの目的に全く合致しない（先端的な後訓練は外部のより強力なモデルに依存してはならないため）。
+- WeirdML（[htihle.github.io/weirdml.html](https://htihle.github.io/weirdml.html)）
+
+  LLMに対して一連の奇妙で非従来的な機械学習タスクを提示し、それらを解決するための緻密な思考と真の理解力を試す。具体的には以下の能力を評価する：  
+　・データの特性や問題の本質を真に理解すること  
+　・問題に適した機械学習アーキテクチャや訓練設定を設計し、実行可能な PyTorch コードを生成して解を実装すること  
+　・端末出力やテストセット上の正解率をもとに、5回の反復で解をデバッグ・改善すること  
+　・限られた計算リソースと時間を最大限に活用すること
+- InferenceBench（[inferencebench.ai/](https://inferencebench.ai/)）
+
+  最先端のコーディングエージェントが、定められた計算予算内で大規模言語モデル（LLM）のサービスワークロードを最適化できるかを評価するためのベンチマーク。各テストでは、エージェントに基礎となる LLM、NVIDIA H100 グラフィックスカード、実行時間制限、そして特定のシナリオにおける目標が与えられる。エージェントは OpenAI プロトコル互換の推論サーバーを構築・実行し、そのシナリオにおける主要指標を最大化させるとともに、品質検査および完全性検査もクリアしなければならない。目的は、特定のボトルネックシナリオや総合的な性能バランスが求められる全シナリオにおいて、PyTorch ベースの基準モデルよりも高速な処理を実現することである。対象となるシナリオは、プリフィル遅延、デコード遅延、スループット、バランスの取れたサービスの4種類がある。
+- MLS-Bench（[mls-bench.com/](https://mls-bench.com/)）
+
+  人工知能システムが汎用性と拡張性を備えた機械学習手法を設計できるかを評価するためのベンチマーク。12分野にわたる140のタスクが含まれ、言語モデル、ビジョン・生成処理、強化学習、ロボティクス、機械学習システム、科学分野のAI、最適化アルゴリズム、時系列解析、因果推論などが対象となる。各タスクは明確に定義された研究課題を基盤とし、エージェントには新たな損失関数やアテンション機構の変種、サンプラー、ルーティングルールといったモジュール化された改善策を提案させ、それが異なるモデルやデータセット、ランダムシードの下でも有効かどうかを検証する。
+- Reward Hacking Bench（[www.rewardhacking.io/](https://www.rewardhacking.io/)）
+
+  後訓練タスクにおけるモデルの不正行為を調査するためのベンチマーク。モデルには、基礎能力が低い小規模モデルを訓練し、各種ベンチマークでのスコア向上を目指すというコーディング課題が与えられる。この過程でモデルが近道を選んだり、監査メカニズムを回避したりする挙動を観察する。
+
+- RSI-Exam（[rsi-exam.ai/](https://rsi-exam.ai/)）（人工設計されたタスク）
+
+  AIエージェントが長期にわたって自己改善を実現できるか、また見たことのないデータに対してもその能力を一般化できるかを評価することを目的とする。テスト手順としては、エージェントに問題解決の手法やモデルを動作させる仕組みについて数時間にわたり自主的に実験させ、最後に隠されたテストセット上で最終テストを実施する。全6つの主要領域にわたり、合計88のタスクが用意されている。各領域の内訳は以下の通り：物理学・工学、AIモデルおよびエージェント、最適化、計画・制御、システムおよびハードウェア、生命科学・医学、金融、法律・ビジネス。
+
+### モデル利用例
+
+- Claude Code Opus Performance Tracker（[marginlab.ai/trackers/claude-code/](https://marginlab.ai/trackers/claude-code/)）
+
+  Claude Code OpusがSWEタスクにおいて統計的に有意な性能低下を示すかを検出するためのツールで、毎日更新される。選定されたSWE-Bench-Proのサブセットに対して毎日ベンチマークテストを実施する。
+- AI STUPID LEVEL（[aistupidlevel.info/about](https://aistupidlevel.info/about)）
+
+  独立したAIモデル性能監視プラットフォームであり、AIモデルの性能を継続的にモニタリングする。複数のモデルに実際のコーディングタスク（`アルゴリズム実装、デバッグ、コードリファクタリング、最適化、エラー復旧を含む`）を実行させることで、それぞれの能力を客観的に測定し、見過ごされがちな性能変化（「ドリフト」）を検出する。各モデルに対して複数回（n=5）の試行を行い、信頼区間を算出した上で統計的検定を用いて真の変化とノイズを区別する。7軸からなる評価システムを採用しており、正確性（35%）、規格準拠度（15%）、コード品質（15%）、効率性（10%）、安定性（10%）、拒否率（10%）、回復能力（5%）が評価対象となる。各モデルは異なる乱数シードを用いて5回のコーディングタスクを実行し、中央値を算出した上でt分布に基づき95%の信頼区間を算出する。
+- プラットフォームCoding Plan評価（[coding.15o.cc/](https://coding.15o.cc/)）
+
+  異なるベンダーやモデルごとの最初の文字出力までの時間、平均TPS、および完全な応答に要する時間を比較する。
+
+## エージェント向けベンチマーク
+
+- Agents' Last Exam（[agents-last-exam.org/](https://agents-last-exam.org/)）
+
+  長期的かつ経済的価値があり、結果が検証可能な現実世界のタスクにおいて、AIエージェントの性能を評価するために特別に設計されたベンチマークです。ALEは250名以上の業界専門家によって共同開発され、O*NET / SOC 2018（米国連邦職業分類体系）に基づいて定義された非物理的産業分野を評価対象としています。この評価体系は55のサブドメインから成るタスク分類法に基づき、それらは13の産業クラスターに分類され、合計1,500以上の具体的なタスクが含まれます。ALEは動的に進化するベンチマークとして設計されており、新しいワークフローや産業分野が追加されるたびに、タスクライブラリも継続的に拡充されていきます。
+- FACTS Benchmark（[www.kaggle.com/benchmarks/google/facts/leaderboard](https://www.kaggle.com/benchmarks/google/facts/leaderboard)）
+
+  モデルが事実に基づいた質疑応答の場面で、内部知識を正確に呼び出せるかを測るためのパラメータ化されたベンチマークで、1,052問から成る公開用データセットと1,052問から成る非公開用データセットを備えています。  
+  検索機能をツールとして利用し、情報を取得して正しく統合できるかを試すための検索ベンチマークで、890件から成る公開用データセットと994件から成る非公開用データセットを備えています。  
+  入力された画像に関連するプロンプトに対し、事実に基づいて正確に回答できるかを試すためのマルチモーダルベンチマークで、711件から成る公開用データセットと811件から成る非公開用データセットを備えています。
+
+  FACTS Grounding：提供された長文ドキュメントに基づき、事実に誤りのない応答を生成できるかを評価するもので、LLMの応答が提供された文脈のみに基づいており、長文文脲から正しく情報を統合できているかを検証します。
+- MCPMark（[mcpmark.ai/](https://mcpmark.ai/)）
+
+  多様な検証可能なタスクを含む、総合的なMCPストレステスト用ベンチマーク体系です。現実世界のMCP利用シナリオにおいて、モデルやエージェントの能力を評価することを目的としています。以下のMCPが含まれます：Notion、Github、Filesystem、Postgres、Playwright、Playwright-WebArena。
+- MCP Atlas（[scale.com/leaderboard/mcp_atlas](https://scale.com/leaderboard/mcp_atlas)）
+
+  モデルコンテキストプロトコル（MCP）を通じて、言語モデルが現実世界のツール利用をどの程度うまく処理できるかを評価するもので、多段階ワークフローにおけるパフォーマンスを測定します。1,000件の人手で作成されたタスクがあり、各タスクは複数のツールを呼び出す必要があり、40以上のMCPサーバーおよび300以上のツールが利用可能です。タスクの内容は、2〜3個のツールしか必要とせず単純な手順で済む単一ドメインのクエリから、5個以上のツールが必要で条件分岐やエラー処理も含まれる複雑なワークフローまで多岐にわたります。各タスクには、一見妥当に見えるが実際には誤りを含む「妨害用ツール」も用意されており、これらはアノテーターが必須ツールと同じカテゴリから選定したものです。このフレームワークでは各タスクに12〜18個のツールが用意され（必須ツール3〜7個＋妨害用ツール5〜10個）、エージェントはツールの説明に基づいて論理的に判断する必要があり、無条件にツールを呼び出すことはできません。
+- PinchBench（[pinchbench.com/](https://pinchbench.com/)）
+
+  OpenClawエージェントの「脳」としてのLLMの性能を測るためのベンチマークです。会議の手配、コードの作成、メールの処理、テーマ調査、ファイル管理といった現実的なタスクが与えられます。23種類の異なるカテゴリのタスクがあり、各タスクはYAMLのフロントマター付きのMarkdownファイルとして定義されています。
+- Claw-Eval（[claw-eval.github.io/#/](https://claw-eval.github.io/#/)）（人手による監査・検証）
+
+  中国語および英語で合計104件のタスク（中国語32件、英語72件）が含まれ、エラーを意図的に混入させた19種類の模擬サービスも用意されています。完成度・堅牢性・安全性という3つの側面から評価が行われ、スコアの計算式は「Score = Safety × (0.80 × Completion + 0.20 × Robustness)」となります。もしタスクの安全性スコアがゼロとなった場合、総合スコアもゼロとなります。
+- WildClawBench（[internlm.github.io/WildClawBench/](https://internlm.github.io/WildClawBench/)）
+
+  各タスクは実際のOpenClawインスタンス上で実行され、エージェントは実際のbashシェル、ファイルシステム、ブラウザ、メールやカレンダーサービスにアクセス可能です。60件のオリジナルタスクが用意されており、これらは手作業で作成され、エージェントの指示の理解力、マルチモーダル推論能力、長期的な計画立案能力、コード生成・デバッグ能力などが試されます。
+- ClawsBench（[clawsbench.benchflow.ai/#results](https://clawsbench.benchflow.ai/#results)）
+
+  Gmail、カレンダー、ドキュメント、クラウドストレージ、Slackといった環境を備えた、高忠実度なシミュレーション作業空間においてエージェントを厳格に評価するためのベンチマークです。単一サービス利用、複数サービス連携、セキュリティ上重要なシナリオなどを含む44件の構造化されたタスクが含まれます。
+- ClawMark（[claw-mark.com/leaderboard](https://claw-mark.com/leaderboard)）
+
+  複数の営業日にわたり、多様なサービスを通じて人間と協働する協力型エージェントの能力を評価するためのベンチマークです。13の専門分野にまたがる100件のタスクが含まれ、LLMを判定者として用いず、完全にルールベースの評価体系が採用されています。
+- PawBench（[agentscope-ai.github.io/PawBench/](https://agentscope-ai.github.io/PawBench/)）
+
+  生産環境下のタスクにおいて「モデル × ハーネス」の組み合わせがどのようなパフォーマンスを示すかを評価するもので、同一の150件のタスクを複数の「モデル × ハーネス」の組み合わせで実行し、モデルとハーネスそれぞれの貢献度を独立して観察します。Hermes、OpenClaw、QwenPawという3種類のエージェントハーネスが含まれます。
+
+  以下の5つの次元でタスクが分類されています：
+
+  利用シナリオ：例えばオフィスでの協働、ソフトウェアエンジニアリング、自動化スクリプト、マルチモーダルコンテンツ生成など。  
+  基本能力：例えばツール呼び出し、スキルの利用、計画立案、論理的推論、自己検証など。  
+  複雑度：L1／L2／L3の3段階で、単純な問題だけで高得点を得られないように設計されている。  
+  入力モーダル：純粋なテキスト入力のみのタスクと、画像・音声・動画などのマルチモーダル入力を必要とするタスクを区別している。  
+  実行環境：オフラインのサンドボックス環境でのタスクと、インターネット接続が必要なウェブ検索やページ取得タスクを区別している。
+
+### ホワイトカラー経済価値タスク
+
+詳細については、*[What do “economic value” benchmarks tell us?](https://epoch.ai/blog/what-do-economic-value-benchmarks-tell-us)* をご覧ください。
+
+- GDPval-AA（[artificialanalysis.ai/evaluations/gdpval-aa](https://artificialanalysis.ai/evaluations/gdpval-aa)）
+
+  OpenAI の GDPval データセット向けに開発された評価フレームワークです。44種類の職業および9つの主要業界において、AIモデルが実際の業務でどのようなパフォーマンスを発揮するかを検証します。220ものタスクが用意されており、モデルには文書、スライド、図表、スプレッドシートなど多様な出力を生成させ、金融、医療、法務、その他の専門分野における実際の業務成果を模倣します。
+- $OneMillion-Bench（[xbench.org/profession/onemillion](https://xbench.org/profession/onemillion)）
+
+  中国および海外において経済的価値が高く、差別化が図られており、自動評価が可能な実際の利用シーンを網羅することを目的としています。「100万ドル」という名称は、公開されている給与データに基づく推定値に由来します。各タスクに要する時間の見積もりに、該当分野の熟練専門家の時給を乗じると、全200タスクを完了するために必要な人件費は合計で100万ドル近くになると算出されます。このベンチマークは、AIが本当に安定的かつ正確に、高価値な業務を人間に代わって完璧にこなせるかという、より現実的な問題を検証するためのものです。
+- AA-Briefcase（[artificialanalysis.ai/articles/aa-briefcase](https://artificialanalysis.ai/articles/aa-briefcase)）（人工設計タスク）
+
+  複雑なプロジェクトにおいて、モデルが現実的な知識労働タスクを遂行できるかを検証するためのものです。数週間にわたる知識労働プロジェクトをモデルに完了させ、各プロジェクトには多数の相互関連するタスクや数千もの入力ファイルが含まれます。モデルは一貫した長期プロジェクトの中でテストされ、各タスクは週ごとに進められ、共通の組織背景情報を基に財務モデルや取締役会向けプレゼン資料、設計プロトタイプ図など、現実に即した成果物を作成する必要があります。これらのタスクは、Google、マッキンゼー・アンド・カンパニー、ボストン・コンサルティング・グループなどの企業に所属するデータサイエンス、製品管理、企業戦略の専門家たちが数ヶ月をかけて緻密に設計したもので、実際の職業経験から得られた課題が反映されています。
+
+  モデルには各タスクごとに数百もの入力ファイルを処理させます。これらには Slack のチャット記録、メール、企業文書、会議記録、大規模なデータエクスポートファイルなどが含まれます。全体として AA-Briefcase には約2,000件の元データがあり、そのうちメールと Slack のエクスポートデータだけでもそれぞれ3,500通以上のメールと25,000件以上のメッセージが含まれます。これらの情報源は断片的かつ雑多で、現実世界にありがちな矛盾した情報も含まれており、モデルが実際の知識労働における曖昧さや不確実性に対処できるかが試されます。
+- AA-AnalystAgent（[artificialanalysis.ai/evaluations/aa-analyst-agent](https://artificialanalysis.ai/evaluations/aa-analyst-agent)）
+
+  実際のスプレッドシートや文書を用いて、モデルの定量的分析能力を評価するためのベンチマークです。医療支出報告、貿易・商品統計、水文・気象データ、政府補助金状況、エネルギーコストモデル、金融モデル、環境報告書、プロジェクト進捗管理など、14のビジネス・科学分野にわたる80問が用意されています。また、データソースの探索・診断、データの選別・集計、比率・傾向・感度分析、損益計算書のモデリング、キャッシュフロー・貸借対照表・評価モデリングという、実際のアナリスト業務から抽出された5つのワークフローカテゴリーも含まれます。
+- Remote Labor Index (RLI)（[scale.com/leaderboard/rli](https://scale.com/leaderboard/rli)）
+
+  リモート労働指数（RLI）は、AIエージェントが現実世界の専門的なフリーランスプラットフォーム上で経済的価値のあるマルチメディア系リモート業務を遂行できるかを測るベンチマークです。240件の課題があり、Upwork プラットフォーム上の358名の認証済みフリーランサーからボトムアップ方式で収集されたものです。エージェントにはウェブデザイン、プロダクトアート、動画編集など、視覚的な出力が求められるタスクを完了させます。数十種類もの異なる成果物形式を含む、複雑な複数ファイルからなる成果物を理解・生成する必要があり、文書、音声、動画、3Dモデル、CADファイルなどが含まれます。
+- APEX-Agents（[www.mercor.com/apex/apex-agents-leaderboard/](https://www.mercor.com/apex/apex-agents-leaderboard/)）（[artificialanalysis.ai/evaluations/apex-agents-aa](https://artificialanalysis.ai/evaluations/apex-agents-aa)）
+
+  最先端のAIエージェントが、投資銀行アナリスト、経営コンサルタント、企業法務担当者という3つの専門職において、アプリケーションをまたいで長期にわたるタスクを遂行できるかを測るものです。
+
+  - APEX（[www.mercor.com/apex/apex-v1-leaderboard/](https://www.mercor.com/apex/apex-v1-leaderboard/)）
+
+    投資銀行アシスタント、経営コンサルタント、大手法律事務所の弁護士、プライマリケア医師（医学博士）という4つの職種において、最先端モデルが経済的価値のあるタスクを実行できるかを評価します。
+  - The AI Consumer Index (ACE)（[www.mercor.com/apex/ace-leaderboard/](https://www.mercor.com/apex/ace-leaderboard/)）
+
+    ショッピング、飲食、ゲーム、DIYなど、日常的な消費者向けタスクにおいて最先端AIモデルがどのようなパフォーマンスを示すかを評価します。
+- AutomationBench（[zapier.com/benchmarks](https://zapier.com/benchmarks)）
+
+  SaaSアプリケーションを模した、複雑なエージェントワークフローの自動化をテストするベンチマークです。営業、マーケティング、運用、カスタマーサポート、財務、人事という6つの業務領域で実際に使われている47種類のツールを用い、AIエージェントがエンドツーエンドのワークフローを実行できるかを検証します。このテスト体系は、370万社が毎月実施する20億回以上の業務パターンから導き出された実際の傾向に基づいて構築されています。各タスクでは仮想の小規模企業が設定され、CRM記録、受信トレイの対話記録、スプレッドシート、カスタマーサポートチケットといった現実の業務担当者が受け取るような情報や、古いデータ行、類似した名称、受信トレイに隠された様々なルールといった罠も含めてエージェントに課題が与えられ、その結果が採点されます。採点対象はエージェントの返答ではなく、生成されたデータそのものです。
+
+  - AutomationBench-AA（[artificialanalysis.ai/evaluations/automationbench-aa](https://artificialanalysis.ai/evaluations/automationbench-aa)）
+
+  Zapierが提供するランキングとは異なり、AutomationBench-AAでは主に、安全上の制約を一切破ることなくタスクを完了できた割合がスコアとして反映されます。
+
+- EnterpriseOps-Gym-AA（[artificialanalysis.ai/evaluations/enterprise-ops-gym-aa](https://artificialanalysis.ai/evaluations/enterprise-ops-gym-aa)）
+
+  LLMエージェントが、状態に依存する複数ステップからなる企業向けワークフローを遂行できるかを評価するためのベンチマークです。各テストタスクは単一のビジネスドメイン内に限定されており、電子メールやカレンダー、チームコラボレーションツール、クラウドストレージサービスといった日常的なコラボレーションツールのほか、カスタマーサービス、人事、ITサービス管理といったコアビジネスシステムも含まれます。8番目のドメインは「ハイブリッドドメイン」で、複数のシステムを同時に呼び出す必要があるのが特徴です。すべてのテストにおいて、エージェントはリアルタイムのサンドボックス環境に配置され、ツールを呼び出すことで実際の業務を遂行することが求められます。  
+  採点は対話記録ではなく、基盤となるデータベースの最終状態に基づいて行われるため、得点はエージェントが実際にタスクを完了したかどうかを反映します。部分的な得点は与えられず、すべての検証器が結果状態を適切と判定した場合にのみ、そのタスクは成功と見なされます。
+
+### AIエージェント
+
+- ClawArena（[github.com/aiming-lab/ClawArena?tab=readme-ov-file](https://github.com/aiming-lab/ClawArena?tab=readme-ov-file)）
+
+  AIプログラミングエージェント向けのマルチセッション型リアルシナリオベンチマークで、テクノロジー／人事、病院、非政府組織、臨床現場、コンテンツ制作、金融、人事、キャンパスという8つのドメインにわたる64のシナリオが含まれます。1,879回の評価ラウンドがあり、多肢選択式推論と実行検証が組み合わされています。マルチセッションの文脈下で、エージェントは作業領域のファイルや複数チャンネルのチャット履歴、評価中に動的に挿入される更新情報をもとに推論を行う必要があります。
+
+### DeepResearch
+
+- FutureSearch-Deep Research Bench (DRB)（[evals.futuresearch.ai/](https://evals.futuresearch.ai/)）
+
+  LLMエージェントのインターネット上での調査能力を評価するためのベンチマークです。169件の多様な現実世界のタスクがあり、各タスクでは10件から10万件ものオフライン保存されたウェブページが検索・推論用に用意されています。
+
+### 視覚的位置認識およびGUIエージェント
+
+- Cua-Bench（[cua.ai/cuabench](https://cua.ai/cuabench)）（人間が設計・レビューしたタスク）
+
+  電気工学分野向けで、AIエージェントが主にキーボードやマウスを使ってデスクトップPC上で、あるいはタッチスクリーンを使ってモバイルデバイス上で複雑なタスクを遂行できるかを評価します。専門家によって作成された25件のKiCad回路図作成タスクが含まれます（KiCadは電子設計自動化用の総合ツール群で、多数のショートカット、相互に関連する複数のエディタ、多数のモーダルダイアログが存在します）。以下の3つの構成要素から成ります：
+
+  1. **基本イメージ**  ——ベンチマーク実行に必要なアプリケーションや依存関係が事前にパッケージ化されたWindows、Linux、macOS、Androidの環境
+  2. **タスクデータセット**  ——複数のオペレーティングシステムに対応し、検証可能かつ動的に変化するコンピュータ利用環境
+  3. **評価／訓練用ツールキット**  ——ベンチマークの実行、データ生成、エージェントのテストに用いるツール
+- cua-speedrun（[cuaspeedrun.com/](https://cuaspeedrun.com/)）
+
+  各コンピュータ利用タスクを完了するのに要する時間およびモデル呼び出しにかかるコストを測定するためのツールです。
+
+## 知能ベンチマーク
+
+- 概念的推論指数（CRI）（[conceptualreasoning.ai/](https://conceptualreasoning.ai/)）（人間による監査が行われるタスク）
+
+  3つのテスト項目から成る概念的推論のベンチマークである。実証的証拠が限られており、（実質的に）検証可能な正解が存在しない状況下で、モデルは結論を導き出すために論理的推論に大きく依存しなければならない。我々はこれを「概念的な推論」と呼んでいる。LLMがこの能力においてどの程度進歩しているかを測定するため、LMCA、ACCoRD、DTBenchの3つのベンチマークテストが作成された。
+
+  LMCA（言語モデルによる概念的論証）は、専門家によって厳選・評価されたデータセットであり、意思決定理論、哲学、高度なAIのリスクなど多様なテーマに関する概念的論証内容が含まれている。論証プロセスに焦点を当てることで、概念的な問題における最終的な答えを検証する難しさを回避できる。560件の立場表明テキストと、それらに対する1,461件の論拠が収録されている。モデルが出した評価スコアと人間の専門家による評価とを比較することで、モデルが論拠の良し悪しを判断する能力を測定する。
+
+  ACCoRD（概念的推論における一貫性評価）は、モデルが概念的な問題に対して示す信念や好みが論理的に一貫しているかを測定するためのものである。例えば、あるモデルに対して「事象Aが起こる確率P(A)」を尋ね、続いて「事象AとBが同時に起こる確率P(A&B)」を尋ねた際、これら2つの確率値がP(A) ≥ P(A&B)という関係を満たしているかどうかを確認する。このデータセットに含まれるすべての一貫性制約において、モデルは数値的な確率推定値または好みの順序を出力する必要がある。
+
+  DTBenchの機能（意思決定理論ベンチマーク）は、人間自身の行動や（近似的な）コピーとの相互作用を正確に予測する必要がある意思決定理論的状況下でのモデルの推論能力を測定するため、人間が作成した407問の選択式問題から成るデータセットである。
+- ARC-AGI-3（[arcprize.org/leaderboard](https://arcprize.org/leaderboard)）
+
+  人間にとっては比較的簡単だがAIにとっては困難、あるいは不可能なタスクに焦点を当て、単なる「規模拡大」だけでは自然に生じない能力のギャップを明らかにする。
+- dig.bench（[digbench.ai/](https://digbench.ai/)）
+
+  dig.benchは科学的発見能力を測定するためのベンチマークである。70種類のゲームが収録されており、それぞれのゲームには未知の変換規則が存在し、エージェントは相互作用や実験を通じてそれらを発見しなければならない。すべてのゲームはテキスト形式で提示されるため、言語モデルにとっては自然な適用領域となる。視覚的な干渉要素が存在しないため、純粋な発見能力のみが評価される。これらのゲームは難易度に応じて7つのレベルに分類されている。
+- SimpleBench（[simple-bench.com/](https://simple-bench.com/)）
+
+  LLM向けの選択式テキストベンチマークであり、専門知識を持たない（高校レベルの知識しかない）人々の方が最先端モデルよりも高いスコアを記録する。200以上の問題が収録されており、時空間推論、社会的知能、そして我々が「言語的ロバストネス（あるいは頭脳ゲーム）」と呼ぶ内容が含まれる。
+- AA-Omniscience（[Artificial Analysis Omniscience Index | Artificial Analysis](https://artificialanalysis.ai/evaluations/omniscience)）（重大な欠陥あり）
+
+  「ビジネス」「人文・社会科学」「健康」「法律」「ソフトウェア工学」「科学・工学・数学」の6分野、42のテーマにわたる6,000問から成る。3つの指標：正答率（正解の割合）、ハルシネーション率（回避回答以外の回答の中で誤答が占める割合）、全知指数（正解で+1、誤答で-1、回避回答で0）。
+
+  重大な欠陥：多数の問題にコミュニティから問題点が指摘されている
+- Bullshit Benchmark（[petergpt.github.io/bullshit-benchmark/viewer/index.html](https://petergpt.github.io/bullshit-benchmark/viewer/index.html)）
+
+  全く論理的でない「でたらめな」問題を55問用意し、モデルがそれらに対して反論するか、真摯に回答しようとするかを評価する。
+- Pencil Puzzle Bench（[ppbench.com/](https://ppbench.com/)）
+
+  鉛筆パズルを用いて大規模言語モデルの推論能力を評価するフレームワークであり、20種類のタイプに分類される300個のパズルが含まれる。
+- AttuneBench（[public.attunebench.com/](https://public.attunebench.com/)）
+
+  大規模言語モデルの感情知能を測定するためのベンチマークで、200回に及ぶ実際の多回合人間・モデル対話から構成される。感情の認識、理解、思考への活用、対話中の感情管理など、さまざまな能力についてスコア化する。このベンチマークは心理学者が人間の感情知能を評価する際に用いる次元を踏襲しており、この複雑な概念を具体的かつ測定可能な行動へと変換している。また、モデルの応答生成能力や、感情の変化の軌跡、参加者が自ら定義した対話目標といった対話レベルの指標も評価する。
+
+### ハルシネーションと長文文脈の想起
+
+長文文脈の想起や推論に関する問題については、この記事*[Evaluating Long Context (Reasoning) Ability](https://nrehiew.github.io/blog/long_context/)*を参照されたい。
+
+- HalluHard（[halluhard.com/](https://halluhard.com/)）
+
+  多回合型のハルシネーション評価ベンチマークで、合計950問が収録されている。法律事例（250問）、研究問題（250問）、医療ガイドライン（250問）、プログラミング（200問）の4分野から成る。ユーザーが作成した大規模言語モデルを用いて興味深い後続の質問を生成し、最初の質問およびその後の2回合を含む計3回合の対話におけるモデルのパフォーマンスを測定する。HalluHardは開放型の応答を引き出すことを目的としつつ、モデルに対して事実主張を引用元に基づいて行うことを求める。この設計により、応答の他の側面ではなく、特にハルシネーション（根拠のない事実誤認）に焦点を当てたベンチマークとなっている。  
+  法律、研究、医学の各分野では各応答から5つの主張を抽出し個別に判定する。プログラミング分野では応答ごとに判定を行う。検証プロセスでは主張の抽出、ウェブ検索による証拠の取得、そして引用された資料が生成内容を裏付けているかを確認するための全文ソースの取得（PDFの解析も含む）が行われる。
+
+- AA-LCR（[Artificial Analysis Long Context Reasoning Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/artificial-analysis-long-context-reasoning)）
+
+  複数の長文ドキュメント間での言語モデルの推論能力を評価するために設計されたベンチマークです。モデルには10万トークン分の入力内容（cl100k_baseトークナイザーを用いて計測）を読み込ませ、入力ドキュメント内の複数箇所に記載された情報を統合した上で答えを導き出させます。知識労働者が言語モデルに期待する推論タスクを実際に再現することを目的としています。会社の報告書、業界レポート、政府の諮問文書、学術文献、法律文書、マーケティング資料、調査報告書といった7種類の純テキストドキュメントが含まれます。
+- Context Arena（MRCR v2）（[contextarena.ai/](https://contextarena.ai/)）（欠陥あり）
+
+  データ源はOpenAIが公開したMRCRです。OpenAIのMRCRテストは、大規模言語モデル（LLM）が複雑な対話履歴を処理する能力を評価することを目的としています。主な特徴は以下の通りです：  
+  核心的なタスク：長大な対話内容（「干し草の山」）の中から、同一内容の情報断片（「針」）を複数見つけ出し区別すること。  
+  設定：Googleの[MRCR評価](https://arxiv.org/pdf/2409.12640v2)に着想を得て、本バージョンでは「ジャバウォックについての詩を書いて」といった同一の要求を2件、4件、または8件挿入し、さらにノイズとなる要求も加えます。重要な情報やノイズ情報はGPT-4oによって生成され、自然に混ざるようになっています。  
+  難易度：モデルは順番に特定のインスタンス（例：2番目の詩）を取り出す必要があり、そのためには対話内容を注意深く追跡する必要があります。また、答えの前に特定のランダムコード（ハッシュ値）を付け加える必要もあります。
+
+  欠陥：わずか1,000件のサンプルしか用いられていないにもかかわらず、Microsoft MAIの技術レポートによれば得点を60％から90％以上まで引き上げることができたとされています（実際にはより小規模なモデルで90％の得点を達成しており、状況をさらに悪化させている）。
+- LOCA-bench（[github.com/hkust-nlp/LOCA-bench](https://github.com/hkust-nlp/LOCA-bench)）
+
+  極端かつ制御可能な文脈長の増大状況下における言語エージェントの性能を評価することを目的としています。タスク指示が与えられると、LOCA-benchは自動的かつ拡張性の高い環境状態制御機能を用いてエージェントの文脈長を調整します。タスクの意味内容を維持したまま、文脈長を任意の規模まで拡張することが可能です。
+
+### AI4S（専門分野）
+
+- MathArena（[matharena.ai/?view=problem](https://matharena.ai/?view=problem)）
+
+  MathArenaは、最新の数学コンテストにおけるLLMのパフォーマンスを評価するためのプラットフォームです。訓練時には見たことのない新しい数学問題に対して、LLMがどの程度推論・一般化能力を発揮できるかを厳密に検証することを目的としています。性能評価の際には、各モデルに各問題を4回ずつ実行させ、その平均得点および全実行回数における総コスト（米ドル単位）を算出します。表示されているコストは、そのモデルが1回のコンテスト全体の問題を実行する際の平均費用を示しています。
+
+  ArXivMath、IMProofBench、MathArenaApex、Visual Math、Final-Answer Comps、Proof-Based Comps、Project Euler、BrokenArXiv、ArXivLeanといったベンチマークが含まれます。
+
+  ArXivMath：最近のarXiv論文に記載された数学研究問題を扱う際のLLMの性能を評価することを目的としています。（人手による選定タスク）
+
+  IMProofBench：証明を伴う問題を通じて、言語モデルが研究レベルで数学的推論を行えるかを評価します。モデルはウェブ検索やコード実行機能など、さまざまなツールを利用できます。
+
+  MathArenaApex：2025年に開催された各種数学コンテストから厳選された難易度の高い12問からなる問題群です。
+
+  Visual Math：カンガルー数学コンテストの問題です。Final-Answer CompsおよびProof-Based Compsは、最近開催された各種数学コンテストの問題です。
+
+  Project Euler：数学的洞察力、アルゴリズム的思考、プログラミングスキルを総合的に活用して複雑な問題を解決することを目的とした、数学とプログラミングを組み合わせた問題集です。
+
+  BrokenArXiv：数学推論におけるモデルの信頼性を試すためのベンチマークです。最近のarXiv論文から問題を抽出し、わずかに改変して一見もっともらしいが実際には誤りであると証明可能な記述にします。モデルがその記述を証明することを拒否し、現状の形では誤りであると明確に認識できれば得点となります。（人手による選定タスク）
+
+  ArXivLean：最新のarXiv論文から抽出した問題を用いて、Lean環境下での研究レベルの数学定理証明能力を評価するためのベンチマークです。
+- FrontierMath（[epoch.ai/frontiermath/tiers-1-4](https://epoch.ai/frontiermath/tiers-1-4)）
+
+  350問のオリジナル数学問題（うち最難易度レベル4の問題が50問）が含まれており、難易度の高い大学レベルの問題から、専門家の数学者でも数日かかる可能性のある難問まで幅広く網羅しています。以下の要件が求められます：
+
+  1. 明確かつ検証可能な答えであること
+  2. 推測を防ぐ仕様：答えが「推測しにくい」性質を持ち、ランダムな試行や単純なブルートフォース手法ではほぼ成功できないこと
+  3. 計算実行可能性：計算負荷の高い問題を解く際には、その分野の標準的な知識のみを用いて答えを導き出すためのスクリプトを添付する必要があります。このスクリプトが標準的なハードウェア上で実行した際の累積実行時間は1分未満でなければなりません。
+- MathScienceBench（[math.science-bench.ai/benchmarks/](https://math.science-bench.ai/benchmarks/)）
+
+  研究レベルの数学問題を対象としたAIベンチマークです。第一線で活躍する研究者たちが博士課程レベルかつ研究現場に近い文脈を持つ数学問題を提出し、大規模モデルが高度な数学的推論を行えるかを検証します。
+- MathDuels（[mathduels.ai/](https://mathduels.ai/)）
+
+  自己対戦型の数学ベンチマークです。各最先端モデルは他のモデルが作成した問題を解くと同時に、他のモデル向けの問題も作成するため、参加モデルの総合力が高まるにつれてテストの難易度も上昇します。これら2つの役割に基づき、問題解決能力の得点および問題作成能力の得点という2種類のスコアが算出されます。
+
+- PutnamBench（[trishullab.github.io/PutnamBench/leaderboard.html](https://trishullab.github.io/PutnamBench/leaderboard.html)）
+
+  プットナム数学コンテストにおいて、形式化された数学的推論能力をベンチマークするためのデータセットです。北米のトップレベルの学部生向け数学コンテストであるウィリアム・ローウェル・プットナム数学コンテストから選ばれた1,712個の形式化問題が含まれています。そのうち660問はLean 4で、640問はIsabelleで、412問はCoqで形式化されています。
+- GPQA Diamond（[artificialanalysis.ai/evaluations/gpqa-diamond](https://artificialanalysis.ai/evaluations/gpqa-diamond)）（重大な欠陥あり）
+
+  GPQAベンチマークの中から選ばれた最も難易度の高い198問で構成され、「グーグル検索を使っても解けない」ように設計されています。単なる検索スキルではなく、真の科学専門知識が求められる問題群です。  
+  大学院レベルの物理・生物・化学の問題であり、博士号を持つ専門家でなければ安定して解くことができないため、真の科学的推論能力を測るのに最適です。
+
+  しかし、OCR認識およびデータ入力の過程で多数の誤りが見つかっており、データ処理の工程も極めて不適切であることが判明しています。（出典：[Humanity's Last Hallucination : A Forensic Audit of the Scientific Insolvency in GPQA and HLE](https://zenodo.org/records/18293568)）
+- Humanity's Last Exam（[lastexam.ai/](https://lastexam.ai/)）（[Artificial Analysis](https://artificialanalysis.ai/evaluations/humanitys-last-exam)）（重大な欠陥あり）
+
+  人類の知識の最前線を対象としたマルチモーダルベンチマークで、幅広い学問分野を網羅する最後の閉鎖型学術ベンチマークとなることを目指しています。100以上の学問分野にまたがる2,500問の難易度の高い問題が含まれています。これらの問題は公開されており、さらにモデルの過学習状況を評価するための非公開テストセットも用意されています。
+
+  HLEで高い正答率を達成したとしても、それだけで自律的な研究能力や「汎用人工知能」の存在を証明するものではありません。HLEは構造化された学術問題を扱うものであり、自由な研究や創造的な問題解決能力を測るものではないため、技術的知識や推論能力を測定する指標に過ぎません。
+
+  テストは「(w/ tools)ツール使用時」（エージェント能力の評価）と「(w/o tools)ツール非使用時」（モデル自体の知能力の評価）の2パターンで実施されます。
+
+  また、OCR認識およびデータ入力の過程で多数の誤りが見つかっており、データ処理の工程も極めて不適切であることが判明しています。（出典：[Humanity's Last Hallucination : A Forensic Audit of the Scientific Insolvency in GPQA and HLE](https://zenodo.org/records/18293568)）
+
+  - HLE-Diamond（[lastexam.ai/blog/hle-diamond](https://lastexam.ai/blog/hle-diamond)）
+
+    HLEの問題群から厳選された1,000問からなるサブセットです。
+- CritPt（[CritPt Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/critpt)）
+
+  大規模言語モデル（LLM）の研究レベルにおける物理的推論能力を測るためのベンチマークで、71の総合的な研究課題が含まれています。
+- PhyArena（HiPhO）（[phyarena.github.io/](https://phyarena.github.io/)）
+
+  大規模言語モデルおよびマルチモーダル大規模言語モデル（MLLM）の物理的推論能力を評価するためのベンチマークです。HiPhOは高校生向け物理オリンピックのベンチマークでもあります。
+- Terminal-Bench-Science（[www.terminal-bench-science.ai/](https://www.terminal-bench-science.ai/)）（人間による監査付きタスク）
+
+  科学分野の専門家が厳選した複雑なワークフローを用いて、AIエージェントの能力を測定します。現在のテストでは、生命科学、物理科学、地球科学、数学、工学の各分野から70のタスクが用意されています。
+- BioMysteryBench（[www.vals.ai/benchmarks/biomysterybench](https://www.vals.ai/benchmarks/biomysterybench)）
+
+  言語モデルが生物学的データセットを解析し、欠落している情報を復元できるかを測るためのベンチマークです。例えば、サンプルがどの組織由来かを特定するといった課題があります。各タスクでは、一部のメタデータが除去された実際の生物データが与えられ、モデルは計算解析を行い除去された情報を復元する必要があります。具体的にはファイルの確認、コマンドラインツールの実行、コードの作成、生物学的データベースへの照会などが求められます。このベンチマークは、シーケンシング、発現解析、変異検出、エピゲノミクス、メタゲノミクス、プロテオミクス、メタボロミクスなど多岐にわたる分野をカバーしています。
+
+### 特定業界向けベンチマーク
+
+#### 医療
+
+- CHI-Bench（[actava.ai/benchmarks](https://actava.ai/benchmarks)）
+
+  医療機関における事前承認手続き、保険者側の利用率管理、医療ケア管理という3つの主要業務プロセスを評価するためのベンチマークです。各タスクでは、20種類の医療アプリケーションが統合された高精度シミュレーション環境において、87種類のMCPツールが利用可能な状態でエージェントに臨床ケースが与えられます。エージェントは1,290以上の文書からなる管理医療運用マニュアルを参照しながら、ツールを呼び出し、各職種に求められる成果物を出力することで、ケースを最終的な解決状態まで進めなければなりません。
+- Medical Long Context Reasoning (MLCR) benchmark（[www.wisedocs.ai/blogs/medical-long-context-reasoning](https://www.wisedocs.ai/blogs/medical-long-context-reasoning)）（人間が設計したタスク）
+
+  長文書を扱う際における大規模言語モデルの有効性を測るためのベンチマークです。医療事例の審査に携わる専門家が直面するさまざまな質問への対応能力を評価します。実際の現場を基に作成された10件の合成医療事例が用意されており、各事例には50～150件の多専門分野にまたがる医療要約が含まれています。テストでは、これら10事例それぞれに対して難易度別に250問の質問が提示されます。さらに、余分な文脈情報が与える影響を測定するため、無関係な情報を含む医療記録も用意されています。一般的な医療・保険用フォームから抽出したOCRテキストをモデルのコンテキストウィンドウいっぱいに挿入することで、「大海の中から針を見つけ出す」ような課題が構成されています。
+
+- MLCR-AA（[artificialanalysis.ai/evaluations/mlcr-aa](https://artificialanalysis.ai/evaluations/mlcr-aa)）
+
+  長文の医療症例文書を扱う際のモデルの推論能力を評価することを目的としている。AA版では、MLCRの元のデータセットにある最も難易度の高い2つのカテゴリから、60件のテスト問題を独自のテストセットとして選定した。1つ目は「専門家レベル」カテゴリで、モデルが症例文書全体に対して専門的な医学的推論を行うことが求められる。2つ目は「複合型」カテゴリで、複数の個別の問題を1つのクエリリクエストにまとめたものである。
+
+  各問題の回答は、100～150ページに及ぶ完全な症例記録に基づいて作成する必要がある。その後、3つのモデルからなる評価チームが、完全性・正確性・簡潔性という3つの観点から採点を行う。簡潔性の評価は、モデルが過度に長い回答を生成することを防ぐためのものであり、回答の長さは専門家の回答の5倍を超えてはならない。正確性の指標は、モデルの回答が元の文書や症例の背景に基づいているかを検証するためのものであり、完全性の指標は、専門家が定めた正解に含まれる重要な情報がモデルによって網羅されているかを評価するためのものである。簡潔性の評価は、不要な内容が生成されないことを確認するためのものだ。
+- DrugDiscoveryBench（[labs.scale.com/leaderboard/drugdiscoverybench](https://labs.scale.com/leaderboard/drugdiscoverybench)）
+
+  創薬の初期段階で必要となる複数の計算タスクや情報検索タスクを、最先端のコーディングエージェントがどの程度信頼性高く実行できるかを評価するためのベンチマークである。このベンチマークには82のタスクが含まれ、創薬初期段階の全プロセスを網羅している。具体的には、標的の特定と検証、特許・データベース・文献からの有望な候補分子の選定、候補分子からのリード化合物の選定と構造活性相関分析、そしてリード化合物の最適化などである。このベンチマークは候補化合物が選定される前段階で終了し、薬物動態学（DMPK）、毒性学、製剤開発、臨床試験などは評価対象外となる。
+- HealthBench Professional（[medicalsphere.ai/benchmarks/healthbench-professional](https://medicalsphere.ai/benchmarks/healthbench-professional)）
+
+  内科医師によって作成された525のタスクからなる医療用ベンチマークであり、LLMが実際の臨床現場で直面する3つのシナリオ、すなわち診療相談、文書作成・記録、医学研究におけるパフォーマンスを評価することを目的としている。各タスクは1回または複数回の対話形式で構成され、内容は「ChatGPT for Clinicians」のテスト時に内科医師たちが実際に行った会話記録から抽出されている。これらのタスクは3名以上の内科医師によって、事前に定められた評価基準に基づき判定される。
+
+#### 法律
+
+法律分野のベンチマークについては、*[LLM Agents in Law: Taxonomy, Applications, and Challenges](https://arxiv.org/pdf/2601.06216)*の付録3を参照のこと。
+
+- Harvey LAB-AA（[artificialanalysis.ai/evaluations/harvey-lab-aa](https://artificialanalysis.ai/evaluations/harvey-lab-aa)）
+
+  単に孤立した法律問題に答えるだけでなく、AIエージェントが実際の法律業務を遂行する能力を測定することを目的としている。各タスクでは、エージェントに対してパートナーのような指示と、サンドボックス環境内に配置された一連の判例文書が与えられる。エージェントはこれらの資料を読み込み、情報を統合した上で最終的に法的成果物を作成する。このベンチマークには120の法律タスクが含まれ、企業合併・買収、資本市場から税務、訴訟、倒産に至るまでの24の法律実務分野を網羅している。
+
+#### ビジネス・金融
+
+- Vending-Bench 2（[andonlabs.com/evals/vending-bench-2](https://andonlabs.com/evals/vending-bench-2)）
+
+  AIモデルが長期間にわたって企業を運営する際のパフォーマンスを測定するためのベンチマークである。モデルは1年間にわたって自動販売機事業をシミュレーション運営し、期末時点の銀行口座残高によって採点される。
+- YC-Bench（[collinear-ai.github.io/yc-bench/#leaderboard](https://collinear-ai.github.io/yc-bench/#leaderboard)）
+
+  エージェントが1年間にわたる起業シミュレーション期間中（数百回の意思決定を経て）スタートアップ企業を運営することで、その能力を評価する。エージェントは従業員の管理や業務契約の選定を行い、部分的に観測可能な環境下で収益性を維持する必要がある。悪い意思決定が引き起こす悪影響として、敵対的な顧客や増加する人件費などが挙げられる。各モデルは3種類のランダムシードを用いてテストされ、すべてのモデルの初期資金は20万ドルとなる。
+- CEO-Bench（[ceobench.com/](https://ceobench.com/)）
+
+  エージェントが500日間にわたって仮想のAIスタートアップ企業を運営する。エージェントには100万ドルの初期資金が与えられ、シミュレーション終了時点の現金残高がパフォーマンス指標となる。エージェントはプログラマブルなインターフェースを通じて運営を行い、ビジネスデータベースや企業管理ツール、ソーシャルメディアにアクセスできる。
+- Finance Agent（[www.vals.ai/benchmarks/fabv2](https://www.vals.ai/benchmarks/fabv2)）
+
+  各種エージェントが初級金融アナリストとして求められるタスクを遂行できるかをテストする。情報検索、市場調査、予測分析などに関する537の問題が含まれる。
+- TaxCalcBench（[github.com/column-tax/tax-calc-bench?tab=readme-ov-file](https://github.com/column-tax/tax-calc-bench?tab=readme-ov-file)）
+
+  最先端モデルが米国の税務計算タスクをどの程度正確に実行できるかを評価するためのベンチマークである。比較的単純な税務状況を想定した51組のユーザー入力と、それに対する正しい計算結果となる申告書出力が含まれており、申告状況、収入源、税額控除・減免項目なども含まれる。
+- Diligence Stack Agent Bench（[csbench.com/benchmarks/diligence-stack-agent](https://csbench.com/benchmarks/diligence-stack-agent)）
+
+  モデルが財務モデリングや企業の財務健全性・調査関連のタスクをどの程度うまくこなせるかを測定することを目的としている。テストセットは、Diligence Stackの調査プロセス向けに特別に構築された2つの非公開知識ベースである。
+
+- Commerce Agent Bench（[github.com/Accio-org/CommerceAgentBench](https://github.com/Accio-org/CommerceAgentBench)）
+
+  エージェントが単に関連する質問に答えるだけでなく、長期的なビジネスワークフローを遂行できるかどうかを評価することを目的としています。107のタスクが含まれており、ブラウザ操作、ネイティブに近いCLIツールの利用、API/MCPワークフローの処理、文書やスプレッドシートの作成、公開ウェブ上の調査、サプライヤー分析、製品リリース、物流、その他さまざまなビジネス運営プロセスが試験対象となります。
+
+### 特殊なシナリオ
+
+- SpeechMap（[SpeechMap.AI Explorer](https://speechmap.ai/)）
+
+  人工知能による発言の限界を探ることを目的としています。さまざまなプロバイダー、国、話題において、言語モデルが機密性や論争を招く可能性のあるプロンプトに対してどのように反応するかをテストします。多くのAIベンチマークはモデルが何をできるかを測るものですが、我々はモデルが何をできないか、つまり回避したり拒否したりブロックしたりする内容に注目しています。
+- HiL-Bench（[labs.scale.com/leaderboard/hil](https://labs.scale.com/leaderboard/hil)）
+
+  エージェントが助けを求める判断能力を測定するためのベンチマークです。つまり、エージェントが不足している情報や曖昧・矛盾した情報を、単に探索や推論だけでは解決できないと認識し、適切なタイミングで的確な質問をして正確な情報を得られるかどうかを評価します。ソフトウェア工学およびテキストからSQLへの変換という2つの分野を対象としています。タスクはすべてSWE-Bench ProおよびBIRDデータセットから抽出され、障害要素が付加されています。全300のタスクが両分野に均等に割り当てられており、そのうち200が公開タスク、100が偏りのない評価のために予約された非公開タスクです。これらのタスクには合計で1131個の障害要素が含まれ、1タスクあたり平均3.8個の障害があります。
+- Voxelbench（[voxelbench.ai/leaderboard](https://voxelbench.ai/leaderboard)）
+
+  言語モデルがボクセル構造を生成する能力を評価するためのベンチマークです。
+- DecodingTrust Bench（[decodingtrust-agent.com/leaderboard](https://decodingtrust-agent.com/leaderboard)）
+
+  15以上の分野および50のサンドボックス環境において、AIエージェントに対する動的なレッドチームテストフレームワークです。環境やツール、スキルに関する間接的な注入や直接的なプロンプト注入の両方を対象としています。
+- Political Manipulation（[political-manipulation.ai/](https://political-manipulation.ai/)）
+
+  対立する政治的テーマを扱う一対のプロンプトに対するモデルの反応を比較することで、潜在的な政治的偏見を評価します。この偏見は単一の応答内ではほとんど検出できず、明確な立場表明ではなく異なる応答間の不一致として現れるためです。データセットには左派・右派それぞれのプロンプトのペアが含まれ、潜在的な操作手法の分類体系に基づいて採点されます。我々は感情的一貫性および有用性の一貫性を測定することで、さまざまな政治的操作行為を特定します。
+- Last Translation Benchmark（[last-translation-benchmark.vilda.net/leaderboard-results](https://last-translation-benchmark.vilda.net/leaderboard-results)）
+
+  人間によって作成され、査読を経たテキスト・画像・音声・動画のサンプル群で構成されるベンチマークです。現在最も先進的な機械翻訳モデルを困惑させることを目的としています。また、新たな評価手法も提案しており、各サンプルには人間が定めた検証ルールが付随し、モデルがどのような点で失敗するかが詳細に記述されています。
+- LibraryDesignBench（[ldbench.com/](https://ldbench.com/)）
+
+  あるエージェントに図書館の設計を任せ、他のエージェントがその図書館を利用して構築した成果物の質に基づいて設計者エージェントの評価を行います。
+
+#### 予測
+
+## 視覚理解と推論
+
+視覚評価には不安定性が存在し、主な理由は3つある。1つ目はデータセットの規模が小さいこと、2つ目はラベル付けの形式などの細かな変更がモデルの精度やランキングに大きな影響を与えること、3つ目はJPEG圧縮など人間には「見えない」変化がベンチマークの順位を変えてしまうことである。（[lisadunlap.github.io/vpbench/](https://lisadunlap.github.io/vpbench/) を参照）
+
+- MMMU-Pro（[MMMU-Pro Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/mmmu-pro)）
+
+  多肢選択問題の選択肢は10個あり、問題文がスクリーンショットや写真内に埋め込まれた「視覚入力のみ」の形式も導入されている。  
+  このベンチマークには3,460問が含まれ、芸術・デザイン、ビジネス、科学、健康・医学、人文・社会科学、技術・工学という6つの主要分野を網羅しており、モデルにはより現実に近い状況下で視覚情報とテキスト情報の両方を処理することが求められる。
+- ZeroBench（[zerobench.github.io/](https://zerobench.github.io/)）
+
+  現代の大規模マルチモーダルモデル向けの極めて難易度の高い視覚ベンチマークであり、デザイナーチームによって丹念に考案され、広範なレビューを経た100問の挑戦的な問題が含まれている。さらにそれらには334個のサブ問題があり、各主要問題に対する個別の推論ステップに対応している。
+- BabyVision（[xbench.org/agi/babyVision](https://xbench.org/agi/babyVision)）
+
+  xbenchのAGIアライメントシリーズの一部であり、「言語化不可能」な課題における視覚理解能力の評価に特化している。
+- PerceptionBench（[www.kimi.com/blog/perception-bench](https://www.kimi.com/blog/perception-bench)）
+
+  視覚認知能力を専門的にテストするためのベンチマークである。視覚認知を一連の基礎能力に分解して評価しており、これらの能力は事前に人為的に定義されたものではなく、現在のモデルが犯すエラーから逆算して導き出されたものである。40以上のベンチマークにおける最先端モデルの失敗事例をその視覚的な原因まで遡ることで、10種類の認知能力と3,000問の検証済みテスト問題が抽出されている。これらの問題を解くには単に観察するだけでよく、推論や外部知識は一切不要である。
+- Blueprint-Bench 2（[andonlabs.com/evals/blueprint-bench-2](https://andonlabs.com/evals/blueprint-bench-2)）
+
+  エージェントにアパートの写真から正確な2D平面図を作成させることで、空間推論能力をテストする。各エージェントは50軒のアパートを順番に処理し、各アパートにつき約20枚の室内写真を確認した上で、部屋の配置やつながり方、相対的なサイズを示す平面図を生成する。
+- MazeBench（[mazebench.com/blog?post=maze-bench-results](https://mazebench.com/blog?post=maze-bench-results)）（人工設計）
+
+  エージェントの長期的な計画能力および視覚空間推論能力をテストするために特別に作られた3Dのオープンワールド環境である。この環境には数百もの部屋やパズルステージが存在する。
+
+  モデルはCodexやClaude Codeといった本来のエージェント実行環境内でMazeBenchを実行するため、低コストで長時間のタスクを遂行できる。MCPサーバーを通じて、これらのエージェントは4種類の移動操作、4種類のカメラ制御操作、コマンドの取り消し、ステージのリセット、そして異なる部屋間を移動できるテレポート操作という11種類のアクションを実行可能である。MazeBenchの最も顕著な特徴はカメラ回転機能である。モデルはゲームシーンを20の異なる角度から観察するため、カメラを上下左右に回転させなければならない。カメラが回転するにつれて、対応する移動コマンドも調整される必要がある。
+
+### 世界モデル
+
+## OCRおよび埋め込みモデルの評価
+
+[Open Modelsを活用してOCRパイプラインを強化しよう](https://huggingface.co/blog/ocr-open-models)
+
+さまざまなOCRモデルをテストした際、文書の種類や言語などによってその性能に大きな差が見られました。
+
+- OmniDocBench（[OmniDocBench/README_zh-CN.md at main · opendatalab/OmniDocBench](https://github.com/opendatalab/OmniDocBench/blob/main/README_zh-CN.md)）
+
+  実際の利用シーンにおける多様な文書の解析を評価するためのデータセットです。書籍、雑誌、教科書など多種多様な文書タイプを含むことから、広く利用されているベンチマークとなっています。評価基準も洗練されており、HTMLやMarkdown形式の表もサポートしています。
+- olmOCR-Bench（[olmocr/olmocr/bench at main · allenai/olmocr](https://github.com/allenai/olmocr/tree/main/olmocr/bench)）
+
+  英語の評価において非常に有効なベンチマークです。
+- Real5-OmniDocBench（[huggingface.co/datasets/PaddlePaddle/Real5-OmniDocBench](https://huggingface.co/datasets/PaddlePaddle/Real5-OmniDocBench)）
+
+  OmniDocBench v1.5のデータセットを基に作成された、現実世界のシナリオ向けの新しいベンチマークです。スキャン、歪み、スクリーンショット、照明条件、傾きという5つの異なるシナリオが含まれます。スキャン以外の画像はすべて携帯端末を用いて手動で撮影されており、現実世界の状況を忠実に再現しています。
+- OCRVerse（[github.com/DocTron-hub/OCRVerse](https://github.com/DocTron-hub/OCRVerse)）
+
+  テキスト中心型OCRと視覚中心型OCR（図表、ウェブページ、科学図表など）の両方を統一的に実現できる、初のエンドツーエンド型の総合的なOCR手法です。テキスト中心型データは自然環境、書籍、雑誌、論文、報告書、スライド、試験用紙、メモ、新聞という9つの文書シナリオを対象とし、日常的なテキスト処理のニーズに応えます。視覚中心型データは図表、ウェブページ、アイコン、幾何学図形、回路図、分子構造という6つの専門的なシナリオを対象としています。
+- Chronicles-OCR（[github.com/VirtualLUOUCAS/Chronicles-OCR/blob/main/README_ZH.md](https://github.com/VirtualLUOUCAS/Chronicles-OCR/blob/main/README_ZH.md)）
+
+  視覚言語大規模モデル（VLLMs）の時系列にわたる視覚認識能力を評価するための総合ベンチマークです。漢字の歴史的な変遷である「漢字七体」を網羅しており、亀甲や紙に書かれた書体など、多種多様な物理的媒体から得られた2,800枚の画像（各書体400枚ずつ、計7種類）が含まれます。
+- PDF Parse Bench（[github.com/phorn1/pdf-parse-bench](https://github.com/phorn1/pdf-parse-bench)）
+
+  さまざまなPDF解析手法が文書から数式を抽出する際の有効性を評価するためのベンチマークです。
+- Embedding Leaderboard（[MTEB Leaderboard - a Hugging Face Space by mteb](https://huggingface.co/spaces/mteb/leaderboard)）
+
+  MTEB Leaderboardとも呼ばれ、統一されたタスクセットを用いて埋め込みモデルが検索、分類、クラスタリングなどのタスクでどの程度の性能を発揮するかを比較します。
+
+## 画像生成、動画・音声生成、およびロールプレイ評価
+
+- DesignArena（[www.designarena.ai/leaderboard](https://www.designarena.ai/leaderboard)）
+
+  Code Categories、Web App、Mobile、Full Stack、Agent、Builder、Image、Image Editing、Graphic Design、Logo、SVG、Video、Video Editing、Slidesなど、多数のランキングが用意されている。
+- GenExam（[github.com/OpenGVLab/GenExam](https://github.com/OpenGVLab/GenExam)）
+
+  初の多分野にわたるテキストから画像生成の評価ベンチマークであり、1000のサンプルが含まれ、10の分野を網羅している。評価用のプロンプトは4段階の分類体系に基づいて整理されている。このベンチマークでは、モデルの理解力・推論力・生成能力を総合的に評価する。
+- UNO-Bench（[UNO-Bench](https://meituan-longcat.github.io/UNO-Bench/)）
+
+  単一モーダルおよびマルチモーダルモデル間の組み合わせパターンを調査するための統一ベンチマークである。UNO-Benchにおけるほぼ100%の問題において、音声情報と視覚情報の統合的な理解が求められる。従来の多肢選択問題に加え、複雑な推論能力を評価するための革新的な多段階オープンクエスチョン形式も導入している。
+
+  本ベンチマークの素材には3つの重要な特徴がある：a. 多様な出典――主にクラウドソーシングによって収集された実世界の写真・動画に加え、著作権フリーのウェブサイトや高品質な公開データセットも利用している。b. 豊富で多様なテーマ――社会、文化、芸術、日常生活、文学、科学などを網羅している。c. リアルタイム録音された音声――20人以上の実際の話者による対話音声を収録しており、音声特性が豊かで実世界の音声多様性を反映している。
+- WBench（[meituan-longcat.github.io/WBench/#leaderboard](https://meituan-longcat.github.io/WBench/#leaderboard)）
+
+  インタラクティブな動画世界モデルを対象とした初の体系的な多回合評価ベンチマークであり、289のテストケースと1058回のインタラクションが含まれる。各ケースでは世界のシーン設定と複数回合にわたるインタラクションの流れが定義されており、さまざまなシーン、スタイル、テーマ、第一人称・第三者視点が取り入れられている。また、ナビゲーション、対象物の動作、イベント編集、視点切り替えという4種類のインタラクションタイプも含まれている。ナビゲーションタスクでは、テキスト、6自由度の姿勢情報、離散的なアクション制御が統合されており、異なる入力インターフェースを持つモデルも評価可能である。
+
+### 音声認識およびインタラクション
+
+- τ-voice（[taubench.com/#leaderboard?benchmark=voice](https://taubench.com/#leaderboard?benchmark=voice)）
+
+  テキストベンチマークであるτ²-benchを拡張したもので、278のタスクが含まれ、小売、航空、電気通信という3つの実世界分野をカバーしている。さまざまなアクセント、背景雑音、割り込み行為、フィードバック用語、非対話型音声にも対応しており、応答率、遅延、割り込み率、選択性（フィードバック用語や非対話型音声を正しく無視できるか）といった観点から音声インタラクションの品質を評価する。
+
+### Omni
+
+## 意思決定
+
+- Jev Decision Index（[huggingface.co/spaces/multimodalart/jev-decision-index](https://huggingface.co/spaces/multimodalart/jev-decision-index)）
+
+  この意思決定指数は、各モデルが TypeSafe 社の Jev をオープンソースとして再実装した際に、型付き意思決定を行う能力を数値化したものです。具体的には、選択肢やラベル、ツール、並び順、または確率値を選び出す能力を測定します。全参加モデルは、36種類の静的ベンチマークから成る120,340件のリクエストからなる同一のテストセットを使用します。このテストセットは、Jev のバージョン jev-1.13.0 における評価に用いられたリクエスト集合の固定サブセットです。
+
+## コミュニティによる評価
+
+以下はAIコミュニティの専門家たちによる独立した評価です。
+
+- nao先生によるLLM Benchmark（[llm2014.github.io/llm_benchmark/](https://llm2014.github.io/llm_benchmark/)）
+
+  個人レベルで行われる評価で、随時更新される独自の問題集を用いて長期にわたって追跡調査を行う。論理、数学、プログラミング、人間の直感といった側面におけるモデルの能力を重視している。問題集の規模は大きくなく、常に30問／240のテストケース程度に留まっており、インターネット上で公開されている問題は一切使用しない。毎月問題が更新される。問題内容は公開されておらず、あくまで評価のアプローチや個人的な見解を共有することを目的としている。
+- knowledge-cutoff（[apoorvumang.github.io/knowledge-cutoff/](https://apoorvumang.github.io/knowledge-cutoff/)）
+
+  言語モデルの実際の知識の有効期限、すなわちモデルが現実世界の情報をどの時点まで正しく理解しているかを評価するためのベンチマーク。この有効期限は通常、モデルが公表している知識のカットオフ日よりも前の時期となる。  
+  その仕組みは、ここ数か月に起きたさまざまな実際の出来事を題材にモデルをテストすることにある。各月ごとに、モデルが正しく答えられる出来事の数を集計する。時間が経つにつれて実際の知識の境界に近づくため、モデルの正答率は徐々に低下する。この正答率の推移を月ごとにプロットすることで、モデルの世界知識がいつまで有効であるかを大まかに推測できる。
+- XSCT Bench（[xsct.ai/](https://xsct.ai/)）
+
+  テキスト、Web開発、画像生成、Openclaw、Omniといった分野における実際の製品利用シーンに基づいたテストを含む。
+- LisanBench（[lisanbench.com/](https://lisanbench.com/)）
+
+  XユーザーのLisan al Gaib（@scaling01）が行う個人評価。モデルに対して最初の英単語を与え、モデルは以下のすべての厳格な制約を満たしながら次々と単語を生成し続けなければならない：
+
+  - 直前の単語と文字数がちょうど1つだけ異なる（Levenshtein距離＝1）
+  - 有効な英単語でなければならない（words_alpha.txtという辞書を使用。約37万語あるが、実際には最大連結成分である約10.8万語のみが使われる）
+  - これまでに出現した単語を繰り返して使用してはならない
+  - 目的：可能な限り長い有効な単語列を生成すること
+
+  得点＝複数の異なる開始単語から得られた最長単語列の長さを合計した値
+- Kaggle Benchmarks（[www.kaggle.com/benchmarks?type=community](https://www.kaggle.com/benchmarks?type=community)）
+
+  主に2種類のベンチマークがある：1）研究用ベンチマーク：AI研究所の研究者が作成した評価。2）コミュニティベンチマーク：Kaggleコミュニティが作成した評価で、ユーザーは自分たちがAIモデルを評価するためのカスタムベンチマークを設計・実行・共有することができる。ガイド：[www.kaggle.com/docs/benchmarks#How%20to%20create%20a%20benchmark](https://www.kaggle.com/docs/benchmarks#How%20to%20create%20a%20benchmark)
+- prinzbench（[github.com/prinz-ai/prinzbench/](https://github.com/prinz-ai/prinzbench/)）
+
+  独自の評価ツールで、LLMが米国法に関する調査・分析を行う能力（「法的推論」）や、ネット上で入手困難な公開情報を見つけ出す能力（「大海捞针」）に基づいてLLMの順位付けを行う。法律調査用の問題25問と検索用の問題8問が含まれる。
+- Creative Story‑Writing Benchmark、Elimination Game Benchmark、NYT Connections puzzles、Sycophancy Benchmark、Thematic Generalization Benchmark、Persuasion Benchmark（[github.com/lechmazur](https://github.com/lechmazur)）
+
+  Creative Story‑Writing Benchmark：LLMが作成要件を守りつつ、魅力的な小説を書き上げる能力を評価する。各物語には必ず10個の必須要素――登場人物、物品、概念、属性、行動、方法、背景、時間軸、動機、雰囲気――が意味のある形で含まれている必要がある。
+
+  Elimination Game Benchmark：「淘汰ゲーム」は、大規模言語モデル（LLM）の社会的推論能力、戦略立案能力、欺瞞能力を試すための多人数参加型のトーナメント。プレイヤーは公開・非公開の対話を行い、同盟を結成しながら各ラウンドで他のプレイヤーを投票で脱落させ、最終的に2人だけが残る。その後、脱落したプレイヤーからなる審査団が最終投票を行い、勝者を決定する。
+
+  NYT Connections puzzles：940個の『ニューヨーク・タイムズ』のConnectionsパズルを用いて大規模言語モデル（LLM）を評価する。
+
+  Sycophancy Benchmark：同じ論争的な話題が正反対の第一人称視点で提示された際、モデルは同じ判断を維持するのか、それとも話し手の側に同調する傾向があるのか？このベンチマークはその矛盾を直接測定する。  
+  主要な指標は意図的に厳格に設定されており、両方の立場が第一人称で語られる場合でも、同一論争の両側面に賛同を示す場合のみ「おべっかを使う」と見なされる。各ケースには5つの視点が用意されており、中立的な第三者視点版1つ、削除された部分がある第一人称版2つ、感情的な第一人称版2つがある。
+
+  Thematic Generalization Benchmark：大規模言語モデルが少数の例から特定の潜在的テーマを推測し、反例を用いてより広範だが誤ったパターンを排除した上で、類似した選択肢の中から唯一正しい答えを見つけ出せるかを検証するためのもの。各テストではモデルに3つの正例、より広範または近いパターンに合致するが完全には一致しない3つの反例、そして8つの候補が与えられ、その中に隠された正解が1つだけ存在する。
+
+  Persuasion Benchmark：ある言語モデルが複数回の対話を通じて、別のモデルの立場をどの程度変えられるかを測定する。各実行時には一方のモデルが説得者、もう一方が対象となり、同じ命題について議論が行われる。
+
+### ゲーム
+
+- AI Poker Leaderboard（[benchmark.gtowizard.com/](https://benchmark.gtowizard.com/)）
+
+  AIモデルがGTO Wizard AI（現時点で最も先進的なAIポーカーエージェント）と対戦した際のリアルタイムランキング
+- RuneBench（[maxbittker.github.io/runebench/](https://maxbittker.github.io/runebench/)）
+
+  AIが『RuneScape』をプレイする能力を評価するためのベンチマーク。ゲーム内で様々な任務を遂行する必要があり、AIの「観察・意思決定・行動」のサイクルにおける振る舞いを測定する。
+
+## データ品質評価
+
+- OpenDataArena（[opendataarena.github.io/](https://opendataarena.github.io/)）
+
+  各学習後データセットが測定可能で、比較可能かつ検証可能であるようにするため、多様なドメイン（一般、数学、コード、科学、長い推論チェーン）および複数のモダリティ（テキスト、画像）における学習後データを評価する。一定のモデル規模（Llama3 / Qwen2 / Qwen3 / Qwen3-VL 7-8B）および一貫した学習設定を用いることで変数を制御している。データ系譜分析：現代のデータセットには高い冗長性や隠れた依存関係が存在することが多い。ODAは、オープンソースデータの「系譜」を可視化するための業界初のデータ系譜分析ツールを提供している。構造モデリング：継承、混合、蒸留といったデータセット間の関係性をマッピングする。
+
+## AIインフラの性能
+
+- Modded-NanoGPT Optimization Benchmark（[github.com/KellerJordan/modded-nanogpt/tree/master/records/track_3_optimization](https://github.com/KellerJordan/modded-nanogpt/tree/master/records/track_3_optimization)）
+
+  協力および競争を通じて、効率的なニューラルネットワーク最適化アルゴリズムを見つけ出すことを目的とする。主要なNanoGPT速達チャレンジとは異なり、そちらは実行時間をいかに短縮するかを目指すのに対し、本ベンチマークではアルゴリズムの最適化によって実行ステップ数を減らすことを目標とする（つまり、実行時間が長くなっても構わない手法も十分に有効である）。
+- InferenceMAX（[inferencemax.semianalysis.com/](https://inferencemax.semianalysis.com/)）
+
+  一般的なハードウェアプラットフォーム上で人気のあるモデルをベンチマークし、新しいソフトウェアバージョンがリリースされるたびにテスト基準を更新している。  
+  各モデルとハードウェアの組み合わせに対し、InferenceMAXはさまざまなテンソル並列度や最大同時リクエスト数を試し、スループットとレイテンシーの関係を示す完全なグラフを生成する。
+- MLPerf Training（[mlcommons.org/benchmarks/training/](https://mlcommons.org/benchmarks/training/)）
+
+  MLPerf Trainingベンチマークスイートは、システムが目標とする品質基準に達するまでのモデル学習速度を測定する。
+- AA-AgentPerf（AI Hardware Benchmarking & Performance Analysis）（[artificialanalysis.ai/benchmarks/hardware](https://artificialanalysis.ai/benchmarks/hardware)）
+
+  エージェント推論向けのベンチマーク：実際のプログラミングエージェントの実行フローを模倣し、本番レベルのサービス基準を満たした状態でシステムが同時に何個のエージェントをサポートできるかを測定する。主要指標は「1メガワットあたりのサポート可能エージェント数」であり、市場で定められた性能基準を満たす条件下で、1メガワットの電力を消費するアクセラレータプラットフォームが支えられる最大エージェント数を表す。KVキャッシュの再利用、推測的デコード、プリフィル/デコード処理の分離といった実際の本番環境向け最適化手法も含まれている。テスト対象は単体のアクセラレータからラック全体まで多岐にわたる。
   
-    AIモデルが金融、法務、ソフトウェアエンジニアリングの各分野において実際のタスクを遂行できる能力を測定します。この指標は、主要産業におけるモデルの性能の加重平均を算出することで得られ、その重みは各産業が米国経済に与える貢献度に基づいています。
-
-- **SEAL LLMリーダーボード**（[scale.com/leaderboard](https://scale.com/leaderboard)）
-
-  最新の大規模言語モデル（LLM）のエージェント能力、最先端性能、安全性、および世論への影響を評価します。
-
-- **Epoch AI**（[epoch.ai/benchmarks](https://epoch.ai/benchmarks)）
-
-  複数のベンチマークを提供しています。
-
-  Epoch能力指数（ECI）は、さまざまなAIベンチマークのスコアを統合し、「汎用能力」を示す単一の尺度にまとめることで、個別のベンチマークがすでに飽和しているような長期的な期間においてもモデル間の比較を可能にします。
-
-- **Sansa Bench**（[trysansa.com/benchmark](https://trysansa.com/benchmark)）
-
-  複雑な実世界のタスクやユースケースでモデルを評価するために特別に設計されたベンチマークです。学術、オフィス業務、コンテンツ審査など、複数の分野ごとに細分化されたランキングを提供しています。
-
-  コンテンツ審査ランキング（[trysansa.com/benchmark?dimension=censorship](https://trysansa.com/benchmark?dimension=censorship)）
-
-- **LMArena**
-   （[Overview Leaderboard | LMArena](https://lmarena.ai/leaderboard/)）
-
-- **OpenCompass（司南）**
-   （[OpenCompass司南 - 评测榜单](https://rank.opencompass.org.cn/home)）
-
-- **LiveBench**
-   （[LiveBench](https://livebench.ai/#/)）
-
-  テストセット汚染を避け、公平な評価を行うことを目的とした LLM ベンチマーク。
-   推論・コーディング・数学・データ分析などをカバー。
-
-- **NeMo Evaluator SDK**
-   （[NVIDIA-NeMo/Evaluator](https://github.com/NVIDIA-NeMo/Evaluator)）
-
-  スケーラブルかつ再現性のあるモデル評価・ベンチマークのための OSS ライブラリ。
-
-- **LRM-Eval**
-   （[LRM-Eval](https://flageval-baai.github.io/LRM-Eval/)）
-
-  テキストタスクは以下のサブタスクから構成される：
-
-  - **問題解決**
-    - 大学レベルの講義問題、言葉遊び、デコード問題
-  - **アルゴリズム・コーディング**
-    - 最近公開されたプログラミング問題
-  - **タスク完遂**
-    - 指示追従、マルチターン指示追従、長文コンテキスト理解
-  - **ファクト性 & 拒否**
-    - 長尾知識
-  - **安全性**
-    - 有害コンテンツ生成、越獄（Jailbreak）の評価
-
-- **Kaggle Benchmark** ([www.kaggle.com/benchmarks?type=community](https://www.kaggle.com/benchmarks?type=community))
-
-  主に2種類のベンチマークが含まれます：1）**研究ベンチマーク** - AIラボの研究者によって作成された評価。2）**コミュニティベンチマーク** - Kaggleコミュニティによって作成された評価で、ユーザーはAIモデルを評価するための独自のカスタムベンチマークを設計、実行、共有することができます。ガイド：[https://www.kaggle.com/docs/benchmarks#How%20to%20create%20a%20b...](https://www.kaggle.com/docs/benchmarks#How%20to%20create%20a%20benchmark)
-
-------
-
-# Coding Benchmarks
-
-- **SWE-bench**
-   （[SWE-bench Leaderboards](https://www.swebench.com/index.html)）
-
-  ソフトウェアエンジニアリング分野で最も人気のある評価スイートの一つ。
-   GitHub 上の実際の Issue を元に、LLM がコードリポジトリと Issue 説明を入力として「バグ修正パッチ」を生成できるかを評価する。
-
-  - **詳細**
-
-    SWE-bench の各サンプルは、12 個の OSS Python リポジトリから取得した「既に解決済みの GitHub Issue」で構成される。
-     各サンプルには以下が紐づく：
-
-    - 解決コードを含む Pull Request（PR）
-    - コードの正しさを検証する単体テスト
-
-    これらのテストは PR 適用前は失敗し、適用後に成功するため **FAIL_TO_PASS テスト** と呼ばれる。
-     さらに、PR 適用前後のどちらでも成功する **PASS_TO_PASS テスト** があり、既存機能を壊していないか確認する。
-
-    各サンプルでエージェントは：
-
-    - GitHub Issue の元のテキスト（Issue 説明）
-    - 対応するコードベースへのアクセス
-
-    を与えられ、Issue を解決するようリポジトリ内のファイルを編集する。テストケースはエージェントからは見えない。
-
-    提案された変更は FAIL_TO_PASS と PASS_TO_PASS の両テストで評価される：
-
-    - FAIL_TO_PASS が通れば、Issue は解決されたとみなす
-    - PASS_TO_PASS も通れば、他の機能を壊していないとみなす
-
-    2 つのテスト群がすべて成功した場合にのみ、元の GitHub Issue が完全解決と判断される。
-
-  - **SWE-bench Verified**
-
-    OpenAI が公開した、500 サンプルからなる人手精選サブセット。
-     元の SWE-bench がエージェントの能力を過小評価している、という問題を補正するために作成。
-
-    既存のエージェントフレームワークは Python 固有ツールに強く依存することが多く、SWE-bench Verified に過度適合しがちである。
-
-  - **SWE-Bench Pro（公開データセット）**（[scale.com/leaderboard/swe_bench_pro_public](https://scale.com/leaderboard/swe_bench_pro_public)）
-
-    SWE-Bench Verified のアップグレード版です。
-
-    これは、ソフトウェアエンジニアリング分野におけるAIエージェントを厳密かつ現実的に評価するために設計されたベンチマークです。既存のベンチマークに見られるいくつかの限界を、以下の4つの主要課題に取り組むことで解決することを目指しています。
-
-    1. データ汚染：モデルが学習中に評価用コードにすでに触れている可能性があり、そのためモデルが実際に問題を解いているのか、それとも記憶に頼って解答を再現しているのかを判断することが困難になります。
-    2. タスクの多様性不足：多くのベンチマークは、現実世界のソフトウェア開発が抱える幅広い課題を十分にカバーできておらず、単純なユーティリティライブラリに偏りがちです。
-    3. 問題の過剰な単純化：曖昧さや仕様の不明確さを含む課題はベンチマークから除外されがちですが、これは実際の開発者の作業フローとはかけ離れたものです。
-    4. 信頼性の低さと再現性の欠如：環境設定が一貫していないため、提出された解決策が本当に有効なのか、あるいは単に環境の設定ミスによって偶然通っただけなのかを判断することが困難になります。
-
-   - **SWE-bench Multilingual**
-
-     複数のプログラミング言語にまたがるソフトウェアエンジニアリング能力を評価する。
-     42 の GitHub リポジトリ・9 言語（C、C++、Go、Java、JavaScript、TypeScript、PHP、Ruby、Rust）の実際の PR から 300 のタスクを厳選。
-     Web フレームワーク、データストレージ/処理ツール、コアユーティリティ、人気ライブラリなど広い領域をカバーする。
-
-  - **Multi-SWE-Bench**
-     （[Multi-SWE-bench](https://multi-swe-bench.github.io/#/)）
-
-    ByteDance Seed による改変版。7 言語（Java、TypeScript、JavaScript、Go、Rust、C、C++）にまたがる 1,632 個の機能開発タスクを収録し、LLM の問題解決能力を評価する。
-     評価はプロジェクトに内蔵されたテストを実行し、PR 適用後の挙動を正解として検証する。
-
-  - **制約・限界**
-
-    静的データセットに基づく評価には本質的な限界があり、SWE-bench も例外ではない。
-     公開 GitHub リポジトリからスクレイピングしたデータであるため、Web テキストで事前学習した巨大モデルは高確率でテストセット汚染を起こしうる。
-     また SWE-bench がカバーするのは「中リスクレベルの自律性」に限られるため、他の評価と組み合わせる必要がある。
-
-- **terminal-bench**
-   （[Terminal-Bench](https://www.tbench.ai/) / [Artificial Analysis](https://artificialanalysis.ai/evaluations/terminalbench-hard)）
-
-  ターミナル環境で複雑なタスクをこなす AI エージェントの能力を測るタスク群と評価フレームワーク。
-   例：リポジトリのビルド・パッケージング、データセットのダウンロードと分類器の学習、サーバセットアップなど。
-
-  各タスクは
-
-  - 自然言語によるタスク説明
-  - Docker 環境
-  - 成功判定のためのテストスクリプト
-  - 参考となる「理想解」
-     から構成される。
-
-- **Terminal-Bench Pro**（[alibaba.github.io/terminal-bench-pro/](https://alibaba.github.io/terminal-bench-pro/)）
-
-  アリババが公開した、実際の端末環境でAIエージェントを評価するための大規模ベンチマークデータセットです。コードのコンパイルからモデルの学習、サーバーの設定に至るまで、Terminal-Bench Proはエージェントが現実世界のエンドツーエンドのタスクを完全に自律的に実行できる能力を評価します。200以上のタスクを含みます。
-
-- **ArtifactsBench**
-   （[ArtifactsBench](https://artifactsbenchmark.github.io/)）
-
-  Tencent による、LLM が生成した「視覚的アーティファクト」を自動・多モーダルに評価する最初のベンチマーク。
-   動的な出力をレンダリングし、MLLM（マルチモーダル LLM）ジャッジが詳細なチェックリストに基づいて忠実度とインタラクティビティを評価する。
-
-  1,825 個の高品質で難度の高いプロンプトを収録し、
-
-  - ゲーム開発
-  - SVG 生成
-  - Web アプリ
-  - シミュレーション
-  - データサイエンス
-  - 管理システム
-  - マルチメディア編集
-  - 小さなユーティリティ
-  - その他
-     の 9 カテゴリーをカバー。
-
-- **SWE-Dev**
-   （[DorothyDUUU/SWE-Dev](https://github.com/DorothyDUUU/SWE-Dev)）
-
-  「Feature-Driven Development（FDD）」＝既存コードベースに新機能を追加するタスクに特化した、初の大規模ベンチマーク兼トレーニングコーパス。
-
-- **LiveCodeBench**(LCB)
-   （[LiveCodeBench](https://livecodebench.github.io/index.html) / [Artificial Analysis](https://artificialanalysis.ai/evaluations/livecodebench)）
-
-  LeetCode、AtCoder、Codeforces の定期コンテスト問題を継続的に収集して構築したベンチマーク。
-   コード生成だけでなく、自己デバッグ・コード実行・テスト出力の予測など、より広いコーディング能力を評価する。
-
-  - **GSO Benchmark**
-
-    ソフトウェアエンジニアリングエージェント向けの難度の高い「ソフトウェア最適化」ベンチマーク。
-     10 個のコードベースにまたがる 102 個の最適化タスクに対して、専門開発者の最適化と比較してどれだけ実行速度を改善できるかを測る。
-
-- **LiveCodeBench Pro**（[livecodebenchpro.com/](https://livecodebenchpro.com/)）  
-
-  テストは「easy（易しい）」「medium（中程度）」「hard（難しい）」の3つのレベルに分かれています。
-
-- **Aider’s polyglot benchmark**
-   （[Aider LLM Leaderboards | aider](https://aider.chat/docs/leaderboards/)）
-
-  C++、Go、Java、JavaScript、Python、Rust の 6 言語で 225 問の難しい Exercism 問題を解かせて LLM を評価。
-
-- **SciCode**
-   （[SciCode Benchmark](https://scicode-bench.github.io/) / [Artificial Analysis](https://artificialanalysis.ai/evaluations/scicode)）
-
-  現実の科学研究で出てくる問題を解くコードを生成できるかを評価するベンチマーク。
-   物理・数学・材料科学・生物学・化学など 6 分野・16 サブフィールドをカバーし、科学者の典型的なワークフロー：
-
-  1. 重要な科学概念・事実を把握
-  2. それを計算・シミュレーションコードに落とし込む
-
-  を再現する。
-
-  主な焦点は
-
-  1. 数値計算手法
-  2. システムシミュレーション
-  3. サイエンティフィックコンピューティング
-
-- **OJBench**
-   （[He-Ren/OJBench](https://github.com/He-Ren/OJBench)）
-
-  LLM の「コンテストレベルのコード推論能力」を評価するベンチマーク。
-   中国 NOI（全国情報学オリンピック）、ICPC（国際大学対抗プログラミングコンテスト）から 232 問を厳選し、実際の提出・投票データに基づいて「易・中・難」の 3 ランクに分類。Python / C++ の 2 言語をサポート。
-
-- **OctoCodingBench**（[https://huggingface.co/datasets/MiniMaxAI/OctoCodingBench）](https://huggingface.co/datasets/MiniMaxAI/OctoCodingBench%EF%BC%89)
-
-  厳選された72件の事例を含み、コードリポジトリのシーンにおける足場認識（scaffolding-aware）の命令遵守能力を評価します。エージェントが7種の異質な命令ソースをどの程度遵守するかをテストします：System Prompt、System Reminder、User Query、プロジェクトレベル制約（Agents.md）、スキル（skill）、メモリ（Memory）、Tool Schema。タスク完了とルール遵守を区別します：高いタスク成功率 ≠ 高い命令遵守率。複数の足場をサポート：Claude Code、Kilo、Droid — 実際の本番環境の足場。競合の検出：エージェントが矛盾する命令をどう解決するかをテストします。
-
-- **Roo Code evals**
-   （[Evals | Roo Code](https://roocode.com/evals)）
-
-- **CTO Bench**（[cto.new/bench](https://cto.new/bench)）  
-  cto.newのユーザーが実際に提出したエンドツーエンドのコーディングタスクにおける、モデルの成功率を示します。
-
-- **CodeClash**
-   （[CodeClash](https://codeclash.ai/)）
-
-  **目標駆動型ソフトウェアエンジニアリング** における AI システムの能力を評価するベンチマーク。
-   従来のコーディングベンチマークは「タスク駆動」（明示的な仕様 + ユニットテスト）だが、現実の開発は
-
-  - 「ユーザー維持率を上げる」
-  - 「コストを下げる」
-  - 「売上を増やす」
-     などの抽象的な目標が先にあり、それをコードで実現するのは自律的・反復的・ときに競争的なプロセスである。
-
-  CodeClash では、2 体以上の LLM エージェントが「コードアリーナ」で複数ラウンドのトーナメント形式で競い合う。
-   それぞれのエージェントは、自分のコードベースを繰り返し改善しながら、高レベルな競争目的（資源の獲得、最長生存など）を達成しようとする。
-
-- **METR：長時間かかるタスクをAIが完遂できる能力の測定**（[https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/](https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/)）
-
-  AIの性能を、AIエージェントが完遂可能なタスクの長さ（所要時間）で評価する。具体的には、「そのモデルがx％の確率で成功裏に完了できる、人間が実行するのに必要な時間の長さ」によってモデルの能力を定量化する。（現状のモデルは、人間が4分未満で完了できるタスクでは成功率がほぼ100％に達するが、人間が約4時間以上かかるタスクでは成功率が10％を下回る。）
-
-- **Codeforces**
-
-  世界最大級のアルゴリズム練習・プログラミングコンテストプラットフォーム。
-
-## AI コーディングエージェント
-
-- **LiveSWEBench**
-   （[LiveSWEBench](https://liveswebench.ai/)）
-
-  AI コーディングエージェントのソフトウェアエンジニアリング能力を評価するベンチマーク。
-   各アシスタントを以下 3 種のタスクで評価する：
-
-  - **エージェント・プログラミング**：高レベルなタスクを与え、完全自律で完遂させる
-  - **目的指向の編集**：より具体的な指示と編集対象ファイルを与え、エージェントとして編集させる
-  - **オートコンプリート**：部分的なコードスニペットの続きを完成させる
-
-- **DPAI Arena**
-   （[DPAI — Developer Productivity AIrena](https://dpaia.dev/)）
-
-  世界初の「オープン・多言語・多フレームワーク・多ワークフロー」AI コーディングエージェントベンチマーク。
-   パッチ生成、バグ修正、PR レビュー、テスト生成、静的解析など、複数のワークフローに対して公平かつ再現性のある比較を行うため、柔軟なトラック制アーキテクチャを採用している。
-
-------
-
-# Agentic Benchmarks
-
-- **GAIA**
-   （[GAIA Leaderboard](https://huggingface.co/spaces/gaia-benchmark/leaderboard)）
-
-  現実世界に即した問題を通じて、汎用 AI アシスタントの
-
-  - 推論
-  - マルチモーダル理解
-  - Web ブラウジング
-  - ツール使用
-     能力を評価する総合ベンチマーク。
-
-- **Gaia2 Leaderboard**
-   （[Gaia2 Agents Evaluation Leaderboard](https://huggingface.co/spaces/meta-agents-research-environments/leaderboard)）
-
-  一般的な知能エージェント能力を測るベンチマーク。
-   従来の「検索してすぐ実行」型タスクと異なり、非同期に実行されるため、エージェントは
-
-  - あいまいさとノイズ
-  - 変化する環境
-  - 他エージェントとの協調
-  - 時間制約
-
-  に対処しなければならない。
-
-  評価軸：
-
-  - 実行（指示追従・多段ツール利用）
-  - 検索（情報検索）
-  - 曖昧性（不完全指示への対処）
-  - 適応性（環境変化への対応）
-  - 時間（時間管理・スケジューリング）
-  - ノイズ（関係のない情報・ランダムなツール故障）
-  - マルチエージェント協調
-
-- **BrowseComp**
-   （[BrowseComp: a benchmark for browsing agents | OpenAI](https://openai.com/index/browsecomp/)）
-
-  OpenAI によるブラウジングエージェント向けベンチマーク。
-   Web 上の「複雑かつ見つけにくい情報」を、短い一意解の形でどれだけ正確に探し出せるかを評価する。
-
-  - **BrowseComp-ZH**
-     （[BrowseComp-ZH/README-ZH.md](https://github.com/PALIN2018/BrowseComp-ZH/blob/main/README-ZH.md)）
-
-    中国語 Web エコシステムにおける LLM の検索・推論能力を評価する初の高難度ベンチマーク。
-     BrowseComp（Wei ら, 2025）に着想を得て、中国語圏特有の
-
-    - プラットフォームの断片化
-    - 言語特性
-    - コンテンツ検閲
-
-    といった課題を考慮した複雑な多段検索・推論タスクを構築している。
-
-- **FACTS Benchmark**（[www.kaggle.com/benchmarks/google/facts/leaderboard](https://www.kaggle.com/benchmarks/google/facts/leaderboard)）
-
-  事実に基づく質問応答のシナリオにおいて、モデルが内部知識を正確に活用できる能力を測定するためのパラメータ化されたベンチマーク。公開セット（1,052問）および非公開セット（1,052問）で構成されています。
-
-  検索をツールとして用いて情報を取得し、それを正しく統合する能力を評価するための検索ベンチマーク。公開データセット（890件）および非公開データセット（994件）で構成されています。
-
-  入力画像に関連するプロンプトに対して、事実に忠実な形で回答できる能力を評価するためのマルチモーダルベンチマーク。公開データセット（711件）および非公開データセット（811件）で構成されています。
-
-  Grounding Benchmark - v2：与えられたプロンプトの文脈において、事実に基づいた回答を提供できる能力を評価するための拡張版ベンチマークです。
-
-- **DeepSearchQA**（[www.kaggle.com/benchmarks/google/dsqa/leaderboard](https://www.kaggle.com/benchmarks/google/dsqa/leaderboard)）
-
-  Googleが公開した、900のプロンプトからなるベンチマークで、エージェントが17の異なる分野において困難な多段階情報検索タスクを遂行する能力を評価することを目的としています。従来の単一回答の検索や広範な事実の正確性に焦点を当てたベンチマークとは異なり、DeepSearchQAは、エージェントが複雑な検索計画を実行し、包括的な回答リストを生成できるかを評価するための、挑戦的な手作業によるタスク群で構成されています。
-
-  各タスクは「因果連鎖（causal chain）」として設計されており、あるステップでの情報発見が、その前のステップが成功裏に完了していることに依存するようになっています。これにより、長期的な計画立案とコンテキストの維持が重視されます。
-
-- **DeepResearch Bench**（[https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard)）
-
-  深層リサーチエージェント向けの総合ベンチマークで、100件の博士レベルのリサーチタスクで構成されています。各タスクは、22名の異なる分野のドメイン専門家によって綿密に設計されており、そのうち50件は中国語タスク、残り50件は英語タスクです。
-
-- **FutureX**（[futurex-ai.github.io/](https://futurex-ai.github.io/)）
-
-  未知の未来を予測することを目的とした動的なベンチマーク。主な特徴は以下の通りです：
-
-  - **データ汚染なし**：将来の出来事を予測させる方式により、回答がどのモデルの学習データにも含まれていないことを保証します。毎週約500件の新規イベントが追加されます。
-  - **現実世界の課題**：エージェントはシミュレーション環境ではなく、リアルタイムの現実世界情報を分析して将来の出来事を予測します。
-  - **大規模性**：2,000以上のウェブサイトから厳選された195の高品質ソースを基盤とし、複数のドメインをカバーしています。
-  - **完全自動化パイプライン**：クローズドループシステムにより、毎日自動で質問を収集し、27のAIエージェントを実行、その結果を自動採点します。
-
-- **xbench**
-   （[xbench](https://xbench.org/)）
-
-  国内機関が共同開発したベンチマーク。
-   AI システムの「最先端知能」と「実用価値」の双方を測るため、2 つの補完的トラックから成る：
-
-  - **AGI Tracking**：推論・ツール使用・記憶などのコア能力を評価
-  - **Professional Alignment**：ワークフロー・環境・ビジネス KPI に基づく評価体系で、実務上の有用性を評価
-
-  xbench は動的な評価システムとして設計されており、両トラックとも継続的に更新される。
-
-  - **xbench-ScienceQA**
-     科学分野の基礎知識を評価。
-  - **xbench-DeepSearch**
-     検索・情報検索シナリオにおけるツール利用能力を評価。中国語の現場ニーズに合わせて設計。
-  - **xbench-Profession-Recruiting**
-     現実の採用ワークフローと業界標準に基づき、
-    - 職務要件分解
-    - 人材プロファイリング
-    - 候補者情報の補完
-    - 履歴書スクリーニング
-    - ネットワーク関係理解
-    - オープンタレント検索
-       などを通じて、エージェントの業界理解・人材サーチ能力・評価スキルを測定。
-  - **xbench-Profession-Marketing**
-     実際のマーケティングワークフローに基づき、主に KOL 検索を対象とする。
-     クライアント要件のヒアリング・KOL マッチング、コンテンツ配信のモニタリングと戦略調整などを評価。
-
-- **IFBench**
-   （[IFBench Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/ifbench)）
-
-  58 種類の多様で検証可能な「分布外制約」のもとで、モデルがどれだけ厳密に指示を守れるかを評価する。
-   出力形式・スタイルなど細かい制約への追従能力をテスト。
-
-- **Humanity's Last Exam（HLE）**
-   （[Humanity's Last Exam](https://lastexam.ai/) / [Artificial Analysis](https://artificialanalysis.ai/evaluations/humanitys-last-exam)）
-
-  専門家レベルの最先端知識を測る、多分野マルチモーダルベンチマーク。
-   100 以上の科目・2,500 問から構成される。問題は公開される一方で、「過学習検出用の非公開テストセット」も別途保持されている。
-
-  HLE で高精度を達成することは、
-
-  - 閉形式で検証可能な問題
-  - 最先端の科学知識
-     に対して専門家レベルの性能を持つことを示すが、
-     それだけで自律研究能力や汎用 AI（AGI）であることを意味するわけではない。
-     あくまで「構造化された学術問題」に対する技術知識と推論力を測る。
-
-  評価設定は 2 つ：
-
-  - **w/ tools**：ツール利用を含むエージェント能力を評価
-  - **w/o tools**：ツールなしでモデル本体の知能を評価
-
-- **τ²-bench**
-   （[τ-bench](https://taubench.com/#home) / [Artificial Analysis](https://artificialanalysis.ai/evaluations/tau2-bench)）
-   ※重大な欠陥が指摘されている。
-
-  複数ドメインにわたるカスタマーサポートエージェントを評価するシミュレーションフレームワークで、
-   小売・通信・航空などの現実的なコラボレーションシナリオを模擬し、エージェントの対話能力を測定する。
-
-  エージェントには「複雑な企業ドメインでユーザーと協調し、ガイドし、支援して共通の目標を達成する」ことが求められる。
-   エージェントとユーザーを同時にシミュレートし、共有グローバルステートを動的に更新することで、新しい評価パラダイムを提案している。
-
-  しかし検証の結果、以下のような問題が見つかった：
-
-  1. **ポリシー違反**：
-      想定される行動がドメインポリシーに反している（例：補償が禁止されている状況で補償を行う、すでに出発済みのフライトをキャンセルする等）。
-  2. **データベースの不整合**：
-      アイテム ID、乗客情報、支払方法などが実データベースと矛盾。
-  3. **論理矛盾**：
-      ポリシー的に禁止されているにもかかわらず同じアイテムを二度引き換える等、実現不可能なシナリオ。
-  4. **評価の曖昧さ**：
-      タスク記述が不明瞭で、評価結果が一貫しない。
-
-- **τ²-Bench-Verified**
-   （[github.com/amazon-agi/tau2-bench-verified](https://github.com/amazon-agi/tau2-bench-verified)）
-
-  元の τ²-bench に対して、
-
-  - タスク定義
-  - 期待行動
-  - 評価基準
-     とドメインポリシー／データベースの整合性を人手で検証・修正したバージョン。
-
-- **FinSearchComp**
-   （[FinSearchComp Benchmark](https://randomtutu.github.io/FinSearchComp/)）
-
-  オープンエンドな金融検索に特化した初のベンチマーク。
-   現実の金融意思決定タスクに必要な 3 つのコア能力：
-
-  1. 適切なシグナルを発見する
-  2. 複数ソースを検証・統合する
-  3. 時間制約下で、証拠に基づく判断を下す
-
-  を評価するため、グローバルと大中華圏の 2 サブセットで
-
-  - 時系列データ取得
-  - 単純な過去問合せ
-  - 複雑な歴史調査
-     の 3 サブタスクを設計している。
-
-- **GDPval-AA**（[artificialanalysis.ai/evaluations/gdpval-aa](https://artificialanalysis.ai/evaluations/gdpval-aa)）
-
-  OpenAIのGDPvalデータセット向けに開発された評価フレームワークです。このフレームワークは、44の職種および9つの主要業界にわたって、AIモデルが実際の業務タスクにおいてどのように性能を発揮するかを評価します。金融、医療、法律その他の専門分野における実務成果物を模擬するために、文書、スライド、チャート、スプレッドシートなど多様な出力を生成することを要求する220のタスクで構成されています。
-
-- **TheAgentCompany**
-   （[The Agent Company](https://the-agent-company.com/)）
-
-  現実の専門タスクを行う LLM エージェントを評価する枠組み。
-   AI エージェントが「デジタル社員」として、Web ブラウズ・コード記述・プログラム実行・同僚とのコミュニケーションなどを行えるかを見る。
-
-- **VitaBench**
-   （[VitaBench](https://vitabench.github.io/)）
-
-  フードデリバリー、外食、旅行など、高頻度の日常シナリオを用いて設計された「対話的ベンチマーク」。
-   66 個のツールと複数シナリオをまたぐ複合タスクを用意し、
-
-  - 深い推論
-  - ツール使用
-  - ユーザーとの対話
-     の 3 軸からエージェントを評価する。
-
-- **Toolathlon**
-   （[Toolathlon](https://toolathlon.xyz/introduction)）
-
-  現実世界のソフトウェア環境を前提にした「一般的なツール使用能力」を測るベンチマーク。
-   32 のソフトウェア・604 のツールをカバーし、108 個のタスクを人手設計／スクリプト生成している。
-   各タスクは平均約 20 ターンのインタラクションが必要な長期ツール利用を伴う。
-
-- **BFCL-V4**（[gorilla.cs.berkeley.edu/leaderboard.html](https://gorilla.cs.berkeley.edu/leaderboard.html)）
-
-  正式名称は「Berkeley Function-Calling Leaderboard（バークレー関数呼び出しリーダーボード）」で、大規模言語モデル（LLM）が関数（すなわちツール）を正確に呼び出せる能力を評価します。
-
-- **MCP-Universe**
-   （[mcp-universe.github.io](https://mcp-universe.github.io/)）
-
-  実際の Model Context Protocol（MCP）サーバをベースにした LLM ベンチマークスイート。
-
-- **MCPMark**
-   （[mcpmark.ai](https://mcpmark.ai/)）
-
-  MCP アプリケーションにおける LLM・エージェント能力を測る総合ストレステストベンチマーク。
-   Notion・GitHub・Filesystem・Postgres・Playwright・Playwright-WebArena など、多様な MCP サーバを含む。
-
-- **MCP Atlas**（[scale.com/leaderboard/mcp_atlas](https://scale.com/leaderboard/mcp_atlas)）
-
-  モデルコンテキストプロトコル（MCP）を通じて、言語モデルが現実世界のツールを適切に活用できるかを評価するベンチマークであり、特に複数ステップからなるワークフローにおけるパフォーマンスを測定します。このベンチマークには、1,000件の人手で作成されたタスクが含まれており、各タスクは40以上のMCPサーバーおよび300以上のツールの中から複数のツールを呼び出して解決する必要があります。タスクの難易度は、2～3つのツールと単純なチェーンで完結する単一ドメインのクエリから、5つ以上のツールを必要とし、条件分岐やエラー処理を含む複雑なワークフローまで幅広くカバーしています。
-
-  各タスクには、一見妥当だが実際には誤った選択となる「妨害ツール（distractor tools）」が慎重に選定されています。これらの妨害ツールは、データアノテーターが必須ツールと同じカテゴリから選びます。評価フレームワークでは、各タスクごとに12～18個のツール（うち3～7個が必須ツール、5～10個が妨害ツール）を提示し、エージェントがツールの説明に基づいて推論を行うことを強制し、無作為な試行を防いでいます。
-- **SCONE-bench**
-   （[red.anthropic.com/2025/smart-contracts/](https://red.anthropic.com/2025/smart-contracts/)）
-
-  Anthropic による、スマートコントラクトの「資金搾取能力」でエージェントを評価する初のベンチマーク。
-   各ターゲットコントラクトについて、エージェントは：
-
-  - 脆弱性を特定し
-  - 搾取スクリプトを生成し
-  - 実行者のネイティブトークン残高を所定閾値以上増やす
-
-  必要がある。
-
-  SCONE-bench は架空のバグではなく、2020〜2025 年に Ethereum / BNB Chain / Base 上で実際に悪用された 405 件のスマートコントラクトを対象とする。
-
-  さらに、
-
-  1. MCP ツールを用いて 60 分以内に攻撃を試みるベースエージェント
-  2. 指定ブロック高でフォークしたローカルチェーンを Docker コンテナ内で実行する評価フレームワーク
-  3. メインネットデプロイ前にスマートコントラクトをストレステストできる「事前監査」機能
-
-  を提供する。
-
-------
-
-## AI エージェント（Web / GUI エージェント）
-
-- **Online-Mind2Web**
-   （[Online_Mind2Web Leaderboard](https://huggingface.co/spaces/osunlp/Online_Mind2Web_Leaderboard)）
-
-  実在サイト上での Web エージェント性能を評価するベンチマーク。
-   136 の人気サイトにまたがる 300 タスクを収録し、LLM ジャッジ（WebJudge）による自動評価を採用。
-
-  人手アノテーションのステップ数に応じて、タスクは
-
-  - 易：1–5 ステップ
-  - 中：6–10 ステップ
-  - 難：11 ステップ以上
-
-  に分類される。
-
- - **Mind2Web 2**（[osu-nlp-group.github.io/Mind2Web-2/#leaderboard](https://osu-nlp-group.github.io/Mind2Web-2/#leaderboard)）
-
-    Deep Researchシステムの能力を評価するための、130件の現実的かつ高品質な長期タスクからなるベンチマークです。これらのタスクはリアルタイムでのウェブ閲覧と広範な情報統合を必要とします。構築には1,000時間以上の人手が費やされており、各タスクは専門家によって数時間かけて洗練・検証されています。
-
-------
-
-## LLM の記憶とパーソナライゼーション
-
-- **LoCoMo**
-   （[LoCoMo](https://snap-research.github.io/locomo/)）
-
-  LLM エージェントの「超長期対話メモリ」を評価するベンチマーク。
-   QA、イベント要約、多モーダル対話生成などのタスクを通じて、長期記憶能力を測る。
-
-  - **QA タスク**
-     エージェントは過去コンテキストを正確に「想起」し、将来の応答に適切に統合する必要がある。
-     質問は以下 5 種類の推論タイプに分類される：
-    1. 単一ステップ推論
-    2. マルチステップ推論
-    3. 時系列推論
-    4. 常識・世界知識推論
-    5. 敵対的推論
-  - **イベントグラフ要約**
-     対話の中の長距離因果関係・時間関係を捉え、共感的で文脈に沿った応答を生成できるかを評価。
-     各話者に関連するイベントグラフを「正解」とし、対話履歴からそれを抽出させる。
-  - **マルチモーダル対話生成**
-     過去対話から得られるコンテキストを活かして、ストーリー展開と整合的な応答を生成できるかを評価。
-
-- **PERSONAMEM**
-   （[PersonaMem](https://zhuoqunhao.github.io/PersonaMem.github.io/)）
-
-  動的ユーザモデリングとパーソナライズ応答に関する大規模ベンチマーク。
-   180 以上のシミュレートユーザと LLM の対話を含み、ユーザあたり最大 60 ターン、合計約 100 万トークン。
-   15 種類のパーソナライゼーションシナリオと 7 カテゴリのリアルタイムクエリをカバーする。
-
-  各インスタンスには、
-
-  - 静的属性（人口統計など）
-  - 動的属性（変化する嗜好など）
-     を持つ「ユーザ・ペルソナ」が含まれる。
-
-  ユーザは食事・旅行・カウンセリング等のテーマでチャットボットとマルチターン対話を行い、嗜好が時間とともに変化していく。
-   ベンチマークは、ユーザの「一人称クエリ」に対して、LLM がどれだけ適切なパーソナライズ応答を返せるかを評価する。
-
-- **Personalized Deep Research**
-   （[arxiv.org/abs/2509.25106](https://arxiv.org/abs/2509.25106)）
-
-  深い調査・研究タスクを行うエージェントの「パーソナライズ能力」を評価する最初のベンチマーク。
-   10 領域・50 個の多様な研究タスクと、25 の実ユーザペルソナ（構造化属性 + 動的現実コンテキスト）を組み合わせ、合計 250 個の実ユーザクエリを構成する。
-
-  評価には PQR フレームワークを用いる：
-
-  - **P（Personalization）**：ペルソナへの適合度
-  - **Q（Quality）**：内容の質
-  - **R（Reliability）**：事実の正確性
-
-------
-
-## 視覚グラウンディング & GUI エージェント
-
-- **AndroidDaily**
-   （[opengelab.github.io](https://opengelab.github.io/index_zh.html)）
-
-  実世界シナリオに対する多次元・動的ベンチマーク。
-   現代生活の 6 つのコア領域（食・移動・ショッピング・住・情報消費・エンタメ）を対象に、各カテゴリで主要なアプリを優先的に採用している。
-   これにより、支払い・予約など「現実のアウトカム」を伴うタスクを再現し、オンラインとオフラインの統合を重視している。
-
-  - **静的テスト**：
-     3,146 の操作サンプル。
-     タスク説明とステップごとのスクリーンショットに基づき、エージェントは
-    - アクション種別（タップ・入力など）
-    - パラメータ（座標・テキストなど）
-       を予測する。主な指標は数値的正確さ。
-  - **エンドツーエンドテスト**：
-     実機・エミュレータ上の完全なテスト環境で、エージェントがタスクを自律的に完遂できるかを評価。
-     評価指標の中心は「タスク成功率」で、複雑環境における総合能力をよりリアルに反映する。
-
-- **AndroidWorld**
-   （[android_world](https://google-research.github.io/android_world/)）
-
-  20 の実 Android アプリで 116 個のプログラミングタスクを提供する、完全機能の Android 環境。
-   静的テストセットではなく、自然言語でパラメータ化されたタスクを動的に生成できるため、スケールと現実性の高い評価が可能。
-
-- **Mobile World**（[tongyi-mai.github.io/MobileWorld/](https://tongyi-mai.github.io/MobileWorld/)）  
-
-  エージェントとユーザーのインタラクションおよびMCP（Model Context Protocol）強化環境において、自律型モバイルエージェントを評価するためのベンチマークです。20のアプリケーションにまたがる201のタスクで構成されており、長期的かつ複数アプリケーションを横断するタスクや、エージェント–ユーザー対話型タスク、MCP強化型タスクといった新しいカテゴリのタスクを含んでいます。
-
-  その難易度は以下の2点に現れています：  
-  **長期的かつ複数アプリケーションを横断するタスク**：Mobile Worldのタスクは平均27.8ステップを要し、これはAndroidWorldの平均14.3ステップのほぼ2倍です。さらに、62.2%のタスクが複数アプリケーションにまたがるワークフローを必要とするのに対し、AndroidWorldではその割合はわずか9.5%にとどまります。  
-  **新しいタスクカテゴリ**：Mobile Worldは、(1) エージェント–ユーザー対話型タスク（全体の22.4%を占める）により、曖昧な指示を協調的な対話を通じて処理するエージェントの能力を評価するとともに、(2) MCP強化型タスク（全体の19.9%を占める）を通じて、GUIナビゲーションとモデルコンテキストプロトコル（MCP）による外部ツール呼び出しを組み合わせたハイブリッドな操作を要求します。
-
-- **ScreenSpot-V2**
-   （[ScreenSpot-V2](https://gui-agent.github.io/grounding-leaderboard/screenspot.html)）
-
-  GUI グラウンディングベンチマーク。
-   自然言語指示を画面上のピクセルレベルのターゲットにマッピングする能力を測る。
-
-- **ScreenSpot-Pro**
-   （[GUI Grounding Leaderboard](https://gui-agent.github.io/grounding-leaderboard/)）
-
-  高解像度のプロフェッショナルソフトウェアに特化した GUI グラウンディングベンチマーク。
-   複雑なチャートを含むデスクトップアプリ等を対象とする。
-
-- **OSWorld-G**
-   （[osworld-grounding.github.io](https://osworld-grounding.github.io/)）
-
-  GUI 上の細粒度な機能コンポーネント理解を評価するベンチマーク。
-   テキストマッチング・要素認識・レイアウト理解・精密操作など、564 サンプルを収録。
-
-- **MMBench-GUI**
-   （[MMBench-GUI](https://github.com/open-compass/MMBench-GUI)）
-
-  Windows / macOS / Linux / iOS / Android / Web の 6 大プラットフォームにわたる GUI Agent の総合能力を評価。
-   単に「成功したか」だけでなく、「効率–品質面積（EQA：Efficiency-Quality Area）」指標を導入してタスク効率を測る。
-
-  評価レイヤーは 4 つ：
-
-  1. GUI コンテンツ理解
-  2. GUI 要素グラウンディング
-  3. GUI タスク自動化
-  4. GUI タスク協調
-
-------
-
-# Intelligence Benchmarks
-
-- **ARC-AGI-2**（[arcprize.org/leaderboard](https://arcprize.org/leaderboard)）
-
-  人間にとっては比較的簡単だが、AIにとっては困難、あるいは不可能に近いタスクに焦点を当てることで、「スケーリング」だけでは自然には獲得できない能力のギャップを明らかにすることを目指しています。
-
-  1. 全ての評価セット（公開、準非公開、非公開）は、従来の100タスクから拡張され、現在はそれぞれ120タスクを含んでいます。
-  2. ブルートフォース検索（総当たり探索）による影響を受けやすいタスク（すなわち、2020年のKaggleコンペティションで既に解かれたすべてのタスク）は、評価セットから除外されました。
-  3. 評価セットの難易度を適切に調整し、人間間の難易度差異（IDD: Inter-Human Difficulty Disparity）を確保するとともに、少なくとも2人の人間がAIと同等の条件（pass@2）でタスクを解けることを確認するため、制御された人間テストが実施されました。
-  4. 記号的解釈、構成的推論、文脈依存ルールなどの研究知見に基づき、AIの推論システムに挑戦する新しいタスクが設計されました。
-
-- **MMLU-Pro**（[MMLU-Pro Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/mmlu-pro)）（脆弱性あり）
-
-  大規模言語モデルを厳密に評価することを目的としたマルチタスク理解データセットです。各分野から1万2,000の複雑な問題が含まれています。各問題は10個の回答選択肢を持ち、推論を中心とする問題がより多く統合されています。
-
-  （脆弱性：1. 正解の一部では、スペースが先頭文字となります。つまり、ランダム推測に加えて「先頭がスペースならその選択肢を選ぶ」という戦略をとると、かなり大きなアドバンテージが得られ、化学・物理・数学に関連するテスト結果に影響を及ぼします。2. 常に最も長い回答を選ぶと、ベンチマーク全体で同程度のスコア上昇効果が得られます）
-
-
-- **Frames**
-
-  検索拡張生成（RAG）システムの
-
-  - ファクト性
-  - 検索精度
-  - 推論能力
-     を総合的に評価するデータセット。
-
-  824 の難しいマルチホップ質問を収録し、2〜15 本の Wikipedia ページから情報を統合する必要がある。
-   歴史・スポーツ・科学・動物・健康など幅広いトピックを含む。
-
-- **SealQA（Seal-0）**
-   （[vtllms/sealqa](https://huggingface.co/datasets/vtllms/sealqa)）
-
-  Web 検索結果が
-
-  - 矛盾している
-  - ノイズが多い
-  - 役に立たない
-     場合でも、検索拡張 LLM が Factoid QA をどれだけこなせるかを評価する。
-
-  GPT-4.1 など既存チャットモデルの精度がほぼゼロに近いような「特に難しい質問」に焦点を当てている。
-
-- **Stanford HELM**
-   （[HELM Capabilities Leaderboard](https://crfm.stanford.edu/helm/capabilities/latest/#/leaderboard)）
-
-  Stanford CRFM による包括的 LLM 評価フレームワーク。
-   多数のタスク・指標を横並びで比較できる。
-
-- **Zenmux**
-   （[Benchmark - ZenMux](https://zenmux.ai/benchmark)）
-
-  各モデルをあらゆる提供チャネルでテストし、
-
-  - コスト vs 性能のトレードオフ曲線
-  - 総合スコアランキング
-     を示す。
-
-  主な評価ベンチマークとして、Scale AI の「Humanity’s Last Exam（テキスト版）」を使用。
-
-- **AA-LCR**
-   （[Artificial Analysis Long Context Reasoning Benchmark Leaderboard](https://artificialanalysis.ai/evaluations/artificial-analysis-long-context-reasoning)）
-
-  長文・複数ドキュメント間での推論能力を評価するベンチマーク。
-   cl100k_base トークナイザで最大 10 万トークンの入力を想定し、
-
-  - 企業レポート
-  - 業界レポート
-  - 政府コンサルテーション
-  - 学術論文
-  - 法律文書
-  - マーケ資料
-  - 調査レポート
-
-  など 7 種のテキスト文書から、多地点の情報を統合して答えを導く。
-
-- **Fiction-liveBench**
-   （[Fiction.liveBench](https://fiction.live/stories/Fiction-liveBench-Sept-06-2025/oQdzQvKHw8JyXbN87/home)）
-
-  物語生成タスクにおける長文コンテキスト理解を評価するベンチマーク。
-   とても長く複雑なストーリーを十数本厳選し、それらの圧縮版から作成した多数のクイズでモデルをテストする。
-
-- **Context Arena**
-   （[contextarena.ai](https://contextarena.ai/)）
-
-- **Context-Bench**
-   （[Letta Leaderboard](https://leaderboard.letta.com/)）
-
-  ドキュメントチェーン操作・エンティティ関係追跡・多段情報検索など、長期的なコンテキストマネジメント能力を評価する。
-
-- **Needle in a Haystack**
-   （[LLM-NeedleInAHaystack](https://github.com/Lianues/LLM-NeedleInAHaystack/blob/main/README_CN.md)）
-
-  「干し草の中の針」方式で、LLM のリコール能力を評価するベンチマーク。
-
-  手順：
-
-  1. **テストテキスト構築**：
-      固定長コンテキスト内に、ランダムな 4 桁数（1000–9999）を複数挿入。
-  2. **モデルタスク**：
-      テキストからすべての 4 桁数を抽出し、出現順に JSON 形式で出力させる。
-  3. **スコアリング**：
-      Levenshtein 距離ベースの編集距離アルゴリズムでモデル出力を採点。
-
-- **Hallucination Leaderboard**
-   （[LLM Hallucination Leaderboard](https://huggingface.co/spaces/vectara/leaderboard)）
-
-  短い文書を渡し、「与えられた事実にのみ基づいて要約を出す」ようモデルに指示し、
-   元文書との事実整合性（realism ではなく faithfulness）を測ることで、幻覚頻度を評価する。
-
-- **AA-Omniscience**
-   （[Artificial Analysis Omniscience Index](https://artificialanalysis.ai/evaluations/omniscience)）
-
-  「ビジネス」「人文・社会科学」「ヘルス」「法律」「ソフトウェアエンジニアリング」「科学・工学・数学」の 6 分野・42 トピックから 6,000 問を収録し、
-
-  - 正答率
-  - 幻覚率（誤答 / 非回避回答）
-  - 全知指数（正答 +1 / 誤答 −1 / 回避 0）
-
-  の 3 指標で評価する。
-
-- **R-HORIZON**
-   （[R-HORIZON](https://reasoning-horizon.github.io/)）
-
-  LRMs（Large Reasoning Models）の「長鎖推論能力」を系統的に評価・向上させるフレームワーク。
-   Query Composition という手法で問題同士の依存関係を構成し、孤立したタスクを複雑なマルチステップ推論チェーンに変換する。
-
-  手順：
-
-  1. **情報抽出**：
-      各問題から核心となる数値・変数を抽出。
-  2. **依存構築**：
-      先行問題の答えを後続問題の条件に埋め込む。
-  3. **チェーン推論**：
-      すべてのサブ問題を順序通りに解かなければ最終回答が得られない構造にする。
-
-- **TRUEBench**
-   （[TRUEBench](https://huggingface.co/spaces/SamsungResearch/TRUEBench)）
-
-  指示追従能力を評価するベンチマーク。
-   LLM が「生産性アシスタント」として、人間の指示をどれだけ正確にこなせるかを見る。
-
-- **SpeechMap**
-   （[SpeechMap.AI Explorer](https://speechmap.ai/)）
-
-  AI の発話境界を探るベンチマーク。
-   複数国・複数トピック・複数プロバイダにまたがって、
-
-  - モデルが何に答えるのか
-  - 何を拒否・回避するのか
-     を可視化する。
-
-  多くのベンチマークが「モデルが何をできるか」に焦点を当てるのに対し、SpeechMap は「何をしないか」に注目する。
-
-- **WeirdML**（[htihle.github.io/weirdml.html](https://htihle.github.io/weirdml.html)）
-
-  大規模言語モデル（LLM）に対して、細やかな思考と真の理解を必要とする一連の奇妙で非伝統的な機械学習タスクを提示し、以下の能力を評価することを目的としています：
-  データの特性および問題の本質を真に理解する力
-  問題に適した機械学習アーキテクチャおよび学習設定を設計し、実行可能なPyTorchコードを生成して解決策を実装する力
-  ターミナル出力およびテストセット上の精度に基づき、5回の反復を通じて解決策をデバッグ・改善する力
-  限られた計算リソースと時間を使い切る力
-
-- **SimpleQA**
-
-  OpenAI による「短く事実を問う質問」に特化したベンチマーク。
-   4,326 問から成り、各質問には単一の正解があり、自動採点しやすいよう設計されている。
-
-- **Vending-Bench 2**（[andonlabs.com/evals/vending-bench-2](https://andonlabs.com/evals/vending-bench-2)）
-
-  AIモデルが長期間にわたりビジネスを運営する能力を評価するためのベンチマークです。モデルは1年間、自動販売機ビジネスをシミュレーションし、期末の銀行口座残高に基づいてスコアリングされます。
-
-- **PostTrainBench**（[posttrainbench.com/](https://posttrainbench.com/)）
-
-  AIエージェントが他の言語モデルに対して事後学習（ポストトレーニング）による最適化を成功裏に実行できるかどうかをテストすることで、AI研究開発の自動化レベルを測定します。各エージェントには4つのベースモデル（Qwen 3 1.7B、Qwen 3 4B、SmolLM3-3B、およびGemma 3 4B）、H100 GPU 1台、および10時間の制限時間が与えられ、事後学習を通じてモデル性能の向上を目指します。
-
-- **YapBench**（[huggingface.co/spaces/tabularisai/YapBench](https://huggingface.co/spaces/tabularisai/YapBench)）
-
-  短い回答で十分な状況における、大規模言語モデル（LLMs）の冗長さ（長さの偏り）を測定します。各エントリーには、1ターンのプロンプト、厳選された最小限の十分な正解、そしてカテゴリラベルが含まれています。主要指標であるYapScoreは、ベースラインを超える応答の長さを文字数で測定し、特定のトークナイザーに依存せず、異なるモデルの結果も比較可能です。300以上の英語プロンプトを含み、簡潔さが求められる3つの一般的なシナリオを網羅しています：（A）最小限/曖昧な入力、理想的な対応は簡潔な確認；（B）クローズドエンドな事実質問、回答は短く固定；（C）1行コーディングタスク、1つのコマンド/コードスニペットだけで完了可能。
-
-
-------
-
-## AI4S（専門ドメイン向け）
-
-- **AIME25**
-   （[AIME 2025 Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/aime-2025)）
-
-  2025 年 AIME I（アメリカ数学招待試験）から抽出した数学問題の解答データセット。
-   QA タスクに適しており、レコード数は 1,000 未満、言語は英語。
-
-- **HMMT 2025**
-
-  2025 年 2 月の HMMT（Harvard-MIT Mathematics Tournament）の問題。
-   MathArena Leaderboard で使用される。
-
-- **AMO-Bench**
-   （[AMO-Bench](https://amo-bench.github.io/)）
-
-  Meituan LongCat チームによるベンチマーク。
-   競技数学の専門家が作成した 50 問からなり、IMO と同等以上の難度を持つ。
-
-- **IMO Bench**
-   （[imobench.github.io](https://imobench.github.io/)）
-
-  合計 10 個の金メダル・5 個の銀メダルを持つ IMO メダリスト・数学者チームによって精査されたベンチマーク。
-   IMO 問題は多段推論と創造性を必要とするため、IMO レベルの難題に特化している。
-
-  - **IMO-AnswerBench**：正答率評価
-  - **IMO-ProofBench**：証明生成の質を評価
-  - **IMO-GradingBench**：長い数学解答の自動採点に挑戦するベンチマーク
-
-- **FrontierMath**（[epoch.ai/frontiermath](https://epoch.ai/frontiermath)）
-
-  原創的な数学問題350問（うち50問は最高難易度のレベル4）を含み、挑戦的な大学レベルの問題から、専門の数学者が数日かけて解くような難問までをカバーしています。このベンチマークでは以下の要件を満たす必要があります。
-
-  1. 明確かつ検証可能な解答
-  2. 推測への耐性：解答は「推測不可能」でなければならず、ランダムな試行や単純なブルートフォース手法ではほぼ成功しないように設計されていること
-  3. 計算的実現可能性：計算集約型の問題については、その分野の標準的な知識のみに基づいて解答に至る方法を示すスクリプトを含めること。これらのスクリプトの標準ハードウェア上での累積実行時間は1分未満でなければならない
-
-- **PutnamBench**
-   （[PutnamBench Leaderboard](https://trishullab.github.io/PutnamBench/leaderboard.html)）
-
-  William Lowell Putnam Mathematical Competition（北米トップレベルの学部数学コンテスト）の問題を形式化し、
-   Lean 4・Isabelle・Coq で 1,712 問を定式化したベンチマーク。
-
-  - Lean 4：660 問
-  - Isabelle：640 問
-  - Coq：412 問
-
-- **GPQA Diamond**
-   （[GPQA Diamond Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/gpqa-diamond)）
-
-  GPQA ベンチマーク中、最も難しい 198 問からなるサブセット。
-   「Google 検索で答えが見つからない」よう設計されており、物理・生物・化学の大学院レベル問題で構成。
-   安定して正解できるのは PhD レベルの専門家に限られるとされ、深い科学的推論力の評価に適している。
-
-- **CritPt**
-   （[CritPt Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/critpt)）
-
-  71 個の研究レベル物理チャレンジから成るベンチマーク。
-   LLM の高度な物理推論能力を評価する。
-
-- **FrontierScience**（[openai.com/index/frontierscience/](https://openai.com/index/frontierscience/)）
-
-  OpenAIが開発した、専門家レベルの科学的能力を評価することを目的とした新しいベンチマークです。FrontierScienceは、物理学・化学・生物学の各分野の専門家によって作成・検証されており、挑戦的で独創的かつ意味のある数百問の問題で構成されています。FrontierScienceには2つのトラックがあります：「オリンピアドトラック」は国際科学オリンピアドに類似したスタイルの科学的推論能力を測定し、「リサーチトラック」は実際の科学研究能力を評価します。
-
-- **Frontier-CS**（[frontier-cs.org/leaderboard](https://frontier-cs.org/leaderboard)）
-
-  は、AIが難解な計算機科学の課題にどの程度対応できるかを評価するための、未解決・オープンエンド・検証可能かつ多様性に富んだベンチマークです。このベンチマークに含まれる問題は、研究者にとっても解決が困難なもの、最適解がまだ知られていないもの、または高度な専門知識がなければ取り組むことすら難しいものばかりです。
-
-  ベンチマークは「アルゴリズム部門」と「研究部門」の2つのリーダーボードに分かれています。
-  アルゴリズム部門には、最適化タスク、構築タスク、インタラクティブタスクが含まれます。
-  研究部門は、オペレーティングシステム（OS）、高性能計算（HPC）、人工知能（AI研究タスク）、データベース（DB）、プログラミング言語（PL）、セキュリティ（サイバーセキュリティおよび脆弱性分析）という6つの主要な計算機科学分野をカバーしています。
-
-- **SUPERChem**（[superchem.pku.edu.cn/leaderboard](https://superchem.pku.edu.cn/leaderboard)）
-
-  専門家が慎重に構築した、推論に焦点を当てたマルチモーダルベンチマークであり、大規模言語モデル（LLM）およびマルチモーダル大規模言語モデル（MLLM）の化学における深層推論能力を厳密に評価することを目的としています。500問の化学問題を含み、複数の異なるサブ分野をカバーしており、マルチモーダル形式とテキストのみの形式の両方で提供されています。
-
-------
-
-# 視覚理解と推論
-
-視覚評価には不安定性が存在し、主な原因は三つに分けられます。一つは、データセットの規模が小さいこと。二つ目は、ラベル付けのスタイルなどの詳細な変更が、モデルの精度やランキングに大きく影響を与えること。三つ目は、JPEG圧縮など、人間には「見えない」変化がベンチマークのランキングを変えてしまうことです。（参照：[lisadunlap.github.io/vpbench/](https://lisadunlap.github.io/vpbench/)）
-
-- **MMMU**
-   （[mmmu-benchmark.github.io](https://mmmu-benchmark.github.io/)）
-
-  専門家レベルの AGI を目指す大規模・多分野・マルチモーダル理解＆推論ベンチマーク。
-   大学試験・小テスト・教科書から精選した 11.5 万問のマルチモーダル問題を収録し、
-
-  - アート＆デザイン
-  - ビジネス
-  - サイエンス
-  - ヘルス＆メディシン
-  - 人文＆社会科学
-  - テクノロジー＆エンジニアリング
-
-  の 6 分野・30 学科・183 サブフィールドをカバーする。
-
-  図表・ダイアグラム・地図・表・楽譜・化学構造など、多様な画像タイプに対する高度な認識・推論能力が求められる。
-
-- **MMMU-Pro**
-   （[MMMU-Pro Benchmark Leaderboard | Artificial Analysis](https://artificialanalysis.ai/evaluations/mmmu-pro)）
-
-  MMMU を拡張し、10 択問題と「スクリーンショット・写真のみ」に埋め込まれた問題形式を追加。
-   3,460 問を収録し、現実的なシナリオでの視覚 + テキスト統合能力を評価する。
-
-- **MATH-Vision**
-   （[MATH-Vision Leaderboard](https://mathllm.github.io/mathvision/#leaderboard)）
-
-  視覚的な数学コンテキストを含む 3,040 問のコンテスト問題から構成されるベンチマーク。
-   16 の数学分野・5 段階の難度をカバーし、多モーダル数学推論能力を測る。
-
-- **CharXiv**（[charxiv.github.io/#leaderboard](https://charxiv.github.io/#leaderboard)）
-
-  科学論文から抽出された2,323点の自然で挑戦的かつ多様なチャート（図表）を含む包括的な評価スイートです。CharXivには以下の2種類の問題が含まれています：
-  （1）チャートの基本要素を識別する記述的問題、
-  （2）チャート内の複雑な視覚要素の情報を統合して解答する推論問題。
-
-  品質を確保するため、すべてのチャートおよび問題は人間の専門家によって慎重に選定・整理・検証されています。
-
-- **ROME**
-   （[BAAI/ROME](https://huggingface.co/datasets/BAAI/ROME)）
-
-  281 問・8 サブタスクから成る視覚推論ベンチマーク。
-   各サンプルは「画像がなければ答えられない」ように設計されている。
-
-  サブタスク例：
-
-  - Academia：大学講義の問題
-  - Charts：論文・レポート・ブログ等からの図表
-  - Puzzles & Games：ラベン行列、パズル、ゲームプレイ
-  - Memes：改変ミーム画像
-  - Geo：地理的な位置推定
-  - Recognition：細粒度識別
-  - Multi-image：間違い探し、動画フレームの並べ替え
-  - Spatial：位置関係・距離・高さなど
-
-- **ZeroBench**
-   （[zerobench.github.io](https://zerobench.github.io/)）
-
-  現代のマルチモーダルモデルにとって非常に難しい視覚ベンチマーク。
-   デザイナーチームが作成・レビューした 100 問の難問と、そこから導出される 334 個のサブ問題（中間推論ステップ）で構成される。
-
-- **VisuLogic**
-   （[VisuLogic](https://visulogic-benchmark.github.io/VisuLogic/)）
-
-  国内機関による 1,000 問の視覚推論ベンチマーク。
-   量的変化・空間関係・属性比較など 6 カテゴリから多面的に多モーダルモデルの視覚推論能力を評価する。
-
-- **BabyVision**（[xbench.org/agi/babyVision](https://xbench.org/agi/babyVision)）
-
-  xbench の AGI アライメントシリーズの一部であり、「言語化できない」課題における視覚理解能力の評価に重点を置いています。
-
-- **OCRBench v2**
-   （[ocrbench_v2](https://99franklin.github.io/ocrbench_v2/)）
-
-  マルチモーダルモデルの「視覚テキストローカライゼーション＆推論」を評価するベンチマーク。
-   10,000 の人手検証済み QA ペアを含み、高難度サンプルが大きな割合を占める。
-   街景・レシート・数式・チャートなど 31 シナリオをカバー。
-
-- **MMLongBench-Doc**
-   （[Hugging Face Space](https://huggingface.co/spaces/OpenIXCLab/mmlongbench-doc) / [MMLongBench-Doc](https://mayubo2333.github.io/MMLongBench-Doc/)）
-
-  長文マルチモーダルドキュメント理解ベンチマーク。
-   135 本の長い PDF 文書（平均 47.5 ページ・21,214 トークン）から構成される。
-   1,091 の専門家アノテーション QA を収録し、回答は
-
-  - テキスト
-  - 画像
-  - 図表
-  - テーブル
-  - レイアウト構造
-
-  といった複数モダリティ・複数ページにまたがる証拠に依存する。
-
-  33% の質問は複数ページに跨り、22.5% は「答えが存在しない」よう設計され、幻覚傾向を測る。
-- **Video-MMMU**（[videommmu.github.io/](https://videommmu.github.io/)）
-
-  多モーダルかつ多分野にわたるベンチマークで、大規模マルチモーダルモデル（LMM）が動画から知識を獲得し活用する能力を評価することを目的としています。Video-MMMUは、6つの専門分野（30の細分化されたサブ分野）から厳選された300本の専門家レベルの動画と、それに対応する900問の人手によるアノテーション付き質問で構成されています。このベンチマークでは、認知プロセスの各段階（知覚・理解・適応）に沿った質問－回答ペアを通じて、知識獲得能力を評価します。
-
-  各動画には、知識獲得の3段階に対応した3組の質問－回答ペアが含まれています：
-  知覚（Perception）：知識に関連する重要な情報を識別する
-  理解（Comprehension）：その背後にある概念を把握する
-  適応（Adaptation）：新しい状況にその知識を応用する
-
-  さらに、モデルの「増分精度（delta accuracy）」——すなわち動画視聴後の性能向上度合い——も評価対象としています。
-
-------
-## ワールドモデル  
-- **WorldScore**（[huggingface.co/spaces/Howieeeee/WorldScore_Leaderboard](https://huggingface.co/spaces/Howieeeee/WorldScore_Leaderboard)）  
-  指示に従って世界を生成する3D、4Dおよび動画モデルの能力を統一的に評価するベンチマークです。既存の単一シーンの品質に焦点を当てたベンチマークとは異なり、本ベンチマークは明確なカメラ軌道に基づき、ワールド生成を一連の連続したシーン生成タスクに分解し、制御性・品質・ダイナミクスの各側面を同時に評価します。
-
-# OCR と埋め込み（Embedding）評価
-
-[Supercharge your OCR Pipelines with Open Models](https://huggingface.co/blog/ocr-open-models)
-
-OCR モデルを評価する際、文書種別・言語などによって性能差が非常に大きくなる。
-
-- **OmniDocBench**
-   （[OmniDocBench/README_zh-CN](https://github.com/opendatalab/OmniDocBench/blob/main/README_zh-CN.md)）
-
-  現実世界の多様なドキュメント解析を対象とするベンチマーク。
-   書籍・雑誌・教科書など、多様な文書タイプを含み、HTML / Markdown 形式のテーブル評価指標が整備されている。
-
-- **olmOCR-Bench**
-   （[olmocr/bench](https://github.com/allenai/olmocr/tree/main/olmocr/bench)）
-
-  英語 OCR モデル評価において非常に有効だとされるベンチマーク。
-
-- **CC-OCR**
-
-  （※詳細略）
-
-- **Embedding Leaderboard**
-   （[MTEB Leaderboard](https://huggingface.co/spaces/mteb/leaderboard)）
-
-  MTEB（Massive Text Embedding Benchmark）に基づく、埋め込みモデルの代表的なリーダーボード。
-
-------
-
-# 動画・音声生成 & ロールプレイ評価
-
-- **DesignArena**
-   （[designarena.ai/leaderboard](https://www.designarena.ai/leaderboard)）
-
-- **Speech-DRAME**
-   （[speech_drame](https://github.com/Anuttacon/speech_drame)）
-
-  ボイスロールプレイシナリオにおける、AI 生成音声の評価ベンチマーク。
-
-- **UNO-Bench**
-   （[UNO-Bench](https://meituan-longcat.github.io/UNO-Bench/)）
-
-  音声・画像情報の「マルチモーダル統合能力」を評価する統一ベンチマーク。
-   ほぼすべての問題が音声 + 視覚情報の両方を必要とし、従来の多択だけでなく、多段オープン QA 形式も導入して複雑な推論能力を測る。
-
-  特徴：
-
-  - **多様なソース**：クラウドソーシングによる写真・動画、フリー素材サイト、公的データセットなど。
-  - **豊富なトピック**：社会・文化・アート・日常生活・文学・科学など。
-  - **リアル音声**：20 人以上の話者による録音で、現実世界の音声多様性を再現。
-
-- **Vue**（VUE）
-
-  ByteDance による動画理解ベンチマーク。
-
-  - **VUE-STG**：
-     現実的シナリオでの時空間グラウンディング（STG）能力を評価する。
-     10 秒〜30 分までの動画を対象とし、
-    - 長文コンテキスト推論
-    - 名詞句ベースのクエリ
-    - すべての真の時間区間・バウンディングボックスの人手アノテーション
-       を提供。評価には最適化された vIoU / tIoU / vIoU-Intersection を使用する。
-  - **VUE-TR-V2**：
-     Video QA ベンチマーク。動画長分布をより均等にし、ユーザの問い合わせスタイルに近いクエリ設計を行っている。
-
-- **LongShOTBench**（[mbzuai-oryx.github.io/LongShOT/](https://mbzuai-oryx.github.io/LongShOT/)）
-
-  このベンチマークは、時間的長さとマルチモーダルな豊かさの両方を兼ね備えています。オープンエンドかつ意図主導の質問、シングルターンおよびマルチターンの対話、そして動画・音声・スピーチにまたがるマルチモーダル推論およびエージェントによるツール使用を要するタスクを含んでいます。
-
-- **Moral RolePlay**
-   （[RolePlay_Villain](https://github.com/Tencent/DigitalHuman/tree/main/RolePlay_Villain)）
-
-  デジタルヒューマンの「道徳的ロールプレイ」を評価するベンチマーク。
-
-   キャラクター行動と倫理的制約のバランスを測る。
-
-- **OpenGameEval**（[https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md](https://github.com/Roblox/open-game-eval/blob/main/LLM_LEADERBOARD.md)）
-
-  Robloxのゲーム開発タスクにおいて大規模言語モデル（LLM）を評価するためのフレームワーク。
-
-# データ品質評価
-
-- **OpenDataArena**（[opendataarena.github.io/](https://opendataarena.github.io/)）
-
-  各ポストトレーニングデータセットを測定可能・比較可能・検証可能なものとし、複数の領域（汎用、数学、コード、科学、長鎖推論）および複数のモダリティ（テキスト、画像）にわたるポストトレーニングデータを評価します。変数を制御するために、固定されたモデル規模（Llama3 / Qwen2 / Qwen3 / Qwen3-VL 7–8B）および一貫したトレーニング設定を使用しています。
-
-  データ系統解析：現代のデータセットは、しばしば高度な冗長性や隠れた依存関係の問題を抱えています。ODAは業界初のデータ系統解析ツールをリリースし、オープンソースデータの「系統樹」を可視化します。
-構造モデリング：継承、混合、蒸留を含む、データセット間の関係性をマッピングします。
-
-# AIハードウェア性能
-
-- **InferenceMAX**（[inferencemax.semianalysis.com/](https://inferencemax.semianalysis.com/)）  
-  主要なハードウェアプラットフォーム上で人気モデルのベンチマークを実施し、新しいソフトウェアバージョンがリリースされるたびにテスト基準を更新しています。  
-  モデルとハードウェアの各組み合わせについて、InferenceMAXは異なるテンソル並列サイズおよび最大同時リクエスト数を網羅的に試行し、スループットとレイテンシの関係を示す包括的なグラフを生成します。
-
-- **MLPerf Training**（[mlcommons.org/benchmarks/training/](https://mlcommons.org/benchmarks/training/)）  
-  MLPerfトレーニングベンチマークスイートは、システムがモデルを所定の品質目標に達するまで訓練するのに要する時間を測定します。
-
-- AI Hardware Benchmarking & Performance Analysis（[artificialanalysis.ai/benchmarks/hardware](https://artificialanalysis.ai/benchmarks/hardware)）
-
-  言語モデル推論用AIアクセラレーションシステムの包括的なベンチマーク。Deepseek R1、Llama 4 Maverick、Llama 3.3 70B、GPT-OSS 120Bを使用して、NVIDIA 8×H100、8×H200、8×B200システム上で、並列負荷時の性能変化を測定します。
-
-- **GPU Benchmark**（[perf.svcfusion.com/](https://perf.svcfusion.com/)）  
-  - 各種コンピュートカードのFP32、FP16、BF16性能を確認できます。  
-  - 全てのデータは、人が実際にベンチマークスクリプトを実行して取得したものであり、仕様書上の理論値をそのまま転載していません。また、誰でも自分で実行した結果をアップロードできます。  
-  - テストに使用したプラットフォーム名が明記されており、異なるプラットフォーム間でのGPU性能の差を比較可能です。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  本ベンチマークではサービスレベルを固定した上で、その水準を維持しつつどこまで拡張可能かを検証する。性能指標はArtificial Analysisが提供するサーバーレスAPIベンチマークデータに基づいており、これは現在市場に存在するさまざまなサービスレベルを反映している。速度およびレイテンシーはすべてリクエスト単位で測定され、P25での出力速度やP95における最初のトークン生成時間などが、テスト期間中の全リクエストに基づいて算出される。
+- GPU Benchmark（[perf.svcfusion.com/](https://perf.svcfusion.com/)）
+
+  - 各種GPUにおけるFP32、FP16、BF16の性能を確認可能
+  - 各データは人手でbenchmarkスクリプトを実行して得られたものであり、公開されている仕様値をそのまま転載したものではない。また、誰でも自身で実測したデータをアップロードできる
+  - テストに使用したプラットフォーム名も記載されており、異なるプラットフォーム間でのGPU性能の差を比較できる
