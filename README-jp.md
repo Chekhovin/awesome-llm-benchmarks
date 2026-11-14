@@ -30,6 +30,8 @@ epoch.aiではベンチマークの第三者品質検証も実施している（
 
 ## 総合評価
 
+- [AIHOT モデルランキング](https://aihot.news/leaderboard)：独立した第三者が測定・公開した結果をもとに、公開ウェイトモデルと API モデルを比較できる中国語のランキング。元のベンチマークと評価方法も確認できます。
+
 - Artificial Analysis（[AI Model & API Providers Analysis | Artificial Analysis](https://artificialanalysis.ai/)）
 
   - AA Intelligence（[Artificial Analysis Intelligence Index | Artificial Analysis](https://artificialanalysis.ai/evaluations/artificial-analysis-intelligence-index)）
