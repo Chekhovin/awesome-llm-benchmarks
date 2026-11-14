@@ -30,6 +30,8 @@ epoch.ai对benchmark进行第三方质量检测（[epoch.ai/benchmarks/search?re
 
 ## 综合评测
 
+- [AIHOT 模型榜](https://aihot.news/leaderboard)：聚合独立第三方实测的公开成绩，对比开放权重和 API 模型，可查原始榜单及排名方法。
+
 - Artificial Analysis（[AI Model & API Providers Analysis | Artificial Analysis](https://artificialanalysis.ai/)）
 
   - AA Intelligence（[Artificial Analysis Intelligence Index | Artificial Analysis](https://artificialanalysis.ai/evaluations/artificial-analysis-intelligence-index)）

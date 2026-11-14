@@ -30,6 +30,8 @@ epoch.ai conducts third-party quality assessments of benchmarks ([epoch.ai/bench
 
 ## Comprehensive Evaluations
 
+- [AIHOT Model Leaderboard](https://aihot.news/leaderboard): Chinese-language rankings of open-weight and API models based on public results from independent evaluators, with links to source benchmarks and methodology.
+
 - Artificial Analysis ([AI Model & API Providers Analysis | Artificial Analysis](https://artificialanalysis.ai/))
 
   - AA Intelligence ([Artificial Analysis Intelligence Index | Artificial Analysis](https://artificialanalysis.ai/evaluations/artificial-analysis-intelligence-index))
